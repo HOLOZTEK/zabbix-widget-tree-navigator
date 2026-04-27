@@ -1,0 +1,28 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Tree navigator"
+msgstr ""
+
+msgid "Root name"
+msgstr ""
+
+msgid "Display mode"
+msgstr ""
+
+msgid "Host groups only"
+msgstr ""
+
+msgid "Host groups and hosts"
+msgstr ""
+
+msgid "Host groups"
+msgstr ""
+
+msgid "Sub-groups"
+msgstr ""
+
+msgid "Include sub-groups"
+msgstr ""

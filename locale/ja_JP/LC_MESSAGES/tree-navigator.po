@@ -1,0 +1,28 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Tree navigator"
+msgstr "ツリーナビゲーター"
+
+msgid "Root name"
+msgstr "ルート名"
+
+msgid "Display mode"
+msgstr "表示モード"
+
+msgid "Host groups only"
+msgstr "ホストグループのみ"
+
+msgid "Host groups and hosts"
+msgstr "ホストグループとホスト"
+
+msgid "Host groups"
+msgstr "ホストグループ"
+
+msgid "Sub-groups"
+msgstr "サブグループ"
+
+msgid "Include sub-groups"
+msgstr "サブグループを含める"
