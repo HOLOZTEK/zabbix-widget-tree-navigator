@@ -2,7 +2,7 @@ Name:           zabbix-widget-tree-navigator
 Version:        1.0.0
 Release:        1%{?dist}
 Summary:        Tree Navigator widget for Zabbix dashboard
-License:        GPL-2.0-or-later
+License:        Proprietary
 BuildArch:      noarch
 
 %description
