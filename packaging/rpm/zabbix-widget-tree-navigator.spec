@@ -1,6 +1,6 @@
 %define _rpmfilename %%{NAME}-%%{VERSION}%{dist}.%%{ARCH}.rpm
 Name:           zabbix-widget-tree-navigator
-Version:        1.0.1
+Version:        1.0.2
 Release:        0
 Summary:        Tree Navigator widget for Zabbix dashboard
 License:        Proprietary
@@ -86,6 +86,15 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Fri Jun 06 2026 claude <noreply> - 1.0.2-0
+- show_host_count=false時にフォルダのdata属性を付与せずツールチップを非表示に
+- スクロール位置保存・復元を専用メソッドに分離（onClearContents/setContentsでも実施）
+- イベントリスナーの二重登録対策を強化（null判定ガード・解除後にnullリセット）
+- specファイルをpackaging/rpm配下に一本化（ルート直下のspec削除）
+- specのLicenseをProprietaryに修正
+- initial_depthにsetFieldHintで説明文を追加
+- ツールチップCSSクラスをtree-navigator-tooltipに変更
+
 * Thu Jun 05 2026 claude <noreply> - 1.0.1-0
 - JSイベントリスナーの重複登録対策（バインド済みハンドラをフィールドに保持しonDeactivateで解除）
 - スクロール位置保存・復元の対象を.tn-containerに修正
