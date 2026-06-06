@@ -46,30 +46,37 @@ class CWidgetTreeNavigator extends CWidget {
 	// ── Lifecycle ──────────────────────────────────────────────────────────────
 
 	onActivate() {
-		const container = this._body.querySelector('.tn-container');
-		if (container) container.scrollTop = this.#scroll_top;
+		this.#restoreScrollPosition();
 
-		this.#_clickHandler     = this.#onClick.bind(this);
-		this.#_mouseOverHandler = this.#onMouseOver.bind(this);
-		this.#_mouseOutHandler  = this.#onMouseOut.bind(this);
+		if (this.#_clickHandler === null) {
+			this.#_clickHandler     = this.#onClick.bind(this);
+			this.#_mouseOverHandler = this.#onMouseOver.bind(this);
+			this.#_mouseOutHandler  = this.#onMouseOut.bind(this);
 
-		this._body.addEventListener('click',     this.#_clickHandler);
-		this._body.addEventListener('mouseover', this.#_mouseOverHandler);
-		this._body.addEventListener('mouseout',  this.#_mouseOutHandler);
+			this._body.addEventListener('click',     this.#_clickHandler);
+			this._body.addEventListener('mouseover', this.#_mouseOverHandler);
+			this._body.addEventListener('mouseout',  this.#_mouseOutHandler);
+		}
 	}
 
 	onDeactivate() {
-		const container = this._body.querySelector('.tn-container');
-		if (container) this.#scroll_top = container.scrollTop;
+		this.#saveScrollPosition();
 
-		this._body.removeEventListener('click',     this.#_clickHandler);
-		this._body.removeEventListener('mouseover', this.#_mouseOverHandler);
-		this._body.removeEventListener('mouseout',  this.#_mouseOutHandler);
+		if (this.#_clickHandler !== null) {
+			this._body.removeEventListener('click',     this.#_clickHandler);
+			this._body.removeEventListener('mouseover', this.#_mouseOverHandler);
+			this._body.removeEventListener('mouseout',  this.#_mouseOutHandler);
+
+			this.#_clickHandler     = null;
+			this.#_mouseOverHandler = null;
+			this.#_mouseOutHandler  = null;
+		}
 
 		this.#hideTooltip();
 	}
 
 	onClearContents() {
+		this.#saveScrollPosition();
 		this.#hideTooltip();
 	}
 
@@ -78,6 +85,7 @@ class CWidgetTreeNavigator extends CWidget {
 
 		this.#restoreOpenState();
 		this.#applySelection();
+		this.#restoreScrollPosition();
 
 		// Auto-select first group when this widget's output is being referred to.
 		if (this.isReferred() && !this.hasEverUpdated()
@@ -302,6 +310,24 @@ class CWidgetTreeNavigator extends CWidget {
 		catch (_) {}
 	}
 
+	// ── Scroll position ────────────────────────────────────────────────────────
+
+	#saveScrollPosition() {
+		const container = this._body.querySelector('.tn-container');
+
+		if (container) {
+			this.#scroll_top = container.scrollTop;
+		}
+	}
+
+	#restoreScrollPosition() {
+		const container = this._body.querySelector('.tn-container');
+
+		if (container) {
+			container.scrollTop = this.#scroll_top;
+		}
+	}
+
 	// ── Helpers ────────────────────────────────────────────────────────────────
 
 	#isRecursive() {
@@ -313,7 +339,7 @@ class CWidgetTreeNavigator extends CWidget {
 	#showTooltip(text, anchor) {
 		if (!this.#tooltip) {
 			this.#tooltip = document.createElement('div');
-			this.#tooltip.className = 'tn-tooltip';
+			this.#tooltip.className = 'tree-navigator-tooltip';
 			document.body.appendChild(this.#tooltip);
 		}
 

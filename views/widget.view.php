@@ -7,12 +7,13 @@
  * @var array  $data
  */
 
-$nodes         = $data['tree']['nodes'];
-$roots         = $data['tree']['roots'];
-$show_mode     = (int)  $data['show_mode'];
-$recursive     = (bool) $data['recursive'];
-$initial_depth = (int)  $data['initial_depth'];
-$root_name     = $data['root_name'];
+$nodes           = $data['tree']['nodes'];
+$roots           = $data['tree']['roots'];
+$show_mode       = (int)  $data['show_mode'];
+$recursive       = (bool) $data['recursive'];
+$show_host_count = (bool) $data['show_host_count'];
+$initial_depth   = (int)  $data['initial_depth'];
+$root_name       = $data['root_name'];
 
 $view = new CWidgetView($data);
 
@@ -24,7 +25,7 @@ if (empty($roots)) {
 // ── Recursive node renderer ───────────────────────────────────────────────────
 
 $render_node = null;
-$render_node = static function(string $path) use (&$render_node, $nodes, $show_mode): CTag {
+$render_node = static function(string $path) use (&$render_node, $nodes, $show_mode, $show_host_count): CTag {
 	$node        = $nodes[$path];
 	$has_children = !empty($node['children']);
 	$has_hosts   = $show_mode === 1 && !empty($node['hosts']);
@@ -44,7 +45,7 @@ $render_node = static function(string $path) use (&$render_node, $nodes, $show_m
 	// Folder icon
 	$folder = (new CSpan())->addClass('tn-folder js-tn-folder');
 
-	if ($is_real) {
+	if ($is_real && $show_host_count) {
 		$folder->setAttribute('data-host-count',           (string) $node['host_count'])
 		       ->setAttribute('data-recursive-host-count', (string) $node['recursive_host_count']);
 	}

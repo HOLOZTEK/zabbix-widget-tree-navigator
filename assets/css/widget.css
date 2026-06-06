@@ -271,7 +271,7 @@ div.dashboard-widget-tree-navigator .tn-selected {
 
 /* ── Folder icon tooltip (appended to body, outside widget scope) ─────────── */
 
-.tn-tooltip {
+.tree-navigator-tooltip {
 	position: fixed;
 	z-index: 99999;
 	display: none;

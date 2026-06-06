@@ -18,7 +18,8 @@
 		new CWidgetFieldMultiSelectGroupView($data['fields']['groupids'])
 	)
 	->addField(
-		new CWidgetFieldIntegerBoxView($data['fields']['initial_depth'])
+		(new CWidgetFieldIntegerBoxView($data['fields']['initial_depth']))
+			->setFieldHint(makeHelpIcon(_tn('Open tree nodes up to the specified depth from the root node.')))
 	)
 	->addField(
 		new CWidgetFieldCheckBoxView($data['fields']['recursive'])

@@ -33,13 +33,14 @@ class WidgetView extends CControllerDashboardWidgetView {
 		]);
 
 		$no_data = [
-			'name'          => $this->getInput('name', $this->widget->getDefaultName()),
-			'tree'          => ['nodes' => [], 'roots' => []],
-			'show_mode'     => $show_mode,
-			'recursive'     => $recursive,
-			'initial_depth' => $initial_depth,
-			'root_name'     => $root_name,
-			'user'          => ['debug_mode' => $this->getDebugMode()]
+			'name'            => $this->getInput('name', $this->widget->getDefaultName()),
+			'tree'            => ['nodes' => [], 'roots' => []],
+			'show_mode'       => $show_mode,
+			'recursive'       => $recursive,
+			'show_host_count' => $show_host_count,
+			'initial_depth'   => $initial_depth,
+			'root_name'       => $root_name,
+			'user'            => ['debug_mode' => $this->getDebugMode()]
 		];
 
 		if (!$all_groups) {
@@ -119,13 +120,14 @@ class WidgetView extends CControllerDashboardWidgetView {
 		$tree = $this->buildTree($relevant_groups, $host_count_by_group, $hosts_by_group, $hostids_by_group);
 
 		$this->setResponse(new CControllerResponseData([
-			'name'          => $this->getInput('name', $this->widget->getDefaultName()),
-			'tree'          => $tree,
-			'show_mode'     => $show_mode,
-			'recursive'     => $recursive,
-			'initial_depth' => $initial_depth,
-			'root_name'     => $root_name,
-			'user'          => ['debug_mode' => $this->getDebugMode()]
+			'name'            => $this->getInput('name', $this->widget->getDefaultName()),
+			'tree'            => $tree,
+			'show_mode'       => $show_mode,
+			'recursive'       => $recursive,
+			'show_host_count' => $show_host_count,
+			'initial_depth'   => $initial_depth,
+			'root_name'       => $root_name,
+			'user'            => ['debug_mode' => $this->getDebugMode()]
 		]));
 	}
 

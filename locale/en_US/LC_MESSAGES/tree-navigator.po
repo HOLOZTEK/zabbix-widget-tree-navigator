@@ -24,6 +24,9 @@ msgstr ""
 msgid "Initial depth"
 msgstr ""
 
+msgid "Open tree nodes up to the specified depth from the root node."
+msgstr ""
+
 msgid "Sub-groups"
 msgstr ""
 
