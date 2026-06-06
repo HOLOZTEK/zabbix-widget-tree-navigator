@@ -24,7 +24,7 @@ msgstr ""
 msgid "Initial depth"
 msgstr ""
 
-msgid "Open tree nodes up to the specified depth from the root node."
+msgid "Initial tree depth when no saved expansion state exists."
 msgstr ""
 
 msgid "Sub-groups"

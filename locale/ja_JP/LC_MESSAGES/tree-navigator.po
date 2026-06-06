@@ -24,8 +24,8 @@ msgstr "ルート名"
 msgid "Initial depth"
 msgstr "初期展開階層"
 
-msgid "Open tree nodes up to the specified depth from the root node."
-msgstr "ルートから指定階層まで初期展開する"
+msgid "Initial tree depth when no saved expansion state exists."
+msgstr "展開状態の保存がない場合の初期展開階層"
 
 msgid "Sub-groups"
 msgstr "サブグループ"

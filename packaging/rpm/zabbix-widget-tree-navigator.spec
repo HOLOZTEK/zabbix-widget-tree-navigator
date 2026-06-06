@@ -1,6 +1,6 @@
 %define _rpmfilename %%{NAME}-%%{VERSION}%{dist}.%%{ARCH}.rpm
 Name:           zabbix-widget-tree-navigator
-Version:        1.0.2
+Version:        1.1.0
 Release:        0
 Summary:        Tree Navigator widget for Zabbix dashboard
 License:        Proprietary
@@ -86,6 +86,9 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Fri Jun 06 2026 claude <noreply> - 1.1.0-0
+- initial_depthの説明文を「展開状態の保存がない場合の初期展開階層」に変更
+
 * Fri Jun 06 2026 claude <noreply> - 1.0.2-0
 - show_host_count=false時にフォルダのdata属性を付与せずツールチップを非表示に
 - スクロール位置保存・復元を専用メソッドに分離（onClearContents/setContentsでも実施）

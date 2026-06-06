@@ -19,7 +19,7 @@
 	)
 	->addField(
 		(new CWidgetFieldIntegerBoxView($data['fields']['initial_depth']))
-			->setFieldHint(makeHelpIcon(_tn('Open tree nodes up to the specified depth from the root node.')))
+			->setFieldHint(makeHelpIcon(_tn('Initial tree depth when no saved expansion state exists.')))
 	)
 	->addField(
 		new CWidgetFieldCheckBoxView($data['fields']['recursive'])
