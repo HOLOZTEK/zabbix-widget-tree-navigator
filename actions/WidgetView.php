@@ -9,10 +9,17 @@ use API,
 class WidgetView extends CControllerDashboardWidgetView {
 
 	protected function doAction(): void {
-		$show_mode      = (int)  ($this->fields_values['show_mode'] ?? 1);
-		$recursive      = (bool) ($this->fields_values['recursive'] ?? true);
+		$show_mode       = (int)  ($this->fields_values['show_mode']       ?? 1);
+		$recursive       = (bool) ($this->fields_values['recursive']       ?? true);
+		$show_host_count = (bool) ($this->fields_values['show_host_count'] ?? true);
+		$initial_depth   = (int)  ($this->fields_values['initial_depth']   ?? 1);
 		$groupids_filter = $this->fields_values['groupids'] ?: null;
-		$root_name    = trim($this->fields_values['root_name'] ?? '');
+		$root_name       = trim($this->fields_values['root_name'] ?? '');
+
+		// Normalize groupids to string for strict comparison with API-returned groupid values
+		if ($groupids_filter !== null) {
+			$groupids_filter = array_map('strval', $groupids_filter);
+		}
 
 		if ($root_name === '') {
 			$root_name = 'Zabbix';
@@ -26,12 +33,13 @@ class WidgetView extends CControllerDashboardWidgetView {
 		]);
 
 		$no_data = [
-			'name'        => $this->getInput('name', $this->widget->getDefaultName()),
-			'tree'        => ['nodes' => [], 'roots' => []],
-			'show_mode'   => $show_mode,
-			'recursive'   => $recursive,
-			'root_name' => $root_name,
-			'user'        => ['debug_mode' => $this->getDebugMode()]
+			'name'          => $this->getInput('name', $this->widget->getDefaultName()),
+			'tree'          => ['nodes' => [], 'roots' => []],
+			'show_mode'     => $show_mode,
+			'recursive'     => $recursive,
+			'initial_depth' => $initial_depth,
+			'root_name'     => $root_name,
+			'user'          => ['debug_mode' => $this->getDebugMode()]
 		];
 
 		if (!$all_groups) {
@@ -42,7 +50,7 @@ class WidgetView extends CControllerDashboardWidgetView {
 		// ── Determine relevant groups ─────────────────────────────────────────
 
 		$relevant_groups = ($groupids_filter !== null)
-			? $this->filterGroups($all_groups, $groupids_filter)
+			? $this->filterGroups($all_groups, $groupids_filter, $recursive)
 			: $all_groups;
 
 		if (!$relevant_groups) {
@@ -53,72 +61,81 @@ class WidgetView extends CControllerDashboardWidgetView {
 		$relevant_groupids = array_column($relevant_groups, 'groupid');
 
 		// ── Fetch hosts ───────────────────────────────────────────────────────
-		// Always fetch to compute host counts for folder icon tooltip.
-		// Fetch name/device info only when show_mode = 1.
+		// Skip entirely when neither host display nor host count tooltip is needed.
 
-		$host_params = [
-			'output'          => ($show_mode === 1) ? ['hostid', 'host', 'name'] : ['hostid'],
-			'selectHostGroups' => ['groupid'],
-			'groupids'        => $relevant_groupids,
-			'preservekeys'    => true
-		];
+		$need_hosts = ($show_mode === 1) || $show_host_count;
 
-		if ($show_mode === 1) {
-			$host_params['selectInventory']       = ['type', 'os'];
-			$host_params['selectParentTemplates'] = ['name'];
-		}
-
-		$hosts = API::Host()->get($host_params);
-
+		$hostids_by_group    = [];   // groupid => [hostid => true]  (for unique count)
 		$host_count_by_group = [];
 		$hosts_by_group      = [];
 
-		foreach ($hosts as $host) {
-			foreach ($host['hostgroups'] as $hg) {
-				$gid = $hg['groupid'];
+		if ($need_hosts) {
+			$host_params = [
+				'output'           => ($show_mode === 1) ? ['hostid', 'host', 'name'] : ['hostid'],
+				'selectHostGroups' => ['groupid'],
+				'groupids'         => $relevant_groupids,
+				'preservekeys'     => true
+			];
 
-				if (!in_array($gid, $relevant_groupids, true)) {
-					continue;
-				}
+			if ($show_mode === 1) {
+				$host_params['selectInventory']       = ['type', 'os'];
+				$host_params['selectParentTemplates'] = ['name'];
+			}
 
-				$host_count_by_group[$gid] = ($host_count_by_group[$gid] ?? 0) + 1;
+			$hosts = API::Host()->get($host_params);
 
-				if ($show_mode === 1) {
-					$hosts_by_group[$gid][] = [
-						'hostid'      => $host['hostid'],
-						'name'        => $host['name'],
-						'device_type' => $this->detectDeviceType($host)
-					];
+			foreach ($hosts as $host) {
+				foreach ($host['hostgroups'] as $hg) {
+					$gid = $hg['groupid'];
+
+					if (!in_array($gid, $relevant_groupids, true)) {
+						continue;
+					}
+
+					// Track unique hostids per group (avoids double-counting)
+					$hostids_by_group[$gid][$host['hostid']] = true;
+
+					if ($show_mode === 1) {
+						$hosts_by_group[$gid][] = [
+							'hostid'      => $host['hostid'],
+							'name'        => $host['name'],
+							'device_type' => $this->detectDeviceType($host)
+						];
+					}
 				}
 			}
-		}
 
-		// Sort hosts alphabetically within each group
-		foreach ($hosts_by_group as &$group_hosts) {
-			usort($group_hosts, static fn($a, $b) => strcmp($a['name'], $b['name']));
+			$host_count_by_group = array_map('count', $hostids_by_group);
+
+			// Sort hosts alphabetically within each group
+			foreach ($hosts_by_group as &$group_hosts) {
+				usort($group_hosts, static fn($a, $b) => strcmp($a['name'], $b['name']));
+			}
+			unset($group_hosts);
 		}
-		unset($group_hosts);
 
 		// ── Build and return tree ─────────────────────────────────────────────
 
-		$tree = $this->buildTree($relevant_groups, $host_count_by_group, $hosts_by_group);
+		$tree = $this->buildTree($relevant_groups, $host_count_by_group, $hosts_by_group, $hostids_by_group);
 
 		$this->setResponse(new CControllerResponseData([
-			'name'        => $this->getInput('name', $this->widget->getDefaultName()),
-			'tree'        => $tree,
-			'show_mode'   => $show_mode,
-			'recursive'   => $recursive,
-			'root_name' => $root_name,
-			'user'        => ['debug_mode' => $this->getDebugMode()]
+			'name'          => $this->getInput('name', $this->widget->getDefaultName()),
+			'tree'          => $tree,
+			'show_mode'     => $show_mode,
+			'recursive'     => $recursive,
+			'initial_depth' => $initial_depth,
+			'root_name'     => $root_name,
+			'user'          => ['debug_mode' => $this->getDebugMode()]
 		]));
 	}
 
 	// ── Helpers ───────────────────────────────────────────────────────────────
 
 	/**
-	 * Return only the groups that are in the filter or are ancestors of filtered groups.
+	 * Return groups in the filter, their ancestors (for tree structure),
+	 * and – when $recursive is true – their descendants.
 	 */
-	private function filterGroups(array $all_groups, array $filter_groupids): array {
+	private function filterGroups(array $all_groups, array $filter_groupids, bool $recursive = false): array {
 		$filter_names = [];
 
 		foreach ($all_groups as $g) {
@@ -146,6 +163,16 @@ class WidgetView extends CControllerDashboardWidgetView {
 					break;
 				}
 			}
+
+			// When recursive, also include descendant groups
+			if ($recursive && !isset($relevant[$key])) {
+				foreach ($filter_names as $filter_name) {
+					if (str_starts_with($g['name'], $filter_name . '/')) {
+						$relevant[$key] = $g;
+						break;
+					}
+				}
+			}
 		}
 
 		return $relevant;
@@ -163,7 +190,7 @@ class WidgetView extends CControllerDashboardWidgetView {
 	 *   hosts           – host entries for this group (empty when show_mode=0)
 	 *   child_groupids  – all descendant real groupids (for recursive broadcast)
 	 */
-	private function buildTree(array $groups, array $host_count_by_group, array $hosts_by_group): array {
+	private function buildTree(array $groups, array $host_count_by_group, array $hosts_by_group, array $hostids_by_group = []): array {
 		usort($groups, static fn($a, $b) => strcmp($a['name'], $b['name']));
 
 		$nodes = [];
@@ -226,15 +253,18 @@ class WidgetView extends CControllerDashboardWidgetView {
 			$nodes[$path]['child_groupids'] = $ids;
 		}
 
-		// ── Compute recursive_host_count (own hosts + all descendants) ────────
+		// ── Compute recursive_host_count using unique hostids across all descendants ──
+		// child_groupids already contains own groupid + all descendant groupids.
 		foreach ($all_paths as $path) {
-			$count = $nodes[$path]['host_count'];
+			$unique_ids = [];
 
-			foreach ($nodes[$path]['children'] as $child_path) {
-				$count += $nodes[$child_path]['recursive_host_count'];
+			foreach ($nodes[$path]['child_groupids'] as $gid) {
+				foreach (array_keys($hostids_by_group[$gid] ?? []) as $hid) {
+					$unique_ids[$hid] = true;
+				}
 			}
 
-			$nodes[$path]['recursive_host_count'] = $count;
+			$nodes[$path]['recursive_host_count'] = count($unique_ids);
 		}
 
 		// ── Find root nodes ───────────────────────────────────────────────────
@@ -257,7 +287,7 @@ class WidgetView extends CControllerDashboardWidgetView {
 	 * Detect the OS/device type from host inventory and linked templates.
 	 */
 	private function detectDeviceType(array $host): string {
-		$inv      = is_array($host['inventory']) ? $host['inventory'] : [];
+		$inv      = is_array($host['inventory'] ?? null) ? $host['inventory'] : [];
 		$inv_os   = strtolower($inv['os']   ?? '');
 		$inv_type = strtolower($inv['type'] ?? '');
 		$tmpl     = strtolower(implode(' ', array_column($host['parentTemplates'] ?? [], 'name')));

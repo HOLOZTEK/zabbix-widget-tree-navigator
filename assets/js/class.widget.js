@@ -33,6 +33,11 @@ class CWidgetTreeNavigator extends CWidget {
 	 */
 	#tooltip = null;
 
+	/** Bound event handler references for removeEventListener. */
+	#_clickHandler     = null;
+	#_mouseOverHandler = null;
+	#_mouseOutHandler  = null;
+
 	/** localStorage key for persisting expanded node paths. */
 	get #storageKey() {
 		return 'tn_open_' + this._widgetid;
@@ -41,14 +46,26 @@ class CWidgetTreeNavigator extends CWidget {
 	// ── Lifecycle ──────────────────────────────────────────────────────────────
 
 	onActivate() {
-		this._contents.scrollTop = this.#scroll_top;
-		this._body.addEventListener('click',     this.#onClick.bind(this));
-		this._body.addEventListener('mouseover', this.#onMouseOver.bind(this));
-		this._body.addEventListener('mouseout',  this.#onMouseOut.bind(this));
+		const container = this._body.querySelector('.tn-container');
+		if (container) container.scrollTop = this.#scroll_top;
+
+		this.#_clickHandler     = this.#onClick.bind(this);
+		this.#_mouseOverHandler = this.#onMouseOver.bind(this);
+		this.#_mouseOutHandler  = this.#onMouseOut.bind(this);
+
+		this._body.addEventListener('click',     this.#_clickHandler);
+		this._body.addEventListener('mouseover', this.#_mouseOverHandler);
+		this._body.addEventListener('mouseout',  this.#_mouseOutHandler);
 	}
 
 	onDeactivate() {
-		this.#scroll_top = this._contents.scrollTop;
+		const container = this._body.querySelector('.tn-container');
+		if (container) this.#scroll_top = container.scrollTop;
+
+		this._body.removeEventListener('click',     this.#_clickHandler);
+		this._body.removeEventListener('mouseover', this.#_mouseOverHandler);
+		this._body.removeEventListener('mouseout',  this.#_mouseOutHandler);
+
 		this.#hideTooltip();
 	}
 
@@ -246,10 +263,20 @@ class CWidgetTreeNavigator extends CWidget {
 		catch (_) {}
 
 		if (open_paths === null) {
-			// Default: open root-level nodes only
-			for (const li of this._body.querySelectorAll('.tn-tree > li.tn-node.tn-group')) {
-				li.classList.add('tn-open');
-			}
+			// Default: open nodes up to initial_depth levels
+			const depth = parseInt(
+				this._body.querySelector('.tn-container')?.dataset.initialDepth ?? '1'
+			);
+			const openLevel = (ul, remaining) => {
+				if (remaining <= 0) return;
+				for (const li of ul.querySelectorAll(':scope > li.tn-node.tn-group')) {
+					li.classList.add('tn-open');
+					const children = li.querySelector(':scope > .tn-children');
+					if (children) openLevel(children, remaining - 1);
+				}
+			};
+			const tree = this._body.querySelector('.tn-tree');
+			if (tree) openLevel(tree, depth);
 		}
 		else {
 			for (const li of this._body.querySelectorAll('.tn-node.tn-group')) {

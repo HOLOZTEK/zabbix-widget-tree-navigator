@@ -6,9 +6,6 @@ msgstr ""
 msgid "Tree navigator"
 msgstr ""
 
-msgid "Root name"
-msgstr ""
-
 msgid "Display mode"
 msgstr ""
 
@@ -21,8 +18,20 @@ msgstr ""
 msgid "Host groups"
 msgstr ""
 
+msgid "Root name"
+msgstr ""
+
+msgid "Initial depth"
+msgstr ""
+
 msgid "Sub-groups"
 msgstr ""
 
 msgid "Include sub-groups"
+msgstr ""
+
+msgid "Host count"
+msgstr ""
+
+msgid "Show host count in tooltip"
 msgstr ""

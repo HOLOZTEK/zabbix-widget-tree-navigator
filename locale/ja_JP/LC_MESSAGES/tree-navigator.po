@@ -6,9 +6,6 @@ msgstr ""
 msgid "Tree navigator"
 msgstr "ツリーナビゲーター"
 
-msgid "Root name"
-msgstr "ルート名"
-
 msgid "Display mode"
 msgstr "表示モード"
 
@@ -21,8 +18,20 @@ msgstr "ホストグループとホスト"
 msgid "Host groups"
 msgstr "ホストグループ"
 
+msgid "Root name"
+msgstr "ルート名"
+
+msgid "Initial depth"
+msgstr "初期展開階層"
+
 msgid "Sub-groups"
 msgstr "サブグループ"
 
 msgid "Include sub-groups"
 msgstr "サブグループを含める"
+
+msgid "Host count"
+msgstr "ホスト件数"
+
+msgid "Show host count in tooltip"
+msgstr "ツールチップにホスト件数を表示"

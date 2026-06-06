@@ -5,6 +5,7 @@ namespace Modules\TreeNavigator\Includes;
 use Zabbix\Widgets\CWidgetForm;
 use Zabbix\Widgets\Fields\{
 	CWidgetFieldCheckBox,
+	CWidgetFieldIntegerBox,
 	CWidgetFieldMultiSelectGroup,
 	CWidgetFieldRadioButtonList,
 	CWidgetFieldTextBox
@@ -28,7 +29,15 @@ class WidgetForm extends CWidgetForm {
 				new CWidgetFieldMultiSelectGroup('groupids', _tn('Host groups'))
 			)
 			->addField(
+				(new CWidgetFieldIntegerBox('initial_depth', _tn('Initial depth'), 0, 10))
+					->setDefault(1)
+			)
+			->addField(
 				(new CWidgetFieldCheckBox('recursive', _tn('Sub-groups'), _tn('Include sub-groups')))
+					->setDefault(1)
+			)
+			->addField(
+				(new CWidgetFieldCheckBox('show_host_count', _tn('Host count'), _tn('Show host count in tooltip')))
 					->setDefault(1)
 			);
 	}

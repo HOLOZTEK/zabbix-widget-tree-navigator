@@ -18,6 +18,12 @@
 		new CWidgetFieldMultiSelectGroupView($data['fields']['groupids'])
 	)
 	->addField(
+		new CWidgetFieldIntegerBoxView($data['fields']['initial_depth'])
+	)
+	->addField(
 		new CWidgetFieldCheckBoxView($data['fields']['recursive'])
+	)
+	->addField(
+		new CWidgetFieldCheckBoxView($data['fields']['show_host_count'])
 	)
 	->show();

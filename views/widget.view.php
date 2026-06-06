@@ -7,11 +7,12 @@
  * @var array  $data
  */
 
-$nodes       = $data['tree']['nodes'];
-$roots       = $data['tree']['roots'];
-$show_mode   = (int)  $data['show_mode'];
-$recursive   = (bool) $data['recursive'];
-$root_name = $data['root_name'];
+$nodes         = $data['tree']['nodes'];
+$roots         = $data['tree']['roots'];
+$show_mode     = (int)  $data['show_mode'];
+$recursive     = (bool) $data['recursive'];
+$initial_depth = (int)  $data['initial_depth'];
+$root_name     = $data['root_name'];
 
 $view = new CWidgetView($data);
 
@@ -51,7 +52,7 @@ $render_node = static function(string $path) use (&$render_node, $nodes, $show_m
 	$row->addItem($folder);
 
 	// Group label (clickable only for real groups)
-	$label = (new CSpan(htmlspecialchars($node['label'])))->addClass('tn-group-label');
+	$label = (new CSpan($node['label']))->addClass('tn-group-label');
 
 	if ($is_real) {
 		$label->addClass('js-tn-group-label')
@@ -81,7 +82,7 @@ $render_node = static function(string $path) use (&$render_node, $nodes, $show_m
 				// Host icon – clicking opens Zabbix host menu
 				$host_row->addItem(
 					(new CSpan())
-						->addClass('tn-host-icon hm-icon hm-icon-' . $type . ' js-tn-host-icon')
+						->addClass('tn-host-icon tn-host-type-icon tn-host-type-icon-' . $type . ' js-tn-host-icon')
 						->setAttribute('data-menu-popup', json_encode(
 							['type' => 'host', 'data' => ['hostid' => (string) $host['hostid']]],
 							JSON_UNESCAPED_UNICODE
@@ -90,7 +91,7 @@ $render_node = static function(string $path) use (&$render_node, $nodes, $show_m
 
 				// Host label – clicking broadcasts the host
 				$host_row->addItem(
-					(new CSpan(htmlspecialchars($host['name'])))
+					(new CSpan($host['name']))
 						->addClass('tn-host-label js-tn-host-label')
 						->setAttribute('data-hostid',         (string) $host['hostid'])
 						->setAttribute('data-parent-groupid', $node['groupid'] ?? '')
@@ -132,7 +133,7 @@ $server_row = (new CDiv())->addClass('tn-row');
 $server_row->addItem((new CSpan())->addClass('tn-toggle js-tn-toggle'));
 $server_row->addItem((new CSpan())->addClass('tn-root-icon'));
 $server_row->addItem(
-	(new CSpan(htmlspecialchars($root_name)))->addClass('tn-group-label tn-server-label')
+	(new CSpan($root_name))->addClass('tn-group-label tn-server-label')
 );
 
 $server_li = (new CTag('li', true))->addClass('tn-node tn-group tn-server-root');
@@ -147,6 +148,7 @@ $tree_ul->addItem($server_li);
 
 $container = (new CDiv($tree_ul))
 	->addClass('tn-container')
-	->setAttribute('data-recursive', $recursive ? '1' : '0');
+	->setAttribute('data-recursive',     $recursive ? '1' : '0')
+	->setAttribute('data-initial-depth', (string) $initial_depth);
 
 $view->addItem($container)->show();
