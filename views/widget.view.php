@@ -184,9 +184,20 @@ $search_input = (new CTag('input', false))
 	->setAttribute('autocomplete', 'off')
 	->setAttribute('spellcheck', 'false');
 
+$search_clear = (new CTag('button', true, '×'))
+	->setAttribute('type', 'button')
+	->setAttribute('class', 'tn-search-clear js-tn-search-clear')
+	->setAttribute('title', 'Clear')
+	->setAttribute('style', 'display:none');
+
+$search_input_wrap = (new CDiv())
+	->addClass('tn-search-input-wrap')
+	->addItem($search_input)
+	->addItem($search_clear);
+
 $search_input_row = (new CDiv())
 	->addClass('tn-search-input-row')
-	->addItem($search_input)
+	->addItem($search_input_wrap)
 	->addItem($search_nav);
 
 $search_dropdown = (new CTag('ul', true))

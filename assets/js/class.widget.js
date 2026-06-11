@@ -140,6 +140,12 @@ class CWidgetTreeNavigator extends CWidget {
 			return;
 		}
 
+		// Search clear button
+		if (e.target.closest('.js-tn-search-clear')) {
+			this.#onSearchClear();
+			return;
+		}
+
 		// Search prev/next navigation buttons
 		if (e.target.closest('.js-tn-search-prev')) {
 			this.#onSearchPrev();
@@ -230,6 +236,7 @@ class CWidgetTreeNavigator extends CWidget {
 			this.#search_index   = -1;
 			this.#clearDropdown();
 			this.#updateSearchNav();
+			this.#updateClearButton();
 		}
 	}
 
@@ -241,6 +248,21 @@ class CWidgetTreeNavigator extends CWidget {
 		this.#search_results = this.#buildSearchResults(this.#search_query);
 		this.#renderDropdown();
 		this.#updateSearchNav();
+		this.#updateClearButton();
+	}
+
+	#onSearchClear() {
+		const input = this._body.querySelector('.js-tn-search-input');
+		if (input) input.value = '';
+
+		this.#search_query   = '';
+		this.#search_results = [];
+		this.#search_index   = -1;
+		this.#clearDropdown();
+		this.#updateSearchNav();
+		this.#updateClearButton();
+
+		input?.focus();
 	}
 
 	#onSearchKeydown(e) {
@@ -348,6 +370,14 @@ class CWidgetTreeNavigator extends CWidget {
 		}
 	}
 
+	#updateClearButton() {
+		const clear_btn = this._body.querySelector('.js-tn-search-clear');
+
+		if (clear_btn) {
+			clear_btn.style.display = this.#search_query ? 'flex' : 'none';
+		}
+	}
+
 	#updateSearchNav() {
 		const count_el = this._body.querySelector('.js-tn-search-count');
 		const prev_btn = this._body.querySelector('.js-tn-search-prev');
@@ -417,6 +447,7 @@ class CWidgetTreeNavigator extends CWidget {
 		}
 
 		this.#updateSearchNav();
+		this.#updateClearButton();
 	}
 
 	// ── Tree interaction ───────────────────────────────────────────────────────
