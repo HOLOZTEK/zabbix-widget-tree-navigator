@@ -1,6 +1,6 @@
 %define _rpmfilename %%{NAME}-%%{VERSION}%{dist}.%%{ARCH}.rpm
 Name:           zabbix-widget-tree-navigator
-Version:        1.2.0
+Version:        1.2.1
 Release:        0
 Summary:        Tree Navigator widget for Zabbix dashboard
 License:        Proprietary
@@ -77,6 +77,7 @@ mkdir -p "${MODDIR}/actions" "${MODDIR}/assets/css" "${MODDIR}/assets/js" \
          "${MODDIR}/locale/en_US/LC_MESSAGES" \
          "${MODDIR}/views"
 
+rm -rf "${MODDIR}"
 cp -rp "${SRCSTAGE}/." "${MODDIR}/"
 
 %preun
@@ -86,6 +87,14 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Wed Jun 11 2026 claude <noreply> - 1.2.1-0
+- ドロップダウン選択をhostid依存からresult index依存に変更（同一hostidの複数候補が正しくジャンプするよう修正）
+- 検索バーを閉じたときにinput.valueもクリアするよう修正
+- 検索UI・ツールチップ文言をローカライズ（_tn()使用、JS用ラベルはdata-*属性経由）
+- show_mode=0（ホストグループのみ）のとき検索UIを非表示に変更
+- fields_values['groupids']の参照を??演算子で防御的に変更
+- RPM %postで旧モジュールディレクトリをrm -rfしてから再インストールするよう変更
+
 * Wed Jun 11 2026 claude <noreply> - 1.2.0-0
 - ホスト名部分一致検索ボックスを追加（ツリー上部の虫眼鏡ボタンで表示・非表示切替）
 - 入力中にドロップダウン候補リストを表示（最大15件）

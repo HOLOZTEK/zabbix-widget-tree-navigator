@@ -205,8 +205,9 @@ class CWidgetTreeNavigator extends CWidget {
 		const folder = e.target.closest('.js-tn-folder[data-recursive-host-count]');
 
 		if (folder) {
-			const count = folder.dataset.recursiveHostCount;
-			this.#showTooltip(`所属ホスト：${count}台`, folder);
+			const count    = folder.dataset.recursiveHostCount;
+			const template = this.#label('labelHostCount') || 'Hosts: {0}';
+			this.#showTooltip(template.replace('{0}', count), folder);
 		}
 	}
 
@@ -231,6 +232,9 @@ class CWidgetTreeNavigator extends CWidget {
 			this._body.querySelector('.js-tn-search-input')?.focus();
 		}
 		else {
+			const input = this._body.querySelector('.js-tn-search-input');
+			if (input) input.value = '';
+
 			this.#search_query   = '';
 			this.#search_results = [];
 			this.#search_index   = -1;
@@ -303,12 +307,9 @@ class CWidgetTreeNavigator extends CWidget {
 	}
 
 	#onDropdownClick(item_el) {
-		const hostid = item_el.dataset.hostid;
-		if (!hostid) return;
+		const idx = Number(item_el.dataset.resultIndex);
 
-		const idx = this.#search_results.findIndex(el => el.dataset.hostid === hostid);
-
-		if (idx !== -1) {
+		if (Number.isInteger(idx) && idx >= 0) {
 			this.#jumpToMatch(idx);
 		}
 
@@ -341,8 +342,8 @@ class CWidgetTreeNavigator extends CWidget {
 		for (let i = 0; i < max; i++) {
 			const el = this.#search_results[i];
 			const li = document.createElement('li');
-			li.dataset.hostid = el.dataset.hostid;
-			li.textContent    = el.textContent;
+			li.dataset.resultIndex = String(i);
+			li.textContent         = el.textContent;
 
 			if (i === this.#search_index) {
 				li.classList.add('tn-search-dropdown-active');
@@ -352,9 +353,10 @@ class CWidgetTreeNavigator extends CWidget {
 		}
 
 		if (this.#search_results.length > max) {
-			const more = document.createElement('li');
+			const more     = document.createElement('li');
+			const template = this.#label('labelMoreResults') || 'and {0} more';
 			more.className   = 'tn-search-dropdown-more';
-			more.textContent = `… and ${this.#search_results.length - max} more`;
+			more.textContent = '… ' + template.replace('{0}', String(this.#search_results.length - max));
 			dropdown.appendChild(more);
 		}
 
@@ -623,6 +625,10 @@ class CWidgetTreeNavigator extends CWidget {
 	}
 
 	// ── Helpers ────────────────────────────────────────────────────────────────
+
+	#label(dataKey) {
+		return this._body.querySelector('.tn-wrapper')?.dataset[dataKey] ?? '';
+	}
 
 	#isRecursive() {
 		return this._body.querySelector('.tn-container')?.dataset.recursive === '1';

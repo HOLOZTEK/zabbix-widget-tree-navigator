@@ -152,73 +152,79 @@ $container = (new CDiv($tree_ul))
 	->setAttribute('data-recursive',     $recursive ? '1' : '0')
 	->setAttribute('data-initial-depth', (string) $initial_depth);
 
-// ── Search area ───────────────────────────────────────────────────────────────
-
-$search_toggle = (new CTag('button', true))
-	->setAttribute('type', 'button')
-	->setAttribute('class', 'tn-search-toggle js-tn-search-toggle')
-	->setAttribute('title', 'Search hosts');
-
-$search_count = (new CSpan())->addClass('tn-search-count js-tn-search-count');
-
-$search_prev = (new CTag('button', true, '▲'))
-	->setAttribute('type', 'button')
-	->setAttribute('class', 'tn-search-nav-btn js-tn-search-prev')
-	->setAttribute('title', 'Previous match');
-
-$search_next = (new CTag('button', true, '▼'))
-	->setAttribute('type', 'button')
-	->setAttribute('class', 'tn-search-nav-btn js-tn-search-next')
-	->setAttribute('title', 'Next match');
-
-$search_nav = (new CDiv())
-	->addClass('tn-search-nav')
-	->addItem($search_count)
-	->addItem($search_prev)
-	->addItem($search_next);
-
-$search_input = (new CTag('input', false))
-	->setAttribute('type', 'text')
-	->setAttribute('class', 'tn-search-input js-tn-search-input')
-	->setAttribute('placeholder', 'Search hosts...')
-	->setAttribute('autocomplete', 'off')
-	->setAttribute('spellcheck', 'false');
-
-$search_clear = (new CTag('button', true, '×'))
-	->setAttribute('type', 'button')
-	->setAttribute('class', 'tn-search-clear js-tn-search-clear')
-	->setAttribute('title', 'Clear')
-	->setAttribute('style', 'display:none');
-
-$search_input_wrap = (new CDiv())
-	->addClass('tn-search-input-wrap')
-	->addItem($search_input)
-	->addItem($search_clear);
-
-$search_input_row = (new CDiv())
-	->addClass('tn-search-input-row')
-	->addItem($search_input_wrap)
-	->addItem($search_nav);
-
-$search_dropdown = (new CTag('ul', true))
-	->addClass('tn-search-dropdown js-tn-search-dropdown');
-
-$search_bar = (new CDiv())
-	->addClass('tn-search-bar js-tn-search-bar')
-	->setAttribute('style', 'display:none')
-	->addItem($search_input_row)
-	->addItem($search_dropdown);
-
-$search_area = (new CDiv())
-	->addClass('tn-search-area')
-	->addItem($search_toggle)
-	->addItem($search_bar);
-
 // ── Wrapper ───────────────────────────────────────────────────────────────────
 
 $wrapper = (new CDiv())
 	->addClass('tn-wrapper')
-	->addItem($search_area)
-	->addItem($container);
+	->setAttribute('data-label-host-count',    _tn('Hosts: {0}'))
+	->setAttribute('data-label-more-results',  _tn('and {0} more'));
+
+// ── Search area (show_mode = 1 only) ──────────────────────────────────────────
+
+if ($show_mode === 1) {
+	$search_toggle = (new CTag('button', true))
+		->setAttribute('type', 'button')
+		->setAttribute('class', 'tn-search-toggle js-tn-search-toggle')
+		->setAttribute('title', _tn('Search hosts'));
+
+	$search_count = (new CSpan())->addClass('tn-search-count js-tn-search-count');
+
+	$search_prev = (new CTag('button', true, '▲'))
+		->setAttribute('type', 'button')
+		->setAttribute('class', 'tn-search-nav-btn js-tn-search-prev')
+		->setAttribute('title', _tn('Previous match'));
+
+	$search_next = (new CTag('button', true, '▼'))
+		->setAttribute('type', 'button')
+		->setAttribute('class', 'tn-search-nav-btn js-tn-search-next')
+		->setAttribute('title', _tn('Next match'));
+
+	$search_nav = (new CDiv())
+		->addClass('tn-search-nav')
+		->addItem($search_count)
+		->addItem($search_prev)
+		->addItem($search_next);
+
+	$search_input = (new CTag('input', false))
+		->setAttribute('type', 'text')
+		->setAttribute('class', 'tn-search-input js-tn-search-input')
+		->setAttribute('placeholder', _tn('Search hosts...'))
+		->setAttribute('autocomplete', 'off')
+		->setAttribute('spellcheck', 'false');
+
+	$search_clear = (new CTag('button', true, '×'))
+		->setAttribute('type', 'button')
+		->setAttribute('class', 'tn-search-clear js-tn-search-clear')
+		->setAttribute('title', _tn('Clear'))
+		->setAttribute('style', 'display:none');
+
+	$search_input_wrap = (new CDiv())
+		->addClass('tn-search-input-wrap')
+		->addItem($search_input)
+		->addItem($search_clear);
+
+	$search_input_row = (new CDiv())
+		->addClass('tn-search-input-row')
+		->addItem($search_input_wrap)
+		->addItem($search_nav);
+
+	$search_dropdown = (new CTag('ul', true))
+		->addClass('tn-search-dropdown js-tn-search-dropdown');
+
+	$search_bar = (new CDiv())
+		->addClass('tn-search-bar js-tn-search-bar')
+		->setAttribute('style', 'display:none')
+		->addItem($search_input_row)
+		->addItem($search_dropdown);
+
+	$search_area = (new CDiv())
+		->addClass('tn-search-area')
+		->addItem($search_toggle)
+		->addItem($search_bar);
+
+	$wrapper->addItem($search_area);
+}
+
+$wrapper->addItem($container);
 
 $view->addItem($wrapper)->show();

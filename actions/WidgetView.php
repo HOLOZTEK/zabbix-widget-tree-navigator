@@ -13,7 +13,8 @@ class WidgetView extends CControllerDashboardWidgetView {
 		$recursive       = (bool) ($this->fields_values['recursive']       ?? true);
 		$show_host_count = (bool) ($this->fields_values['show_host_count'] ?? true);
 		$initial_depth   = (int)  ($this->fields_values['initial_depth']   ?? 1);
-		$groupids_filter = $this->fields_values['groupids'] ?: null;
+		$groupids_filter = $this->fields_values['groupids'] ?? [];
+		$groupids_filter = $groupids_filter ?: null;
 		$root_name       = trim($this->fields_values['root_name'] ?? '');
 
 		// Normalize groupids to string for strict comparison with API-returned groupid values

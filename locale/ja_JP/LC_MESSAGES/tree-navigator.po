@@ -38,3 +38,24 @@ msgstr "ホスト件数"
 
 msgid "Show host count in tooltip"
 msgstr "ツールチップにホスト件数を表示"
+
+msgid "Search hosts"
+msgstr "ホストを検索"
+
+msgid "Search hosts..."
+msgstr "ホストを検索..."
+
+msgid "Previous match"
+msgstr "前の一致"
+
+msgid "Next match"
+msgstr "次の一致"
+
+msgid "Clear"
+msgstr "クリア"
+
+msgid "Hosts: {0}"
+msgstr "所属ホスト：{0}台"
+
+msgid "and {0} more"
+msgstr "他 {0} 件"

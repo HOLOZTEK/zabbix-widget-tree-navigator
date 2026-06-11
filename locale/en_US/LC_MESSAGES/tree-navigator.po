@@ -38,3 +38,24 @@ msgstr ""
 
 msgid "Show host count in tooltip"
 msgstr ""
+
+msgid "Search hosts"
+msgstr ""
+
+msgid "Search hosts..."
+msgstr ""
+
+msgid "Previous match"
+msgstr ""
+
+msgid "Next match"
+msgstr ""
+
+msgid "Clear"
+msgstr ""
+
+msgid "Hosts: {0}"
+msgstr ""
+
+msgid "and {0} more"
+msgstr ""
