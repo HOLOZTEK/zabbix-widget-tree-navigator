@@ -5,6 +5,7 @@
  * Clicking a group name broadcasts _hostgroupid (+ child groupids if recursive).
  * Clicking a host name broadcasts _hostid + direct parent _hostgroupid.
  * Clicking a host icon shows the Zabbix host menu (data-menu-popup).
+ * The search box filters hosts by partial name match with Next/Prev navigation.
  */
 
 class CWidgetTreeNavigator extends CWidget {
@@ -34,9 +35,23 @@ class CWidgetTreeNavigator extends CWidget {
 	#tooltip = null;
 
 	/** Bound event handler references for removeEventListener. */
-	#_clickHandler     = null;
-	#_mouseOverHandler = null;
-	#_mouseOutHandler  = null;
+	#_clickHandler      = null;
+	#_mouseOverHandler  = null;
+	#_mouseOutHandler   = null;
+	#_searchInputHandler   = null;
+	#_searchKeydownHandler = null;
+
+	/** Whether the search bar is currently visible. */
+	#search_open = false;
+
+	/** Current search query string. */
+	#search_query = '';
+
+	/** All host label elements matching the current query (tree document order). */
+	#search_results = [];
+
+	/** Index of the currently highlighted match (-1 = none). */
+	#search_index = -1;
 
 	/** localStorage key for persisting expanded node paths. */
 	get #storageKey() {
@@ -49,13 +64,17 @@ class CWidgetTreeNavigator extends CWidget {
 		this.#restoreScrollPosition();
 
 		if (this.#_clickHandler === null) {
-			this.#_clickHandler     = this.#onClick.bind(this);
-			this.#_mouseOverHandler = this.#onMouseOver.bind(this);
-			this.#_mouseOutHandler  = this.#onMouseOut.bind(this);
+			this.#_clickHandler        = this.#onClick.bind(this);
+			this.#_mouseOverHandler    = this.#onMouseOver.bind(this);
+			this.#_mouseOutHandler     = this.#onMouseOut.bind(this);
+			this.#_searchInputHandler  = this.#onSearchInput.bind(this);
+			this.#_searchKeydownHandler = this.#onSearchKeydown.bind(this);
 
 			this._body.addEventListener('click',     this.#_clickHandler);
 			this._body.addEventListener('mouseover', this.#_mouseOverHandler);
 			this._body.addEventListener('mouseout',  this.#_mouseOutHandler);
+			this._body.addEventListener('input',     this.#_searchInputHandler);
+			this._body.addEventListener('keydown',   this.#_searchKeydownHandler);
 		}
 	}
 
@@ -66,10 +85,14 @@ class CWidgetTreeNavigator extends CWidget {
 			this._body.removeEventListener('click',     this.#_clickHandler);
 			this._body.removeEventListener('mouseover', this.#_mouseOverHandler);
 			this._body.removeEventListener('mouseout',  this.#_mouseOutHandler);
+			this._body.removeEventListener('input',     this.#_searchInputHandler);
+			this._body.removeEventListener('keydown',   this.#_searchKeydownHandler);
 
-			this.#_clickHandler     = null;
-			this.#_mouseOverHandler = null;
-			this.#_mouseOutHandler  = null;
+			this.#_clickHandler        = null;
+			this.#_mouseOverHandler    = null;
+			this.#_mouseOutHandler     = null;
+			this.#_searchInputHandler  = null;
+			this.#_searchKeydownHandler = null;
 		}
 
 		this.#hideTooltip();
@@ -85,7 +108,11 @@ class CWidgetTreeNavigator extends CWidget {
 
 		this.#restoreOpenState();
 		this.#applySelection();
-		this.#restoreScrollPosition();
+		this.#syncSearchUI();
+
+		if (!this.#search_open || this.#search_index < 0) {
+			this.#restoreScrollPosition();
+		}
 
 		// Auto-select first group when this widget's output is being referred to.
 		if (this.isReferred() && !this.hasEverUpdated()
@@ -107,6 +134,33 @@ class CWidgetTreeNavigator extends CWidget {
 	// ── Event handlers ─────────────────────────────────────────────────────────
 
 	#onClick(e) {
+		// Search toggle button
+		if (e.target.closest('.js-tn-search-toggle')) {
+			this.#onSearchToggle();
+			return;
+		}
+
+		// Search prev/next navigation buttons
+		if (e.target.closest('.js-tn-search-prev')) {
+			this.#onSearchPrev();
+			return;
+		}
+
+		if (e.target.closest('.js-tn-search-next')) {
+			this.#onSearchNext();
+			return;
+		}
+
+		// Dropdown item click
+		const dropdown = e.target.closest('.js-tn-search-dropdown');
+		if (dropdown) {
+			const item = e.target.closest('li');
+			if (item && !item.classList.contains('tn-search-dropdown-more')) {
+				this.#onDropdownClick(item);
+			}
+			return;
+		}
+
 		// Toggle expand/collapse
 		const toggle = e.target.closest('.js-tn-toggle');
 
@@ -156,10 +210,219 @@ class CWidgetTreeNavigator extends CWidget {
 		}
 	}
 
+	// ── Search ─────────────────────────────────────────────────────────────────
+
+	#onSearchToggle() {
+		this.#search_open = !this.#search_open;
+
+		const bar = this._body.querySelector('.js-tn-search-bar');
+
+		if (bar) {
+			bar.style.display = this.#search_open ? 'block' : 'none';
+		}
+
+		if (this.#search_open) {
+			this._body.querySelector('.js-tn-search-input')?.focus();
+		}
+		else {
+			this.#search_query   = '';
+			this.#search_results = [];
+			this.#search_index   = -1;
+			this.#clearDropdown();
+			this.#updateSearchNav();
+		}
+	}
+
+	#onSearchInput(e) {
+		if (!e.target.closest('.js-tn-search-input')) return;
+
+		this.#search_query   = e.target.value.trim();
+		this.#search_index   = -1;
+		this.#search_results = this.#buildSearchResults(this.#search_query);
+		this.#renderDropdown();
+		this.#updateSearchNav();
+	}
+
+	#onSearchKeydown(e) {
+		if (!e.target.closest('.js-tn-search-input')) return;
+
+		if (e.key === 'Enter') {
+			e.preventDefault();
+
+			if (this.#search_results.length > 0) {
+				const next = this.#search_index < 0
+					? 0
+					: (this.#search_index + 1) % this.#search_results.length;
+				this.#jumpToMatch(next);
+			}
+		}
+		else if (e.key === 'Escape') {
+			e.preventDefault();
+			this.#onSearchToggle();
+		}
+	}
+
+	#onSearchPrev() {
+		if (this.#search_results.length === 0) return;
+
+		const prev = this.#search_index <= 0
+			? this.#search_results.length - 1
+			: this.#search_index - 1;
+		this.#jumpToMatch(prev);
+	}
+
+	#onSearchNext() {
+		if (this.#search_results.length === 0) return;
+
+		const next = this.#search_index < 0
+			? 0
+			: (this.#search_index + 1) % this.#search_results.length;
+		this.#jumpToMatch(next);
+	}
+
+	#onDropdownClick(item_el) {
+		const hostid = item_el.dataset.hostid;
+		if (!hostid) return;
+
+		const idx = this.#search_results.findIndex(el => el.dataset.hostid === hostid);
+
+		if (idx !== -1) {
+			this.#jumpToMatch(idx);
+		}
+
+		this.#clearDropdown();
+	}
+
+	#buildSearchResults(query) {
+		if (!query) return [];
+
+		const lower = query.toLowerCase();
+
+		return Array.from(
+			this._body.querySelectorAll('.js-tn-host-label[data-hostid]')
+		).filter(el => el.textContent.toLowerCase().includes(lower));
+	}
+
+	#renderDropdown() {
+		const dropdown = this._body.querySelector('.js-tn-search-dropdown');
+		if (!dropdown) return;
+
+		dropdown.innerHTML = '';
+
+		if (this.#search_results.length === 0) {
+			dropdown.style.display = 'none';
+			return;
+		}
+
+		const max = Math.min(this.#search_results.length, 15);
+
+		for (let i = 0; i < max; i++) {
+			const el = this.#search_results[i];
+			const li = document.createElement('li');
+			li.dataset.hostid = el.dataset.hostid;
+			li.textContent    = el.textContent;
+
+			if (i === this.#search_index) {
+				li.classList.add('tn-search-dropdown-active');
+			}
+
+			dropdown.appendChild(li);
+		}
+
+		if (this.#search_results.length > max) {
+			const more = document.createElement('li');
+			more.className   = 'tn-search-dropdown-more';
+			more.textContent = `… and ${this.#search_results.length - max} more`;
+			dropdown.appendChild(more);
+		}
+
+		dropdown.style.display = '';
+	}
+
+	#clearDropdown() {
+		const dropdown = this._body.querySelector('.js-tn-search-dropdown');
+
+		if (dropdown) {
+			dropdown.innerHTML    = '';
+			dropdown.style.display = 'none';
+		}
+	}
+
+	#updateSearchNav() {
+		const count_el = this._body.querySelector('.js-tn-search-count');
+		const prev_btn = this._body.querySelector('.js-tn-search-prev');
+		const next_btn = this._body.querySelector('.js-tn-search-next');
+		const total    = this.#search_results.length;
+
+		if (count_el) {
+			if (total === 0) {
+				count_el.textContent = this.#search_query ? '0 / 0' : '';
+			}
+			else {
+				const pos = this.#search_index >= 0 ? this.#search_index + 1 : '-';
+				count_el.textContent = `${pos} / ${total}`;
+			}
+		}
+
+		const has_multi = total > 1;
+		if (prev_btn) prev_btn.disabled = !has_multi;
+		if (next_btn) next_btn.disabled = !has_multi;
+	}
+
+	#jumpToMatch(index) {
+		if (index < 0 || index >= this.#search_results.length) return;
+
+		this.#search_index = index;
+		const label = this.#search_results[index];
+
+		this.#expandAncestors(label);
+		this.#selectHost(label);
+		label.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+		this.#updateSearchNav();
+	}
+
+	#expandAncestors(label_el) {
+		let node = label_el.parentElement;
+
+		while (node) {
+			const group = node.closest('.tn-node.tn-group');
+			if (!group) break;
+			group.classList.add('tn-open');
+			node = group.parentElement;
+		}
+
+		this.#saveOpenState();
+	}
+
+	#syncSearchUI() {
+		const bar = this._body.querySelector('.js-tn-search-bar');
+
+		if (bar) {
+			bar.style.display = this.#search_open ? 'block' : 'none';
+		}
+
+		if (!this.#search_open || !this.#search_query) return;
+
+		const input = this._body.querySelector('.js-tn-search-input');
+		if (input) input.value = this.#search_query;
+
+		this.#search_results = this.#buildSearchResults(this.#search_query);
+
+		if (this.#search_index >= this.#search_results.length) {
+			this.#search_index = this.#search_results.length - 1;
+		}
+
+		if (this.#search_index >= 0) {
+			this.#expandAncestors(this.#search_results[this.#search_index]);
+		}
+
+		this.#updateSearchNav();
+	}
+
 	// ── Tree interaction ───────────────────────────────────────────────────────
 
 	#toggleNode(li) {
-		const is_open = li.classList.toggle('tn-open');
+		li.classList.toggle('tn-open');
 		this.#saveOpenState();
 	}
 

@@ -2,8 +2,15 @@
 
 /* ── Scrollable container ─────────────────────────────────────────────────── */
 
-div.dashboard-widget-tree-navigator .tn-container {
+div.dashboard-widget-tree-navigator .tn-wrapper {
+	display: flex;
+	flex-direction: column;
 	height: 100%;
+}
+
+div.dashboard-widget-tree-navigator .tn-container {
+	flex: 1 1 0;
+	min-height: 0;
 	overflow-y: auto;
 	overflow-x: hidden;
 	padding: 4px 0;
@@ -284,4 +291,155 @@ div.dashboard-widget-tree-navigator .tn-selected {
 	color: #333;
 	white-space: nowrap;
 	pointer-events: none;
+}
+
+/* ── Search area ──────────────────────────────────────────────────────────── */
+
+div.dashboard-widget-tree-navigator .tn-search-area {
+	flex: 0 0 auto;
+	padding: 4px 6px 0;
+	position: relative;
+	text-align: right;
+}
+
+div.dashboard-widget-tree-navigator .tn-search-toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 22px;
+	height: 22px;
+	padding: 0;
+	border: 1px solid #c8d4de;
+	border-radius: 3px;
+	background: #f5f7f9;
+	color: #446;
+	cursor: pointer;
+	line-height: 1;
+}
+
+div.dashboard-widget-tree-navigator .tn-search-toggle::before {
+	content: '';
+	display: inline-block;
+	width: 13px;
+	height: 13px;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='6.2' cy='6.2' r='4' fill='none' stroke='%23446' stroke-width='1.6'/%3E%3Cline x1='9.4' y1='9.4' x2='14' y2='14' stroke='%23446' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+div.dashboard-widget-tree-navigator .tn-search-toggle:hover {
+	background: #e0ecf8;
+	border-color: #7aaace;
+}
+
+div.dashboard-widget-tree-navigator .tn-search-bar {
+	position: relative;
+	margin-top: 4px;
+	text-align: left;
+}
+
+div.dashboard-widget-tree-navigator .tn-search-input-row {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+div.dashboard-widget-tree-navigator .tn-search-input {
+	flex: 1 1 auto;
+	min-width: 0;
+	height: 24px;
+	padding: 0 6px;
+	border: 1px solid #b8c8d8;
+	border-radius: 3px;
+	font-size: 12px;
+	box-sizing: border-box;
+	outline: none;
+}
+
+div.dashboard-widget-tree-navigator .tn-search-input:focus {
+	border-color: #5599cc;
+	box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.15);
+}
+
+div.dashboard-widget-tree-navigator .tn-search-nav {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	white-space: nowrap;
+	flex-shrink: 0;
+}
+
+div.dashboard-widget-tree-navigator .tn-search-count {
+	font-size: 11px;
+	color: #778;
+	min-width: 36px;
+	text-align: center;
+}
+
+div.dashboard-widget-tree-navigator .tn-search-nav-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	padding: 0;
+	border: 1px solid #c8d4de;
+	border-radius: 3px;
+	background: #f5f7f9;
+	color: #446;
+	font-size: 11px;
+	cursor: pointer;
+	line-height: 1;
+}
+
+div.dashboard-widget-tree-navigator .tn-search-nav-btn:hover:not(:disabled) {
+	background: #e0ecf8;
+	border-color: #7aaace;
+}
+
+div.dashboard-widget-tree-navigator .tn-search-nav-btn:disabled {
+	opacity: 0.35;
+	cursor: default;
+}
+
+div.dashboard-widget-tree-navigator .tn-search-dropdown {
+	position: absolute;
+	top: calc(100% + 2px);
+	left: 0;
+	right: 0;
+	max-height: 160px;
+	overflow-y: auto;
+	background: #fff;
+	border: 1px solid #b8c8d8;
+	border-radius: 3px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+	list-style: none;
+	margin: 0;
+	padding: 2px 0;
+	z-index: 10;
+}
+
+div.dashboard-widget-tree-navigator .tn-search-dropdown li {
+	padding: 4px 8px;
+	font-size: 12px;
+	cursor: pointer;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+div.dashboard-widget-tree-navigator .tn-search-dropdown li:hover:not(.tn-search-dropdown-more) {
+	background: #e8f4ff;
+}
+
+div.dashboard-widget-tree-navigator .tn-search-dropdown li.tn-search-dropdown-active {
+	background: #d4e8f8;
+	font-weight: 600;
+}
+
+div.dashboard-widget-tree-navigator .tn-search-dropdown li.tn-search-dropdown-more {
+	color: #889;
+	font-style: italic;
+	font-size: 11px;
+	cursor: default;
 }

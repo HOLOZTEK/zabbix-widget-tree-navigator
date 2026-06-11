@@ -1,6 +1,6 @@
 %define _rpmfilename %%{NAME}-%%{VERSION}%{dist}.%%{ARCH}.rpm
 Name:           zabbix-widget-tree-navigator
-Version:        1.1.0
+Version:        1.2.0
 Release:        0
 Summary:        Tree Navigator widget for Zabbix dashboard
 License:        Proprietary
@@ -86,6 +86,12 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Wed Jun 11 2026 claude <noreply> - 1.2.0-0
+- ホスト名部分一致検索ボックスを追加（ツリー上部の虫眼鏡ボタンで表示・非表示切替）
+- 入力中にドロップダウン候補リストを表示（最大15件）
+- 複数一致時は Next / Prev ボタンおよびEnterキーで順番にジャンプ
+- 一致ホストへのジャンプ時に祖先グループを自動展開・選択してブロードキャスト
+
 * Fri Jun 06 2026 claude <noreply> - 1.1.0-0
 - initial_depthの説明文を「展開状態の保存がない場合の初期展開階層」に変更
 
