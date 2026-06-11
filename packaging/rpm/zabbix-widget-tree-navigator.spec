@@ -1,6 +1,6 @@
 %define _rpmfilename %%{NAME}-%%{VERSION}%{dist}.%%{ARCH}.rpm
 Name:           zabbix-widget-tree-navigator
-Version:        1.2.1
+Version:        1.2.2
 Release:        0
 Summary:        Tree Navigator widget for Zabbix dashboard
 License:        Proprietary
@@ -71,13 +71,8 @@ fi
 SRCSTAGE=/usr/share/zabbix-widget-tree-navigator
 MODDIR=${ZBXMODDIR}/tree-navigator
 
-mkdir -p "${MODDIR}/actions" "${MODDIR}/assets/css" "${MODDIR}/assets/js" \
-         "${MODDIR}/includes" \
-         "${MODDIR}/locale/ja_JP/LC_MESSAGES" \
-         "${MODDIR}/locale/en_US/LC_MESSAGES" \
-         "${MODDIR}/views"
-
 rm -rf "${MODDIR}"
+mkdir -p "${MODDIR}"
 cp -rp "${SRCSTAGE}/." "${MODDIR}/"
 
 %preun
@@ -87,6 +82,10 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Wed Jun 11 2026 claude <noreply> - 1.2.2-0
+- RPM %postのmkdir -p個別サブディレクトリ作成を削除し、rm -rf → mkdir -p "${MODDIR}" → cp -rp の順序に整理
+- #onDropdownClick()のindex上限チェックを追加（idx < this.#search_results.length）
+
 * Wed Jun 11 2026 claude <noreply> - 1.2.1-0
 - ドロップダウン選択をhostid依存からresult index依存に変更（同一hostidの複数候補が正しくジャンプするよう修正）
 - 検索バーを閉じたときにinput.valueもクリアするよう修正

@@ -309,7 +309,7 @@ class CWidgetTreeNavigator extends CWidget {
 	#onDropdownClick(item_el) {
 		const idx = Number(item_el.dataset.resultIndex);
 
-		if (Number.isInteger(idx) && idx >= 0) {
+		if (Number.isInteger(idx) && idx >= 0 && idx < this.#search_results.length) {
 			this.#jumpToMatch(idx);
 		}
 
