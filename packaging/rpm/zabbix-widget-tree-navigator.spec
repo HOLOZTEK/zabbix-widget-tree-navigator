@@ -1,6 +1,6 @@
 %define _rpmfilename %%{NAME}-%%{VERSION}%{dist}.%%{ARCH}.rpm
 Name:           zabbix-widget-tree-navigator
-Version:        1.2.2
+Version:        1.2.3
 Release:        0
 Summary:        Tree Navigator widget for Zabbix dashboard
 License:        Proprietary
@@ -22,7 +22,8 @@ Features:
 - Folder icon hover shows recursive host count (including sub-groups)
 - OS-type host icons (server / linux / windows / network / virtual)
 - Clicking a group name broadcasts _hostgroupid + _hostgroupids
-- Clicking a host name broadcasts _hostid + direct parent _hostgroupid
+- Clicking a host name broadcasts _hostid only (clears any previously broadcast
+  _hostgroupid)
 - Clicking a host icon shows the Zabbix host context menu
 - Japanese and English locale support
 
@@ -82,6 +83,12 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Mon Jul 13 2026 claude <noreply> - 1.2.3-0
+- ホスト選択時に親グループID（_hostgroupid）を配信しないよう修正（空配列で明示的に
+  クリア）。groupids/hostidsをOR（合算）で扱う受信側ウィジェット（radar-chart等）で、
+  ホストを1件選択したはずが親グループ全体が表示されてしまう不具合を修正
+- 未使用となったdata-parent-groupid属性を削除
+
 * Wed Jun 11 2026 claude <noreply> - 1.2.2-0
 - RPM %postのmkdir -p個別サブディレクトリ作成を削除し、rm -rf → mkdir -p "${MODDIR}" → cp -rp の順序に整理
 - #onDropdownClick()のindex上限チェックを追加（idx < this.#search_results.length）

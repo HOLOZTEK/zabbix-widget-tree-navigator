@@ -94,8 +94,7 @@ $render_node = static function(string $path) use (&$render_node, $nodes, $show_m
 				$host_row->addItem(
 					(new CSpan($host['name']))
 						->addClass('tn-host-label js-tn-host-label')
-						->setAttribute('data-hostid',         (string) $host['hostid'])
-						->setAttribute('data-parent-groupid', $node['groupid'] ?? '')
+						->setAttribute('data-hostid', (string) $host['hostid'])
 				);
 
 				$children_ul->addItem(

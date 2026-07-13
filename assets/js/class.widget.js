@@ -3,7 +3,9 @@
  *
  * Displays host groups and hosts as a collapsible directory tree.
  * Clicking a group name broadcasts _hostgroupid (+ child groupids if recursive).
- * Clicking a host name broadcasts _hostid + direct parent _hostgroupid.
+ * Clicking a host name broadcasts _hostid only (clears any previously broadcast
+ * _hostgroupid, so a single-host selection is not widened back out to its
+ * parent group by widgets that OR groupids/hostids together).
  * Clicking a host icon shows the Zabbix host menu (data-menu-popup).
  * The search box filters hosts by partial name match with Next/Prev navigation.
  */
@@ -500,16 +502,18 @@ class CWidgetTreeNavigator extends CWidget {
 
 	#selectHost(label) {
 		const hostid          = label.dataset.hostid;
-		const parent_groupid  = label.dataset.parentGroupid;
 
 		this.#selected_path   = null;
 		this.#selected_hostid = hostid;
 
 		this.#applySelection();
 
+		// 親groupidは配信しない。groupids/hostidsをOR（合算）で扱う受信側ウィジェット
+		// （radar-chart等）で、単一ホスト選択のはずが親グループ全体が表示されてしまう
+		// 不具合を防ぐため、_hostgroupidは空配列で明示的にクリアする。
 		this.broadcast({
-			[CWidgetsData.DATA_TYPE_HOST_GROUP_ID]:  parent_groupid ? [parent_groupid] : [],
-			[CWidgetsData.DATA_TYPE_HOST_GROUP_IDS]: parent_groupid ? [parent_groupid] : [],
+			[CWidgetsData.DATA_TYPE_HOST_GROUP_ID]:  [],
+			[CWidgetsData.DATA_TYPE_HOST_GROUP_IDS]: [],
 			[CWidgetsData.DATA_TYPE_HOST_ID]:        [hostid]
 		});
 	}
