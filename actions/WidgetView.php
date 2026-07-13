@@ -118,7 +118,7 @@ class WidgetView extends CControllerDashboardWidgetView {
 
 		// ── Build and return tree ─────────────────────────────────────────────
 
-		$tree = $this->buildTree($relevant_groups, $host_count_by_group, $hosts_by_group, $hostids_by_group);
+		$tree = $this->buildTree($relevant_groups, $all_groups, $host_count_by_group, $hosts_by_group, $hostids_by_group);
 
 		$this->setResponse(new CControllerResponseData([
 			'name'            => $this->getInput('name', $this->widget->getDefaultName()),
@@ -191,9 +191,20 @@ class WidgetView extends CControllerDashboardWidgetView {
 	 *   host_count      – number of hosts directly assigned to this group
 	 *   children        – ordered list of child paths
 	 *   hosts           – host entries for this group (empty when show_mode=0)
-	 *   child_groupids  – all descendant real groupids (for recursive broadcast)
+	 *   child_groupids  – own groupid + all descendant real groupids, computed against the
+	 *                     full Zabbix-wide host group hierarchy ($all_groups). Used for the
+	 *                     _hostgroupids broadcast; independent of the "recursive" display
+	 *                     filter and of which groups are actually shown in the tree, so that
+	 *                     selecting an ancestor group broadcasts every real descendant group
+	 *                     that exists system-wide, not only the ones currently displayed.
 	 */
-	private function buildTree(array $groups, array $host_count_by_group, array $hosts_by_group, array $hostids_by_group = []): array {
+	private function buildTree(
+		array $groups,
+		array $all_groups,
+		array $host_count_by_group,
+		array $hosts_by_group,
+		array $hostids_by_group = []
+	): array {
 		usort($groups, static fn($a, $b) => strcmp($a['name'], $b['name']));
 
 		$nodes = [];
@@ -233,23 +244,19 @@ class WidgetView extends CControllerDashboardWidgetView {
 			$nodes[$group['name']]['hosts']      = $hosts_by_group[$gid] ?? [];
 		}
 
-		// ── Compute child_groupids and recursive_host_count bottom-up ─────────
-		// Process deepest paths first so children are resolved before parents.
+		// ── Compute child_groupids against the full Zabbix-wide hierarchy ─────
+		// Own groupid + every real group whose name is this path or a "path/..."
+		// descendant, matched against $all_groups (not the display-filtered $groups).
+		// This keeps the broadcast payload complete regardless of the "recursive"
+		// display filter or of which groups actually made it into this tree.
 		$all_paths = array_keys($nodes);
-		usort($all_paths, static fn($a, $b) => substr_count($b, '/') <=> substr_count($a, '/'));
 
 		foreach ($all_paths as $path) {
 			$ids = [];
 
-			if ($nodes[$path]['groupid'] !== null) {
-				$ids[] = $nodes[$path]['groupid'];
-			}
-
-			foreach ($nodes[$path]['children'] as $child_path) {
-				foreach ($nodes[$child_path]['child_groupids'] as $cid) {
-					if (!in_array($cid, $ids, true)) {
-						$ids[] = $cid;
-					}
+			foreach ($all_groups as $g) {
+				if ($g['name'] === $path || str_starts_with($g['name'], $path . '/')) {
+					$ids[] = (string) $g['groupid'];
 				}
 			}
 

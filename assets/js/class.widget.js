@@ -450,6 +450,7 @@ class CWidgetTreeNavigator extends CWidget {
 			this.#expandAncestors(this.#search_results[this.#search_index]);
 		}
 
+		this.#renderDropdown();
 		this.#updateSearchNav();
 		this.#updateClearButton();
 	}
@@ -462,15 +463,16 @@ class CWidgetTreeNavigator extends CWidget {
 	}
 
 	#selectGroup(label) {
-		const groupid    = label.dataset.groupid;
-		const is_recursive = this.#isRecursive();
+		const groupid       = label.dataset.groupid;
+		const is_recursive   = this.#isRecursive();
 
-		let groupids;
+		// _hostgroupids always carries the selected group plus every real descendant
+		// group across the full Zabbix-wide hierarchy (data-child-groupids), regardless
+		// of the "recursive" display filter setting. "recursive" only controls whether
+		// the tree auto-expands descendant nodes below, a display-only convenience.
+		const broadcast_groupids = (label.dataset.childGroupids || groupid).split(',').filter(Boolean);
 
 		if (is_recursive) {
-			const raw = label.dataset.childGroupids || groupid;
-			groupids  = raw.split(',').filter(Boolean);
-
 			// Expand the selected node and all its descendants
 			const li = label.closest('.tn-node.tn-group');
 
@@ -484,9 +486,6 @@ class CWidgetTreeNavigator extends CWidget {
 				this.#saveOpenState();
 			}
 		}
-		else {
-			groupids = [groupid];
-		}
 
 		this.#selected_hostid = null;
 		this.#selected_path   = label.closest('.tn-node')?.dataset.path ?? null;
@@ -494,8 +493,8 @@ class CWidgetTreeNavigator extends CWidget {
 		this.#applySelection();
 
 		this.broadcast({
-			[CWidgetsData.DATA_TYPE_HOST_GROUP_ID]:  groupids,
-			[CWidgetsData.DATA_TYPE_HOST_GROUP_IDS]: groupids,
+			[CWidgetsData.DATA_TYPE_HOST_GROUP_ID]:  [groupid],
+			[CWidgetsData.DATA_TYPE_HOST_GROUP_IDS]: broadcast_groupids,
 			[CWidgetsData.DATA_TYPE_HOST_ID]:        []
 		});
 	}
