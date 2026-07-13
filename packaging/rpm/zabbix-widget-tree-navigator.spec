@@ -1,6 +1,6 @@
 %define _rpmfilename %%{NAME}-%%{VERSION}%{dist}.%%{ARCH}.rpm
 Name:           zabbix-widget-tree-navigator
-Version:        1.2.3
+Version:        1.2.4
 Release:        0
 Summary:        Tree Navigator widget for Zabbix dashboard
 License:        Proprietary
@@ -83,6 +83,16 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Mon Jul 13 2026 claude <noreply> - 1.2.4-0
+- Issue #1 対応：検索バー開時にウィジェット再描画（データ更新）してもドロップダウン候補が
+  正しく復元されるよう#syncSearchUI()から#renderDropdown()を呼ぶよう修正
+- グループ選択時のブロードキャストを recursive 設定から分離：_hostgroupid は常に選択した
+  単一グループのみ、_hostgroupids は recursive の ON/OFF に関わらずZabbix全体の階層に対する
+  実際の子孫グループ全てを配信するよう修正（表示フィルターで隠れているグループも含む）。
+  recursive設定は子孫ノードの自動展開（表示上の利便性）のみを制御する
+- README：検索機能の説明を「候補表示と該当ホストへのジャンプ」に修正（実装と不一致だった
+  「フィルタリング」表現を訂正）
+
 * Mon Jul 13 2026 claude <noreply> - 1.2.3-0
 - ホスト選択時に親グループID（_hostgroupid）を配信しないよう修正（空配列で明示的に
   クリア）。groupids/hostidsをOR（合算）で扱う受信側ウィジェット（radar-chart等）で、
