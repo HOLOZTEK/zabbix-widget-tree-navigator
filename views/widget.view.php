@@ -42,6 +42,16 @@ $render_node = static function(string $path) use (&$render_node, $nodes, $show_m
 		$row->addItem((new CSpan())->addClass('tn-toggle-ph'));
 	}
 
+	// Multi-select checkbox (hidden via CSS unless multi-select mode is active)
+	if ($is_real) {
+		$row->addItem(
+			(new CTag('input', false))
+				->setAttribute('type', 'checkbox')
+				->setAttribute('class', 'tn-checkbox js-tn-checkbox js-tn-group-checkbox')
+				->setAttribute('data-groupid', $node['groupid'])
+		);
+	}
+
 	// Folder icon
 	$folder = (new CSpan())->addClass('tn-folder js-tn-folder');
 
@@ -79,6 +89,14 @@ $render_node = static function(string $path) use (&$render_node, $nodes, $show_m
 			foreach ($node['hosts'] as $host) {
 				$type     = $host['device_type'] ?? 'server';
 				$host_row = (new CDiv())->addClass('tn-row');
+
+				// Multi-select checkbox (hidden via CSS unless multi-select mode is active)
+				$host_row->addItem(
+					(new CTag('input', false))
+						->setAttribute('type', 'checkbox')
+						->setAttribute('class', 'tn-checkbox js-tn-checkbox js-tn-host-checkbox')
+						->setAttribute('data-hostid', (string) $host['hostid'])
+				);
 
 				// Host icon – clicking opens Zabbix host menu
 				$host_row->addItem(
@@ -156,9 +174,20 @@ $container = (new CDiv($tree_ul))
 $wrapper = (new CDiv())
 	->addClass('tn-wrapper')
 	->setAttribute('data-label-host-count',    _tn('Hosts: {0}'))
-	->setAttribute('data-label-more-results',  _tn('and {0} more'));
+	->setAttribute('data-label-more-results',  _tn('and {0} more'))
+	->setAttribute('data-label-multi-on',      _tn('Switch to single-select'))
+	->setAttribute('data-label-multi-off',     _tn('Switch to multi-select'));
 
-// ── Search area (show_mode = 1 only) ──────────────────────────────────────────
+// ── Toolbar: multi-select toggle (always) + search area (show_mode = 1 only) ──
+
+$mode_toggle = (new CTag('button', true))
+	->setAttribute('type', 'button')
+	->setAttribute('class', 'tn-mode-toggle js-tn-mode-toggle')
+	->setAttribute('title', _tn('Switch to multi-select'));
+
+$toolbar = (new CDiv())
+	->addClass('tn-toolbar')
+	->addItem($mode_toggle);
 
 if ($show_mode === 1) {
 	$search_toggle = (new CTag('button', true))
@@ -221,9 +250,10 @@ if ($show_mode === 1) {
 		->addItem($search_toggle)
 		->addItem($search_bar);
 
-	$wrapper->addItem($search_area);
+	$toolbar->addItem($search_area);
 }
 
+$wrapper->addItem($toolbar);
 $wrapper->addItem($container);
 
 $view->addItem($wrapper)->show();

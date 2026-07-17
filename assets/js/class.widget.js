@@ -2,12 +2,27 @@
  * Tree Navigator Widget
  *
  * Displays host groups and hosts as a collapsible directory tree.
- * Clicking a group name broadcasts _hostgroupid (+ child groupids if recursive).
- * Clicking a host name broadcasts _hostid only (clears any previously broadcast
- * _hostgroupid, so a single-host selection is not widened back out to its
- * parent group by widgets that OR groupids/hostids together).
+ *
+ * Single-select mode (default): clicking a group name broadcasts _hostgroupid
+ * (the group alone) and _hostgroupids (the group plus all real descendant
+ * groups across the full Zabbix-wide hierarchy, regardless of the "recursive"
+ * display-filter setting). Clicking a host name broadcasts _hostid only
+ * (clears any previously broadcast _hostgroupid, so a single-host selection
+ * is not widened back out to its parent group by widgets that OR
+ * groupids/hostids together).
+ *
+ * Multi-select mode: toggled via the checkbox-icon button in the widget
+ * toolbar. Checkboxes appear next to every host/group icon; hosts and groups
+ * can be checked in any combination. _hostgroupid/_hostgroupids both carry
+ * the set of checked groups' own IDs (no descendant expansion), and _hostid
+ * carries the set of checked hosts. Every checkbox change re-broadcasts
+ * immediately. Switching between single/multi mode clears the current
+ * selection and broadcasts empty.
+ *
  * Clicking a host icon shows the Zabbix host menu (data-menu-popup).
- * The search box filters hosts by partial name match with Next/Prev navigation.
+ * The search box filters hosts by partial name match with Next/Prev
+ * navigation; in multi-select mode a match is only expanded to and scrolled
+ * into view (it does not check its checkbox or broadcast).
  */
 
 class CWidgetTreeNavigator extends CWidget {
@@ -54,6 +69,15 @@ class CWidgetTreeNavigator extends CWidget {
 
 	/** Index of the currently highlighted match (-1 = none). */
 	#search_index = -1;
+
+	/** Whether multi-select mode is currently active. */
+	#is_multi = false;
+
+	/** groupids currently checked in multi-select mode. @type {Set<string>} */
+	#checked_groupids = new Set();
+
+	/** hostids currently checked in multi-select mode. @type {Set<string>} */
+	#checked_hostids = new Set();
 
 	/** localStorage key for persisting expanded node paths. */
 	get #storageKey() {
@@ -109,6 +133,8 @@ class CWidgetTreeNavigator extends CWidget {
 		super.setContents(response);
 
 		this.#restoreOpenState();
+		this.#applyModeUI();
+		this.#applyMultiSelection();
 		this.#applySelection();
 		this.#syncSearchUI();
 
@@ -117,14 +143,14 @@ class CWidgetTreeNavigator extends CWidget {
 		}
 
 		// Auto-select first group when this widget's output is being referred to.
-		if (this.isReferred() && !this.hasEverUpdated()
+		if (!this.#is_multi && this.isReferred() && !this.hasEverUpdated()
 				&& this.#selected_path === null && this.#selected_hostid === null) {
 			this.#selectFirstGroup();
 		}
 	}
 
 	onReferredUpdate() {
-		if (this.#selected_path === null && this.#selected_hostid === null) {
+		if (!this.#is_multi && this.#selected_path === null && this.#selected_hostid === null) {
 			this.#selectFirstGroup();
 		}
 	}
@@ -136,6 +162,20 @@ class CWidgetTreeNavigator extends CWidget {
 	// ── Event handlers ─────────────────────────────────────────────────────────
 
 	#onClick(e) {
+		// Multi-select mode toggle button
+		if (e.target.closest('.js-tn-mode-toggle')) {
+			this.#onModeToggle();
+			return;
+		}
+
+		// Multi-select checkbox
+		const checkbox = e.target.closest('.js-tn-checkbox');
+
+		if (checkbox) {
+			this.#onCheckboxToggle(checkbox);
+			return;
+		}
+
 		// Search toggle button
 		if (e.target.closest('.js-tn-search-toggle')) {
 			this.#onSearchToggle();
@@ -187,19 +227,23 @@ class CWidgetTreeNavigator extends CWidget {
 			return;
 		}
 
-		// Group label click
+		// Group label click (single-select mode only; multi-select uses checkboxes)
 		const group_label = e.target.closest('.js-tn-group-label');
 
 		if (group_label?.dataset.groupid) {
-			this.#selectGroup(group_label);
+			if (!this.#is_multi) {
+				this.#selectGroup(group_label);
+			}
 			return;
 		}
 
-		// Host label click
+		// Host label click (single-select mode only; multi-select uses checkboxes)
 		const host_label = e.target.closest('.js-tn-host-label');
 
 		if (host_label?.dataset.hostid) {
-			this.#selectHost(host_label);
+			if (!this.#is_multi) {
+				this.#selectHost(host_label);
+			}
 		}
 	}
 
@@ -410,7 +454,11 @@ class CWidgetTreeNavigator extends CWidget {
 		const label = this.#search_results[index];
 
 		this.#expandAncestors(label);
-		this.#selectHost(label);
+
+		if (!this.#is_multi) {
+			this.#selectHost(label);
+		}
+
 		label.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 		this.#updateSearchNav();
 	}
@@ -522,6 +570,89 @@ class CWidgetTreeNavigator extends CWidget {
 
 		if (first) {
 			this.#selectGroup(first);
+		}
+	}
+
+	// ── Multi-select mode ──────────────────────────────────────────────────────
+
+	#onModeToggle() {
+		this.#is_multi = !this.#is_multi;
+
+		this.#checked_groupids.clear();
+		this.#checked_hostids.clear();
+		this.#selected_path   = null;
+		this.#selected_hostid = null;
+
+		this.#applyModeUI();
+		this.#applyMultiSelection();
+		this.#applySelection();
+
+		this.broadcast({
+			[CWidgetsData.DATA_TYPE_HOST_GROUP_ID]:  [],
+			[CWidgetsData.DATA_TYPE_HOST_GROUP_IDS]: [],
+			[CWidgetsData.DATA_TYPE_HOST_ID]:        []
+		});
+	}
+
+	#onCheckboxToggle(checkbox) {
+		if (checkbox.classList.contains('js-tn-group-checkbox')) {
+			const groupid = checkbox.dataset.groupid;
+
+			if (checkbox.checked) {
+				this.#checked_groupids.add(groupid);
+			}
+			else {
+				this.#checked_groupids.delete(groupid);
+			}
+		}
+		else if (checkbox.classList.contains('js-tn-host-checkbox')) {
+			const hostid = checkbox.dataset.hostid;
+
+			if (checkbox.checked) {
+				this.#checked_hostids.add(hostid);
+			}
+			else {
+				this.#checked_hostids.delete(hostid);
+			}
+		}
+
+		this.#broadcastMultiSelection();
+	}
+
+	#broadcastMultiSelection() {
+		const groupids = Array.from(this.#checked_groupids);
+
+		this.broadcast({
+			[CWidgetsData.DATA_TYPE_HOST_GROUP_ID]:  groupids,
+			[CWidgetsData.DATA_TYPE_HOST_GROUP_IDS]: groupids,
+			[CWidgetsData.DATA_TYPE_HOST_ID]:        Array.from(this.#checked_hostids)
+		});
+	}
+
+	#applyModeUI() {
+		const container = this._body.querySelector('.tn-container');
+
+		if (container) {
+			container.classList.toggle('tn-multi-mode', this.#is_multi);
+		}
+
+		const toggle_btn = this._body.querySelector('.js-tn-mode-toggle');
+
+		if (toggle_btn) {
+			toggle_btn.classList.toggle('tn-active', this.#is_multi);
+			toggle_btn.title = this.#is_multi
+				? (this.#label('labelMultiOn')  || 'Switch to single-select')
+				: (this.#label('labelMultiOff') || 'Switch to multi-select');
+		}
+	}
+
+	#applyMultiSelection() {
+		for (const cb of this._body.querySelectorAll('.js-tn-group-checkbox')) {
+			cb.checked = this.#checked_groupids.has(cb.dataset.groupid);
+		}
+
+		for (const cb of this._body.querySelectorAll('.js-tn-host-checkbox')) {
+			cb.checked = this.#checked_hostids.has(cb.dataset.hostid);
 		}
 	}
 

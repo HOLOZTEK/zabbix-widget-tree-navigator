@@ -1,6 +1,6 @@
 %define _rpmfilename %%{NAME}-%%{VERSION}%{dist}.%%{ARCH}.rpm
 Name:           zabbix-widget-tree-navigator
-Version:        1.2.4
+Version:        1.3.0
 Release:        0
 Summary:        Tree Navigator widget for Zabbix dashboard
 License:        Proprietary
@@ -25,6 +25,9 @@ Features:
 - Clicking a host name broadcasts _hostid only (clears any previously broadcast
   _hostgroupid)
 - Clicking a host icon shows the Zabbix host context menu
+- Single/multi-select toggle in the widget toolbar: multi-select mode shows
+  checkboxes next to host and host group icons, broadcasting the checked
+  hostids/groupids immediately on every change
 - Japanese and English locale support
 
 %prep
@@ -83,6 +86,15 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Fri Jul 17 2026 claude <noreply> - 1.3.0-0
+- ホスト・ホストグループのマルチセレクトに対応。ツールバーにシングル/マルチ選択切替
+  ボタンを追加し、マルチ選択時はホスト・ホストグループのアイコン左側にチェックボック
+  スを表示。チェックしたホスト/グループのID（グループはそのグループ自身のIDのみ、子孫
+  展開なし）を変更の都度即時ブロードキャスト。ホスト・グループのチェックは混在可能
+  で親子の連動はなし（独立）。モード切替時は選択をクリアし空配列を配信
+- シングル選択時の動作（recursive設定に基づく子孫ノード展開・全階層ベースの
+  _hostgroupids配信等）は従来どおり変更なし
+
 * Mon Jul 13 2026 claude <noreply> - 1.2.4-0
 - Issue #1 対応：検索バー開時にウィジェット再描画（データ更新）してもドロップダウン候補が
   正しく復元されるよう#syncSearchUI()から#renderDropdown()を呼ぶよう修正

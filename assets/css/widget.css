@@ -293,11 +293,76 @@ div.dashboard-widget-tree-navigator .tn-selected {
 	pointer-events: none;
 }
 
+/* ── Toolbar ──────────────────────────────────────────────────────────────── */
+
+div.dashboard-widget-tree-navigator .tn-toolbar {
+	display: flex;
+	align-items: flex-start;
+	gap: 4px;
+	flex: 0 0 auto;
+	padding: 4px 6px 0;
+}
+
+div.dashboard-widget-tree-navigator .tn-mode-toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 22px;
+	height: 22px;
+	padding: 0;
+	border: 1px solid #c8d4de;
+	border-radius: 3px;
+	background: #f5f7f9;
+	color: #446;
+	cursor: pointer;
+	line-height: 1;
+	flex-shrink: 0;
+}
+
+div.dashboard-widget-tree-navigator .tn-mode-toggle::before {
+	content: '';
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Crect x='1' y='2' width='7' height='7' rx='1' fill='none' stroke='%23446' stroke-width='1.6'/%3E%3Crect x='1' y='11' width='7' height='7' rx='1' fill='none' stroke='%23446' stroke-width='1.6'/%3E%3Cline x1='11' y1='5.5' x2='19' y2='5.5' stroke='%23446' stroke-width='1.6' stroke-linecap='round'/%3E%3Cline x1='11' y1='14.5' x2='19' y2='14.5' stroke='%23446' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+div.dashboard-widget-tree-navigator .tn-mode-toggle:hover {
+	background: #e0ecf8;
+	border-color: #7aaace;
+}
+
+div.dashboard-widget-tree-navigator .tn-mode-toggle.tn-active {
+	background: #cfe6fb;
+	border-color: #4a90c2;
+}
+
+div.dashboard-widget-tree-navigator .tn-mode-toggle.tn-active::before {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Crect x='1' y='2' width='7' height='7' rx='1' fill='%234a90c2' stroke='%23225588' stroke-width='1.4'/%3E%3Cpolyline points='2.3,5.5 4,7.2 7,3.5' fill='none' stroke='%23fff' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='1' y='11' width='7' height='7' rx='1' fill='%234a90c2' stroke='%23225588' stroke-width='1.4'/%3E%3Cpolyline points='2.3,14.5 4,16.2 7,12.5' fill='none' stroke='%23fff' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline x1='11' y1='5.5' x2='19' y2='5.5' stroke='%234a90c2' stroke-width='1.6' stroke-linecap='round'/%3E%3Cline x1='11' y1='14.5' x2='19' y2='14.5' stroke='%234a90c2' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* ── Multi-select checkboxes (hidden unless multi-select mode is active) ───── */
+
+div.dashboard-widget-tree-navigator .tn-checkbox {
+	display: none;
+	width: 13px;
+	height: 13px;
+	flex-shrink: 0;
+	margin: 0;
+	cursor: pointer;
+}
+
+div.dashboard-widget-tree-navigator .tn-container.tn-multi-mode .tn-checkbox {
+	display: inline-block;
+}
+
 /* ── Search area ──────────────────────────────────────────────────────────── */
 
 div.dashboard-widget-tree-navigator .tn-search-area {
-	flex: 0 0 auto;
-	padding: 4px 6px 0;
+	flex: 1 1 auto;
+	min-width: 0;
 	position: relative;
 	text-align: right;
 }

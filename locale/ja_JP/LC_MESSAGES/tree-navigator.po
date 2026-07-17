@@ -59,3 +59,9 @@ msgstr "所属ホスト：{0}台"
 
 msgid "and {0} more"
 msgstr "他 {0} 件"
+
+msgid "Switch to single-select"
+msgstr "シングル選択に切り替え"
+
+msgid "Switch to multi-select"
+msgstr "マルチ選択に切り替え"

@@ -59,3 +59,9 @@ msgstr ""
 
 msgid "and {0} more"
 msgstr ""
+
+msgid "Switch to single-select"
+msgstr ""
+
+msgid "Switch to multi-select"
+msgstr ""
