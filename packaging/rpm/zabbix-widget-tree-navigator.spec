@@ -1,6 +1,6 @@
 %define _rpmfilename %%{NAME}-%%{VERSION}%{dist}.%%{ARCH}.rpm
 Name:           zabbix-widget-tree-navigator
-Version:        1.3.0
+Version:        1.3.1
 Release:        0
 Summary:        Tree Navigator widget for Zabbix dashboard
 License:        Proprietary
@@ -22,12 +22,14 @@ Features:
 - Folder icon hover shows recursive host count (including sub-groups)
 - OS-type host icons (server / linux / windows / network / virtual)
 - Clicking a group name broadcasts _hostgroupid + _hostgroupids
-- Clicking a host name broadcasts _hostid only (clears any previously broadcast
-  _hostgroupid)
+- Clicking a host name broadcasts _hostid + _hostids as [hostid] (clears any
+  previously broadcast _hostgroupid)
 - Clicking a host icon shows the Zabbix host context menu
 - Single/multi-select toggle in the widget toolbar: multi-select mode shows
   checkboxes next to host and host group icons, broadcasting the checked
-  hostids/groupids immediately on every change
+  hostids/groupids (_hostid + _hostids, _hostgroupid + _hostgroupids)
+  immediately on every change; checkboxes for the same host/group id stay in
+  sync even when the id appears more than once in the tree
 - Japanese and English locale support
 
 %prep
@@ -86,6 +88,17 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Sat Jul 18 2026 claude <noreply> - 1.3.1-0
+- v1.3.0コードレビュー対応（Issue #3）2点
+  1. 同一ホストが複数グループに属する場合、片方のチェックボックスを操作しても
+     同じhostidを持つ他のチェックボックス表示が同期しない不具合を修正。
+     #onCheckboxToggle()で状態更新後に#applyMultiSelection()を呼び、
+     同一id・複数箇所のチェックボックス表示を内部Set・broadcast内容と一致させる
+  2. manifest.jsonのwidget.outに_hostidsを追加し、_hostid/_hostidsを常に同じ
+     内容（シングル選択時は[選択ホストID]、マルチ選択時はチェック済み全ホストID、
+     未選択・モード切替時は空配列）で配信するよう修正。標準の複数ホスト入力
+     _hostidsを参照するウィジェットとも連携可能に
+
 * Fri Jul 17 2026 claude <noreply> - 1.3.0-0
 - ホスト・ホストグループのマルチセレクトに対応。ツールバーにシングル/マルチ選択切替
   ボタンを追加し、マルチ選択時はホスト・ホストグループのアイコン左側にチェックボック

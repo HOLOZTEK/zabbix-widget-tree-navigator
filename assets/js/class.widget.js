@@ -6,18 +6,20 @@
  * Single-select mode (default): clicking a group name broadcasts _hostgroupid
  * (the group alone) and _hostgroupids (the group plus all real descendant
  * groups across the full Zabbix-wide hierarchy, regardless of the "recursive"
- * display-filter setting). Clicking a host name broadcasts _hostid only
- * (clears any previously broadcast _hostgroupid, so a single-host selection
- * is not widened back out to its parent group by widgets that OR
- * groupids/hostids together).
+ * display-filter setting). Clicking a host name broadcasts _hostid and
+ * _hostids as [hostid] (clears any previously broadcast _hostgroupid, so a
+ * single-host selection is not widened back out to its parent group by
+ * widgets that OR groupids/hostids together).
  *
  * Multi-select mode: toggled via the checkbox-icon button in the widget
  * toolbar. Checkboxes appear next to every host/group icon; hosts and groups
- * can be checked in any combination. _hostgroupid/_hostgroupids both carry
- * the set of checked groups' own IDs (no descendant expansion), and _hostid
- * carries the set of checked hosts. Every checkbox change re-broadcasts
- * immediately. Switching between single/multi mode clears the current
- * selection and broadcasts empty.
+ * can be checked in any combination. A host that belongs to multiple groups
+ * gets one checkbox per occurrence in the tree; all of them are kept in sync
+ * with the underlying Set on every toggle. _hostgroupid/_hostgroupids both
+ * carry the set of checked groups' own IDs (no descendant expansion), and
+ * _hostid/_hostids both carry the set of checked hosts. Every checkbox
+ * change re-broadcasts immediately. Switching between single/multi mode
+ * clears the current selection and broadcasts empty.
  *
  * Clicking a host icon shows the Zabbix host menu (data-menu-popup).
  * The search box filters hosts by partial name match with Next/Prev
@@ -543,7 +545,8 @@ class CWidgetTreeNavigator extends CWidget {
 		this.broadcast({
 			[CWidgetsData.DATA_TYPE_HOST_GROUP_ID]:  [groupid],
 			[CWidgetsData.DATA_TYPE_HOST_GROUP_IDS]: broadcast_groupids,
-			[CWidgetsData.DATA_TYPE_HOST_ID]:        []
+			[CWidgetsData.DATA_TYPE_HOST_ID]:        [],
+			[CWidgetsData.DATA_TYPE_HOST_IDS]:       []
 		});
 	}
 
@@ -561,7 +564,8 @@ class CWidgetTreeNavigator extends CWidget {
 		this.broadcast({
 			[CWidgetsData.DATA_TYPE_HOST_GROUP_ID]:  [],
 			[CWidgetsData.DATA_TYPE_HOST_GROUP_IDS]: [],
-			[CWidgetsData.DATA_TYPE_HOST_ID]:        [hostid]
+			[CWidgetsData.DATA_TYPE_HOST_ID]:        [hostid],
+			[CWidgetsData.DATA_TYPE_HOST_IDS]:       [hostid]
 		});
 	}
 
@@ -590,7 +594,8 @@ class CWidgetTreeNavigator extends CWidget {
 		this.broadcast({
 			[CWidgetsData.DATA_TYPE_HOST_GROUP_ID]:  [],
 			[CWidgetsData.DATA_TYPE_HOST_GROUP_IDS]: [],
-			[CWidgetsData.DATA_TYPE_HOST_ID]:        []
+			[CWidgetsData.DATA_TYPE_HOST_ID]:        [],
+			[CWidgetsData.DATA_TYPE_HOST_IDS]:       []
 		});
 	}
 
@@ -616,16 +621,23 @@ class CWidgetTreeNavigator extends CWidget {
 			}
 		}
 
+		// A host can appear under multiple groups, so the same hostid may have more
+		// than one checkbox in the tree; re-sync all of them against the Set state
+		// to keep display and broadcast content consistent.
+		this.#applyMultiSelection();
+
 		this.#broadcastMultiSelection();
 	}
 
 	#broadcastMultiSelection() {
 		const groupids = Array.from(this.#checked_groupids);
+		const hostids   = Array.from(this.#checked_hostids);
 
 		this.broadcast({
 			[CWidgetsData.DATA_TYPE_HOST_GROUP_ID]:  groupids,
 			[CWidgetsData.DATA_TYPE_HOST_GROUP_IDS]: groupids,
-			[CWidgetsData.DATA_TYPE_HOST_ID]:        Array.from(this.#checked_hostids)
+			[CWidgetsData.DATA_TYPE_HOST_ID]:        hostids,
+			[CWidgetsData.DATA_TYPE_HOST_IDS]:       hostids
 		});
 	}
 
