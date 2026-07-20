@@ -73,10 +73,15 @@ Zabbix ダッシュボードウィジェット — ホストグループとホ�
 
 ## ドキュメント
 
-- [CHANGELOG](CHANGELOG.md)
-- [CONTRIBUTING](CONTRIBUTING.md)
-- [SECURITY](SECURITY.md)
+- [CHANGELOG](docs/CHANGELOG.md)
+- [CONTRIBUTING](docs/CONTRIBUTING.md)
+- [SECURITY](docs/SECURITY.md)
 - [LICENSE](LICENSE)
+
+## 構成
+
+Zabbix モジュールとして読み込まれるファイルはリポジトリ直下と `actions/`, `assets/`,
+`includes/`, `views/` に配置しています。公開・運用向けの補助文書は `docs/` にまとめています。
 
 ## バージョン
 
