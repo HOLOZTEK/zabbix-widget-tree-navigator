@@ -84,4 +84,4 @@ Zabbix ダッシュボードウィジェット — ホストグループとホ�
 
 ## ライセンス
 
-現行のライセンス条件は [LICENSE](LICENSE) を参照してください。
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.

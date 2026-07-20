@@ -19,7 +19,8 @@ Use this checklist before publishing `zabbix-widget-tree-navigator` from staging
 ## Documentation
 
 - Confirm README, CHANGELOG, CONTRIBUTING, SECURITY, and LICENSE are present.
-- Confirm the license choice is intentional and approved for public distribution.
+- Confirm the license is MIT License for free public widget distribution.
+- Confirm the copyright holder name is appropriate for public release.
 
 ## Release
 
