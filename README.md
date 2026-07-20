@@ -53,6 +53,8 @@ Zabbix ダッシュボードウィジェット — ホストグループとホ�
 
 ## インストール
 
+### RPM からインストール
+
 1. RPM をダウンロードし、Zabbix サーバーにインストール
    ```
    rpm -Uvh zabbix-widget-tree-navigator-*.rpm
@@ -60,6 +62,26 @@ Zabbix ダッシュボードウィジェット — ホストグループとホ�
 2. Zabbix 管理画面 → 管理 → モジュール からモジュールを有効化
 3. ダッシュボードにウィジェットを追加
 
+### ソースから配置
+
+1. このリポジトリの内容を Zabbix フロントエンドのモジュールディレクトリへ配置
+   ```
+   /usr/share/zabbix/modules/tree-navigator
+   ```
+2. ファイル所有者と権限を Zabbix フロントエンドから読み取れる状態に設定
+3. Zabbix 管理画面 → 管理 → モジュール からモジュールを有効化
+
+## ドキュメント
+
+- [CHANGELOG](CHANGELOG.md)
+- [CONTRIBUTING](CONTRIBUTING.md)
+- [SECURITY](SECURITY.md)
+- [LICENSE](LICENSE)
+
 ## バージョン
 
 最新バージョン: **v1.3.1**
+
+## ライセンス
+
+現行のライセンス条件は [LICENSE](LICENSE) を参照してください。
