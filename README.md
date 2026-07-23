@@ -2,6 +2,12 @@
 
 Zabbix ダッシュボードウィジェット — ホストグループとホストを折りたたみ可能なディレクトリツリー形式で表示し、選択したグループ・ホストを他のウィジェットへブロードキャストするナビゲーターです。
 
+## Preview
+
+<img src="screenshots/tree-navigator-view.png" width="750" alt="Tree Navigator widget showing host groups and hosts in a collapsible tree" />
+
+<img src="screenshots/tree-navigator-settings.png" width="520" alt="Tree Navigator widget configuration form" />
+
 ## 機能
 
 - ホストグループとホストをツリー構造で一覧表示
@@ -76,6 +82,7 @@ Zabbix ダッシュボードウィジェット — ホストグループとホ�
 - [CHANGELOG](docs/CHANGELOG.md)
 - [CONTRIBUTING](docs/CONTRIBUTING.md)
 - [SECURITY](docs/SECURITY.md)
+- [Screenshot Guide](docs/screenshot-guide.md)
 - [LICENSE](LICENSE)
 
 ## 構成

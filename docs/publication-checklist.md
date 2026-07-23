@@ -19,7 +19,9 @@ Use this checklist before publishing `zabbix-widget-tree-navigator` from staging
 ## Documentation
 
 - Confirm README and LICENSE are present in the repository root.
-- Confirm CHANGELOG, CONTRIBUTING, SECURITY, and the publication checklist are under `docs/`.
+- Confirm CHANGELOG, CONTRIBUTING, SECURITY, screenshot guide, and the publication checklist are under `docs/`.
+- Confirm README preview images are present under `screenshots/`.
+- Confirm screenshots contain no hostnames, IP addresses, organization names, alerts, metrics, credentials, or internal URLs.
 - Confirm the license is MIT License for free public widget distribution.
 - Confirm the copyright holder name is appropriate for public release.
 
