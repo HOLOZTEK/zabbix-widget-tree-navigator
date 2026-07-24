@@ -1,6 +1,8 @@
 # zabbix-widget-tree-navigator
 
-Zabbix ダッシュボードウィジェット — ホストグループとホストを折りたたみ可能なディレクトリツリー形式で表示し、選択したグループ・ホストを他のウィジェットへブロードキャストするナビゲーターです。
+[English](README.md) | [日本語](README.ja.md)
+
+Tree Navigator is a Zabbix dashboard widget that displays host groups and hosts as a collapsible directory tree. Selecting a group or host broadcasts the selected IDs to other dashboard widgets.
 
 ## Preview
 
@@ -8,76 +10,68 @@ Zabbix ダッシュボードウィジェット — ホストグループとホ�
 
 <img src="screenshots/tree-navigator-settings.png" width="520" alt="Tree Navigator widget configuration form" />
 
-## 機能
+## Features
 
-- ホストグループとホストをツリー構造で一覧表示
-- ノードのクリックでグループ ID / ホスト ID を他のウィジェットへ配信（ブロードキャスト）
-- 表示モード切替：ホストグループのみ / ホストグループ＋ホスト
-- ルート名・初期展開深さ・対象グループを設定可能
-- 下位グループを再帰的に含めるオプション
-- ホバーツールチップにホスト数を表示するオプション
-- キーワード検索による候補表示と該当ホストへのジャンプ
-- シングル / マルチ選択切替（ツールバーのトグルボタン）。マルチ選択時はホスト・ホスト
-  グループのアイコン左側にチェックボックスが表示され、チェックしたホスト・グループの
-  ID を都度即時ブロードキャスト（ホスト・グループの混在チェック可、親子連動なし）
-- 日本語 / 英語対応
+- Displays host groups and hosts in a collapsible tree
+- Broadcasts selected host group IDs and host IDs to other widgets
+- Supports host-group-only and host-group-plus-host display modes
+- Configurable root label, initial expansion depth, and target host groups
+- Optional recursive sub-group inclusion
+- Optional host-count tooltip on hover
+- Search box for finding and jumping to matching hosts
+- Single-select and multi-select modes. In multi-select mode, checkboxes appear beside host and host group icons, and checked IDs are broadcast immediately.
+- Japanese and English UI support
 
-## 設定項目
+## Settings
 
-| 項目 | 説明 |
-|------|------|
-| Root name | ツリー最上位に表示するラベル |
-| Display mode | ホストグループのみ / ホストグループ＋ホスト |
-| Host groups | 表示対象グループを絞り込む（未指定で全グループ） |
-| Initial depth | 初期展開する階層深さ（0〜10、デフォルト 1） |
-| Include sub-groups | 下位グループを再帰的に含める |
-| Show host count in tooltip | ホバー時にホスト数を表示 |
+| Setting | Description |
+| ------- | ----------- |
+| Root name | Label shown at the top of the tree |
+| Display mode | Host groups only, or host groups and hosts |
+| Host groups | Limit the tree to selected groups; empty means all groups |
+| Initial depth | Initial expansion depth, from 0 to 10; default is 1 |
+| Include sub-groups | Recursively include sub-groups |
+| Show host count in tooltip | Show host counts while hovering over groups |
 
-## 出力（ブロードキャスト）
+## Broadcast Outputs
 
-- 選択したホストグループ ID（単一）
-- 選択したホストグループ ID（複数）
-- 選択したホスト ID（単一）
-- 選択したホスト ID（複数）
+- Selected host group ID
+- Selected host group IDs
+- Selected host ID
+- Selected host IDs
 
-シングル選択時は、選択したグループ自身のIDに加え、`Include sub-groups` の設定に関わらず
-全階層ベースの子孫グループ ID を配信します（`Include sub-groups` は子孫ノードの自動展開
-という表示上の挙動のみを制御します）。
+In single-select mode, selecting a group broadcasts the selected group ID and all descendant group IDs from the full group hierarchy, regardless of the `Include sub-groups` display setting.
 
-マルチ選択時は、チェックしたグループ自身の ID のみを配信します（子孫グループへの展開は
-行いません）。ホスト・グループのチェックボックスは混在可能で、チェック状態の変更ごとに
-即時ブロードキャストされます。
+In multi-select mode, checked groups broadcast only their own group IDs. Host and group checkboxes can be mixed, and every checkbox change broadcasts the current selection immediately.
 
-ホスト ID は、標準の Host navigator ウィジェット等との互換性のため、単一・複数どちらの
-出力にも同じ選択内容（シングル選択時は選択した1件、マルチ選択時はチェックした全件）を
-配信します。
+For compatibility with the standard Host navigator widget and related widgets, host selections are sent to both single and multiple host ID outputs.
 
-## 動作要件
+## Requirements
 
-- Zabbix 7.0 以上
-- PHP 8.0 以上
+- Zabbix 7.0 or later
+- PHP 8.0 or later
 
-## インストール
+## Installation
 
-### RPM からインストール
+### Install from RPM
 
-1. RPM をダウンロードし、Zabbix サーバーにインストール
-   ```
+1. Download the RPM package and install it on the Zabbix server.
+   ```bash
    rpm -Uvh zabbix-widget-tree-navigator-*.rpm
    ```
-2. Zabbix 管理画面 → 管理 → モジュール からモジュールを有効化
-3. ダッシュボードにウィジェットを追加
+2. In the Zabbix UI, enable the module from Administration -> Modules.
+3. Add the widget to a dashboard.
 
-### ソースから配置
+### Install from Source
 
-1. このリポジトリの内容を Zabbix フロントエンドのモジュールディレクトリへ配置
-   ```
+1. Place this repository under the Zabbix frontend modules directory.
+   ```text
    /usr/share/zabbix/modules/tree-navigator
    ```
-2. ファイル所有者と権限を Zabbix フロントエンドから読み取れる状態に設定
-3. Zabbix 管理画面 → 管理 → モジュール からモジュールを有効化
+2. Set ownership and permissions so the Zabbix frontend can read the files.
+3. In the Zabbix UI, enable the module from Administration -> Modules.
 
-## ドキュメント
+## Documentation
 
 - [CHANGELOG](docs/CHANGELOG.md)
 - [CONTRIBUTING](docs/CONTRIBUTING.md)
@@ -85,15 +79,14 @@ Zabbix ダッシュボードウィジェット — ホストグループとホ�
 - [Screenshot Guide](docs/screenshot-guide.md)
 - [LICENSE](LICENSE)
 
-## 構成
+## Repository Layout
 
-Zabbix モジュールとして読み込まれるファイルはリポジトリ直下と `actions/`, `assets/`,
-`includes/`, `views/` に配置しています。公開・運用向けの補助文書は `docs/` にまとめています。
+Files loaded as a Zabbix module are kept in the repository root and the `actions/`, `assets/`, `includes/`, and `views/` directories. Publication and maintenance documents are kept under `docs/`.
 
-## バージョン
+## Version
 
-最新バージョン: **v1.3.1**
+Latest version: **v1.3.1**
 
-## ライセンス
+## License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.

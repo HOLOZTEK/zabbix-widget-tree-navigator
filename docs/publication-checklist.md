@@ -19,6 +19,8 @@ Use this checklist before publishing `zabbix-widget-tree-navigator` from staging
 ## Documentation
 
 - Confirm README and LICENSE are present in the repository root.
+- Confirm `README.md` is the English default README and `README.ja.md` is the Japanese README.
+- Confirm both README files contain working language switch links.
 - Confirm CHANGELOG, CONTRIBUTING, SECURITY, screenshot guide, and the publication checklist are under `docs/`.
 - Confirm README preview images are present under `screenshots/`.
 - Confirm screenshots contain no hostnames, IP addresses, organization names, alerts, metrics, credentials, or internal URLs.
