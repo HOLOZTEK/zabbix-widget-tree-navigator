@@ -90,7 +90,7 @@ fi
 
 %changelog
 * Sat Aug 08 2026 claude <noreply> - 1.3.3-0
-- コードレビュー issue #4 対応: RPMの%installに views/widget.edit.js.php の配置が
+- コードレビュー issue #4 対応: RPMの%%installに views/widget.edit.js.php の配置が
   抜けており、v1.3.2のel9/el10 RPMいずれにも同ファイルが含まれていなかった不具合を
   修正。設定画面でwidget_tree_navigator_formが未定義となりカラーピッカー初期化
   （フォルダ文字色・ホスト文字色）が動作しない可能性があった
