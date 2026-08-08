@@ -178,14 +178,14 @@ div.dashboard-widget-tree-navigator .tn-root-icon {
 
 div.dashboard-widget-tree-navigator .tn-server-label {
 	font-weight: 600;
-	color: #223344;
+	color: var(--tn-folder-color, #223344);
 }
 
 /* ── Group label ──────────────────────────────────────────────────────────── */
 
 div.dashboard-widget-tree-navigator .tn-group-label {
 	font-size: 12px;
-	color: #333;
+	color: var(--tn-folder-color, #333);
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -252,7 +252,7 @@ div.dashboard-widget-tree-navigator .tn-host-type-icon-virtual {
 
 div.dashboard-widget-tree-navigator .tn-host-label {
 	font-size: 12px;
-	color: #444;
+	color: var(--tn-host-color, #444);
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;

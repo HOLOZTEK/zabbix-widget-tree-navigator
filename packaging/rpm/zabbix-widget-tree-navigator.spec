@@ -1,6 +1,6 @@
 %define _rpmfilename %%{NAME}-%%{VERSION}%{dist}.%%{ARCH}.rpm
 Name:           zabbix-widget-tree-navigator
-Version:        1.3.1
+Version:        1.3.2
 Release:        0
 Summary:        Tree Navigator widget for Zabbix dashboard
 License:        Proprietary
@@ -88,6 +88,14 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Sat Aug 08 2026 claude <noreply> - 1.3.2-0
+- フォルダ文字色（folder_font_color）・ホスト文字色（host_font_color）を設定画面から
+  個別に指定できるように追加。CWidgetFieldColorで2フィールドを新設し、CSSカスタム
+  プロパティ（--tn-folder-color / --tn-host-color）としてサーバー側でウィジェット
+  ラッパーに注入。ルートの「Server」ラベルにもフォルダ文字色を適用
+- 設定画面のカラーピッカーUI初期化用にwidget.edit.js.phpを新規追加
+- manifest.jsonのバージョン表記ずれ（デプロイ済み1.3.0 vs 実体1.3.1相当）を本リリースで解消
+
 * Sat Jul 18 2026 claude <noreply> - 1.3.1-0
 - v1.3.0コードレビュー対応（Issue #3）2点
   1. 同一ホストが複数グループに属する場合、片方のチェックボックスを操作しても

@@ -14,6 +14,8 @@ $recursive       = (bool) $data['recursive'];
 $show_host_count = (bool) $data['show_host_count'];
 $initial_depth   = (int)  $data['initial_depth'];
 $root_name       = $data['root_name'];
+$folder_font_color = $data['folder_font_color'];
+$host_font_color   = $data['host_font_color'];
 
 $view = new CWidgetView($data);
 
@@ -176,7 +178,10 @@ $wrapper = (new CDiv())
 	->setAttribute('data-label-host-count',    _tn('Hosts: {0}'))
 	->setAttribute('data-label-more-results',  _tn('and {0} more'))
 	->setAttribute('data-label-multi-on',      _tn('Switch to single-select'))
-	->setAttribute('data-label-multi-off',     _tn('Switch to multi-select'));
+	->setAttribute('data-label-multi-off',     _tn('Switch to multi-select'))
+	->setAttribute('style',
+		'--tn-folder-color: ' . $folder_font_color . '; --tn-host-color: ' . $host_font_color . ';'
+	);
 
 // ── Toolbar: multi-select toggle (always) + search area (show_mode = 1 only) ──
 
