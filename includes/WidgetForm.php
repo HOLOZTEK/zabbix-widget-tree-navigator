@@ -5,6 +5,7 @@ namespace Modules\TreeNavigator\Includes;
 use Zabbix\Widgets\CWidgetForm;
 use Zabbix\Widgets\Fields\{
 	CWidgetFieldCheckBox,
+	CWidgetFieldColor,
 	CWidgetFieldIntegerBox,
 	CWidgetFieldMultiSelectGroup,
 	CWidgetFieldRadioButtonList,
@@ -39,6 +40,14 @@ class WidgetForm extends CWidgetForm {
 			->addField(
 				(new CWidgetFieldCheckBox('show_host_count', _tn('Host count'), _tn('Show host count in tooltip')))
 					->setDefault(1)
+			)
+			->addField(
+				(new CWidgetFieldColor('folder_font_color', _tn('Folder text color')))
+					->setDefault('333333')
+			)
+			->addField(
+				(new CWidgetFieldColor('host_font_color', _tn('Host text color')))
+					->setDefault('444444')
 			);
 	}
 }

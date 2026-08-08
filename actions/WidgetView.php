@@ -9,13 +9,15 @@ use API,
 class WidgetView extends CControllerDashboardWidgetView {
 
 	protected function doAction(): void {
-		$show_mode       = (int)  ($this->fields_values['show_mode']       ?? 1);
-		$recursive       = (bool) ($this->fields_values['recursive']       ?? true);
-		$show_host_count = (bool) ($this->fields_values['show_host_count'] ?? true);
-		$initial_depth   = (int)  ($this->fields_values['initial_depth']   ?? 1);
-		$groupids_filter = $this->fields_values['groupids'] ?? [];
-		$groupids_filter = $groupids_filter ?: null;
-		$root_name       = trim($this->fields_values['root_name'] ?? '');
+		$show_mode         = (int)  ($this->fields_values['show_mode']         ?? 1);
+		$recursive         = (bool) ($this->fields_values['recursive']         ?? true);
+		$show_host_count   = (bool) ($this->fields_values['show_host_count']   ?? true);
+		$initial_depth     = (int)  ($this->fields_values['initial_depth']     ?? 1);
+		$groupids_filter   = $this->fields_values['groupids'] ?? [];
+		$groupids_filter   = $groupids_filter ?: null;
+		$root_name         = trim($this->fields_values['root_name'] ?? '');
+		$folder_font_color = '#' . ($this->fields_values['folder_font_color'] ?: '333333');
+		$host_font_color   = '#' . ($this->fields_values['host_font_color']   ?: '444444');
 
 		// Normalize groupids to string for strict comparison with API-returned groupid values
 		if ($groupids_filter !== null) {
@@ -34,14 +36,16 @@ class WidgetView extends CControllerDashboardWidgetView {
 		]);
 
 		$no_data = [
-			'name'            => $this->getInput('name', $this->widget->getDefaultName()),
-			'tree'            => ['nodes' => [], 'roots' => []],
-			'show_mode'       => $show_mode,
-			'recursive'       => $recursive,
-			'show_host_count' => $show_host_count,
-			'initial_depth'   => $initial_depth,
-			'root_name'       => $root_name,
-			'user'            => ['debug_mode' => $this->getDebugMode()]
+			'name'              => $this->getInput('name', $this->widget->getDefaultName()),
+			'tree'              => ['nodes' => [], 'roots' => []],
+			'show_mode'         => $show_mode,
+			'recursive'         => $recursive,
+			'show_host_count'   => $show_host_count,
+			'initial_depth'     => $initial_depth,
+			'root_name'         => $root_name,
+			'folder_font_color' => $folder_font_color,
+			'host_font_color'   => $host_font_color,
+			'user'              => ['debug_mode' => $this->getDebugMode()]
 		];
 
 		if (!$all_groups) {
@@ -121,14 +125,16 @@ class WidgetView extends CControllerDashboardWidgetView {
 		$tree = $this->buildTree($relevant_groups, $all_groups, $host_count_by_group, $hosts_by_group, $hostids_by_group);
 
 		$this->setResponse(new CControllerResponseData([
-			'name'            => $this->getInput('name', $this->widget->getDefaultName()),
-			'tree'            => $tree,
-			'show_mode'       => $show_mode,
-			'recursive'       => $recursive,
-			'show_host_count' => $show_host_count,
-			'initial_depth'   => $initial_depth,
-			'root_name'       => $root_name,
-			'user'            => ['debug_mode' => $this->getDebugMode()]
+			'name'              => $this->getInput('name', $this->widget->getDefaultName()),
+			'tree'              => $tree,
+			'show_mode'         => $show_mode,
+			'recursive'         => $recursive,
+			'show_host_count'   => $show_host_count,
+			'initial_depth'     => $initial_depth,
+			'root_name'         => $root_name,
+			'folder_font_color' => $folder_font_color,
+			'host_font_color'   => $host_font_color,
+			'user'              => ['debug_mode' => $this->getDebugMode()]
 		]));
 	}
 

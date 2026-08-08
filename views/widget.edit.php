@@ -27,4 +27,12 @@
 	->addField(
 		new CWidgetFieldCheckBoxView($data['fields']['show_host_count'])
 	)
+	->addField(
+		new CWidgetFieldColorView($data['fields']['folder_font_color'])
+	)
+	->addField(
+		new CWidgetFieldColorView($data['fields']['host_font_color'])
+	)
+	->includeJsFile('widget.edit.js.php')
+	->addJavaScript('widget_tree_navigator_form.init();')
 	->show();

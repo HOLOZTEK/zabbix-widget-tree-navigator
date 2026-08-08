@@ -65,3 +65,9 @@ msgstr ""
 
 msgid "Switch to multi-select"
 msgstr ""
+
+msgid "Folder text color"
+msgstr ""
+
+msgid "Host text color"
+msgstr ""
