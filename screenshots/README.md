@@ -12,5 +12,6 @@ Optional files:
 - `tree-navigator-search.png`
 - `tree-navigator-multiselect.png`
 - `tree-navigator-broadcast.png`
+- `tree-navigator-colors.png`
 
 See `../docs/screenshot-guide.md` for capture and sanitizing guidance.

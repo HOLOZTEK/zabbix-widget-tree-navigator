@@ -10,6 +10,24 @@ Tree Navigator is a Zabbix dashboard widget that displays host groups and hosts 
 
 <img src="screenshots/tree-navigator-settings.png" width="520" alt="Tree Navigator widget configuration form" />
 
+## Feature Highlights
+
+### Navigate Host Groups as a Tree
+
+Tree Navigator turns Zabbix host groups into a compact, collapsible tree. Operators can browse nested host groups, expand only the areas they need, and keep the dashboard focused even when the monitored environment has many groups.
+
+### Drill Down to Hosts
+
+The widget can show hosts under each host group, with host icons and optional host-count tooltips. The search box helps jump to a matching host without manually expanding every branch.
+
+### Drive Other Dashboard Widgets
+
+Selecting a host group or host broadcasts dynamic parameters to other widgets. Single-select mode is useful for quick filtering, while multi-select mode lets operators check several hosts or groups and broadcast the combined selection immediately.
+
+### Customize the View
+
+The configuration form controls the root label, display mode, target host groups, initial expansion depth, recursive sub-group behavior, host-count tooltips, and separate folder/host text colors.
+
 ## Features
 
 - Displays host groups and hosts in a collapsible tree
@@ -18,6 +36,7 @@ Tree Navigator is a Zabbix dashboard widget that displays host groups and hosts 
 - Configurable root label, initial expansion depth, and target host groups
 - Optional recursive sub-group inclusion
 - Optional host-count tooltip on hover
+- Separate folder and host text color settings
 - Search box for finding and jumping to matching hosts
 - Single-select and multi-select modes. In multi-select mode, checkboxes appear beside host and host group icons, and checked IDs are broadcast immediately.
 - Japanese and English UI support
@@ -32,6 +51,8 @@ Tree Navigator is a Zabbix dashboard widget that displays host groups and hosts 
 | Initial depth | Initial expansion depth, from 0 to 10; default is 1 |
 | Include sub-groups | Recursively include sub-groups |
 | Show host count in tooltip | Show host counts while hovering over groups |
+| Folder text color | Text color for host group and root labels |
+| Host text color | Text color for host labels |
 
 ## Broadcast Outputs
 
@@ -85,7 +106,7 @@ Files loaded as a Zabbix module are kept in the repository root and the `actions
 
 ## Version
 
-Latest version: **v1.3.1**
+Latest version: **v1.3.3**
 
 ## License
 

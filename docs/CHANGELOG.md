@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## v1.3.3 - 2026-08-08
+
+- Fixed the RPM packaging rule so `views/widget.edit.js.php` is included.
+- Ensured the color picker initializer required by the widget settings form is shipped in RPM packages.
+
+## v1.3.2 - 2026-08-08
+
+- Added separate folder and host text color settings.
+- Added `folder_font_color` and `host_font_color` widget fields.
+- Applied configured colors through CSS custom properties.
+- Added the widget settings JavaScript initializer for color picker fields.
+- Updated `manifest.json` version metadata.
+
 ## v1.3.1 - 2026-07-18
 
 - Fixed multi-select checkbox synchronization.

@@ -3,7 +3,7 @@ Name:           zabbix-widget-tree-navigator
 Version:        1.3.3
 Release:        0
 Summary:        Tree Navigator widget for Zabbix dashboard
-License:        Proprietary
+License:        MIT
 BuildArch:      noarch
 
 %description
@@ -165,7 +165,7 @@ fi
 - スクロール位置保存・復元を専用メソッドに分離（onClearContents/setContentsでも実施）
 - イベントリスナーの二重登録対策を強化（null判定ガード・解除後にnullリセット）
 - specファイルをpackaging/rpm配下に一本化（ルート直下のspec削除）
-- specのLicenseをProprietaryに修正
+- specのLicenseメタデータを当時の配布方針に合わせて修正
 - initial_depthにsetFieldHintで説明文を追加
 - ツールチップCSSクラスをtree-navigator-tooltipに変更
 
