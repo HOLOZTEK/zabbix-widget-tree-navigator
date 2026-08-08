@@ -1,6 +1,6 @@
 %define _rpmfilename %%{NAME}-%%{VERSION}%{dist}.%%{ARCH}.rpm
 Name:           zabbix-widget-tree-navigator
-Version:        1.3.2
+Version:        1.3.3
 Release:        0
 Summary:        Tree Navigator widget for Zabbix dashboard
 License:        Proprietary
@@ -58,6 +58,7 @@ install -m 644 ${SRCDIR}/locale/ja_JP/LC_MESSAGES/tree-navigator.po            $
 install -m 644 ${SRCDIR}/locale/ja_JP/LC_MESSAGES/tree-navigator.mo            ${STAGEDIR}/locale/ja_JP/LC_MESSAGES/
 install -m 644 ${SRCDIR}/locale/en_US/LC_MESSAGES/tree-navigator.po            ${STAGEDIR}/locale/en_US/LC_MESSAGES/
 install -m 644 ${SRCDIR}/locale/en_US/LC_MESSAGES/tree-navigator.mo            ${STAGEDIR}/locale/en_US/LC_MESSAGES/
+install -m 644 ${SRCDIR}/views/widget.edit.js.php                               ${STAGEDIR}/views/
 install -m 644 ${SRCDIR}/views/widget.edit.php                                  ${STAGEDIR}/views/
 install -m 644 ${SRCDIR}/views/widget.view.php                                  ${STAGEDIR}/views/
 
@@ -88,6 +89,12 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Sat Aug 08 2026 claude <noreply> - 1.3.3-0
+- コードレビュー issue #4 対応: RPMの%installに views/widget.edit.js.php の配置が
+  抜けており、v1.3.2のel9/el10 RPMいずれにも同ファイルが含まれていなかった不具合を
+  修正。設定画面でwidget_tree_navigator_formが未定義となりカラーピッカー初期化
+  （フォルダ文字色・ホスト文字色）が動作しない可能性があった
+
 * Sat Aug 08 2026 claude <noreply> - 1.3.2-0
 - フォルダ文字色（folder_font_color）・ホスト文字色（host_font_color）を設定画面から
   個別に指定できるように追加。CWidgetFieldColorで2フィールドを新設し、CSSカスタム
