@@ -6,9 +6,29 @@ Zabbix ダッシュボードウィジェット — ホストグループとホ�
 
 ## Preview
 
-<img src="screenshots/tree-navigator-view.png" width="750" alt="ホストグループとホストを折りたたみ可能なツリーで表示する Tree Navigator ウィジェット" />
+### シングル選択: グループ
+
+<img src="screenshots/tree-navigator-single-group.png" width="750" alt="シングル選択のグループモードで表示した Tree Navigator ウィジェット" />
+
+グループモードは、ダッシュボードをホストグループ単位で絞り込みたい場合に使います。グループをクリックすると、選択したグループと配下グループの ID をブロードキャストし、マップ、グラフ、その他のパネルを選択した階層に連動できます。
+
+### シングル選択: グループ＋ホスト
+
+<img src="screenshots/tree-navigator-single-group-host.png" width="750" alt="シングル選択のグループ＋ホストモードで表示した Tree Navigator ウィジェット" />
+
+グループ配下のホストまでたどりたい場合は、グループ＋ホストモードを使います。ホストを選択するとホスト ID を、グループを選択するとホストグループ ID をブロードキャストするため、広い単位の絞り込みと個別ホストの絞り込みを同じウィジェットで扱えます。
+
+### マルチ選択: グループ＋ホスト
+
+<img src="screenshots/tree-navigator-multi-group-host.png" width="750" alt="マルチ選択のグループ＋ホストモードで表示した Tree Navigator ウィジェット" />
+
+複数のグループやホストをまとめて連携したい場合は、マルチ選択モードを使います。チェックしたホストやグループは即時にブロードキャストされ、同じホストやグループがツリー内に複数表示される場合もチェック状態が同期されます。
+
+### 設定画面
 
 <img src="screenshots/tree-navigator-settings.png" width="520" alt="Tree Navigator ウィジェットの設定フォーム" />
+
+設定画面では、ツリーのルート名、表示モード、対象グループ、初期展開深さ、下位グループの扱い、ホスト数ツールチップ、フォルダ文字色、ホスト文字色を調整できます。
 
 ## 機能ハイライト
 
