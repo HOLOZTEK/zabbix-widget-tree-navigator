@@ -18,6 +18,12 @@ Use host group mode when the dashboard should act as a group navigator. Clicking
 
 Use host and group mode when operators need to drill from a group down to individual hosts. Selecting a host broadcasts host IDs, while selecting a group broadcasts host group IDs, making the same widget useful for both broad and focused dashboard filtering.
 
+### Host Search
+
+<img src="screenshots/tree-navigator-search.png" width="750" alt="Tree Navigator widget search box showing host matches" />
+
+Use the search box to find a host by keyword and jump directly to the matching node. Matching hosts are shown as candidates, and the tree opens the necessary parent groups so operators can move through large group hierarchies without manual expansion.
+
 ### Multi-Select: Host Groups and Hosts
 
 <img src="screenshots/tree-navigator-multi-group-host.png" width="750" alt="Tree Navigator widget in multi-select host group and host mode" />

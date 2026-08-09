@@ -8,6 +8,7 @@ Use sanitized screenshots from a demo Zabbix environment. Do not use production 
 | ---- | ------- | -------------- |
 | `screenshots/tree-navigator-single-group.png` | Single-select host group mode | 1200 x 700 or similar |
 | `screenshots/tree-navigator-single-group-host.png` | Single-select host group and host mode | 1200 x 700 or similar |
+| `screenshots/tree-navigator-search.png` | Host search with sanitized match candidates | 1200 x 700 or similar |
 | `screenshots/tree-navigator-multi-group-host.png` | Multi-select host group and host mode | 1200 x 700 or similar |
 | `screenshots/tree-navigator-settings.png` | Widget configuration form showing the key options | 900 x 650 or similar |
 
@@ -15,7 +16,6 @@ Use sanitized screenshots from a demo Zabbix environment. Do not use production 
 
 | File | Purpose |
 | ---- | ------- |
-| `screenshots/tree-navigator-search.png` | Search box with a sanitized host match |
 | `screenshots/tree-navigator-broadcast.png` | Dashboard example showing another widget reacting to selection |
 | `screenshots/tree-navigator-colors.png` | Settings or widget view showing separate folder and host text colors |
 
@@ -38,6 +38,7 @@ Use these captions as README text or release notes when the matching screenshots
 - Use demo host groups such as `Datacenter A`, `Linux Servers`, `Network Devices`, and `Applications`.
 - Use demo host names such as `web-01`, `db-01`, `router-01`, and `app-01`.
 - Capture the three widget mode screenshots from the same demo dashboard and with similar crop boundaries.
+- In the search screenshot, show the search box with sanitized host candidates and one highlighted or selected match.
 - In the multi-select screenshot, check at least two demo entries so the checkbox behavior is visible.
 - Remove or crop out browser address bars, usernames, internal URLs, IP addresses, alerts, and real metric values.
 - Avoid showing customer names, organization names, environment names, inventory values, or production dashboard titles.
@@ -46,4 +47,4 @@ Use these captions as README text or release notes when the matching screenshots
 
 ## README Behavior
 
-The README already references the four required image files. After the PNG files are added to `screenshots/`, GitHub and Gitea will render them automatically.
+The README already references the five required image files. After the PNG files are added to `screenshots/`, GitHub and Gitea will render them automatically.

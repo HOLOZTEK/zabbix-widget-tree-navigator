@@ -22,8 +22,8 @@ Use this checklist before publishing `zabbix-widget-tree-navigator` from staging
 - Confirm `README.md` is the English default README and `README.ja.md` is the Japanese README.
 - Confirm both README files contain working language switch links.
 - Confirm CHANGELOG, CONTRIBUTING, SECURITY, screenshot guide, and the publication checklist are under `docs/`.
-- Confirm the four required README preview images are present under `screenshots/`.
-- Confirm the required screenshots cover single-select group mode, single-select group-and-host mode, multi-select group-and-host mode, and the settings form.
+- Confirm the five required README preview images are present under `screenshots/`.
+- Confirm the required screenshots cover single-select group mode, single-select group-and-host mode, host search, multi-select group-and-host mode, and the settings form.
 - Confirm screenshots contain no hostnames, IP addresses, organization names, alerts, metrics, credentials, or internal URLs.
 - Confirm the license is MIT License for free public widget distribution.
 - Confirm the copyright holder name is appropriate for public release.
