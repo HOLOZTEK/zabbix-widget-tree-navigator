@@ -9,6 +9,8 @@ Required files:
 - `tree-navigator-search.png`
 - `tree-navigator-multi-group-host.png`
 - `tree-navigator-settings.png`
+- `tree-navigator-settings-ja.png`
+- `tree-navigator-dashboard-example.png`
 
 Optional files:
 

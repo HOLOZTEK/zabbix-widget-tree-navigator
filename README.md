@@ -36,6 +36,12 @@ Use multi-select mode when several groups or hosts should drive the dashboard to
 
 The settings form controls the tree label, display mode, target groups, expansion depth, recursive behavior, host-count tooltip, and separate folder and host text colors.
 
+## Dashboard Integration Example
+
+<img src="screenshots/tree-navigator-dashboard-example.png" width="750" alt="Tree Navigator driving other Zabbix dashboard widgets" />
+
+Tree Navigator can be used as a dashboard navigation control. Selecting a group or host updates linked widgets through Zabbix dashboard dynamic parameters, so operators can move from a tree selection to related maps, status summaries, graphs, or other dashboard panels.
+
 ## Feature Highlights
 
 ### Navigate Host Groups as a Tree

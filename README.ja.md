@@ -32,9 +32,15 @@ Zabbix ダッシュボードウィジェット — ホストグループとホ�
 
 ### 設定画面
 
-<img src="screenshots/tree-navigator-settings.png" width="520" alt="Tree Navigator ウィジェットの設定フォーム" />
+<img src="screenshots/tree-navigator-settings-ja.png" width="520" alt="Tree Navigator ウィジェットの日本語設定フォーム" />
 
 設定画面では、ツリーのルート名、表示モード、対象グループ、初期展開深さ、下位グループの扱い、ホスト数ツールチップ、フォルダ文字色、ホスト文字色を調整できます。
+
+## ダッシュボード連携例
+
+<img src="screenshots/tree-navigator-dashboard-example.png" width="750" alt="Tree Navigator から他の Zabbix ダッシュボードウィジェットを連動する例" />
+
+Tree Navigator は、ダッシュボード上のナビゲーション用ウィジェットとして使えます。グループやホストを選択すると、Zabbix ダッシュボードの動的パラメータを通じて連携先ウィジェットが更新され、マップ、状態サマリ、グラフ、その他のパネルをツリー選択に合わせて切り替えられます。
 
 ## 機能ハイライト
 
