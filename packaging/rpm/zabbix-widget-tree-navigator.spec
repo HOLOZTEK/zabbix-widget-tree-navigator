@@ -1,6 +1,6 @@
-%define _rpmfilename %%{NAME}-%%{VERSION}%{dist}.%%{ARCH}.rpm
+%define _rpmfilename %%{NAME}-%%{VERSION}.%%{ARCH}.rpm
 Name:           zabbix-widget-tree-navigator
-Version:        1.3.3
+Version:        1.4.0
 Release:        0
 Summary:        Tree Navigator widget for Zabbix dashboard
 License:        Proprietary
@@ -89,6 +89,13 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Sun Aug 09 2026 claude <noreply> - 1.4.0-0
+- 機能変更なし。リリース工程の変更のみ反映：
+  1. RPMをel9/el10個別ビルドから単一noarchファイルに統一（_rpmfilenameから
+     %%{dist}を除去）。BuildArch: noarchでコンパイル済みバイナリを含まない
+     ため、170/171どちらでビルドしても同一内容
+  2. Debianパッケージング(.deb)をdebian/配下に追加（v1.3.3で試験導入済み）
+
 * Sat Aug 08 2026 claude <noreply> - 1.3.3-0
 - コードレビュー issue #4 対応: RPMの%%installに views/widget.edit.js.php の配置が
   抜けており、v1.3.2のel9/el10 RPMいずれにも同ファイルが含まれていなかった不具合を
