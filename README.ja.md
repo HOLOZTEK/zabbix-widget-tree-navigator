@@ -12,11 +12,11 @@ Tree Navigator は、Zabbix のホストグループとホストを折りたた�
 
 | 機能 | 説明 |
 |------|------|
-| ホストグループのツリー表示 | Zabbix のホストグループ階層を、折りたたみ可能なツリーとして表示します。 |
+| ツリー表示 | Zabbix のホストグループ階層を、折りたたみ可能なツリーとして表示します。 |
 | ホストグループ選択機能 | ホストグループの階層を選択し、連携先ウィジェットへグループ ID をブロードキャストします。 |
 | ホスト選択機能 | グループからホストまでたどり、ホストグループ ID またはホスト ID をブロードキャストします。 |
-| ホスト検索 | キーワードでホストを検索し、該当するツリーノードへ直接移動します。 |
 | 複数選択機能 | 複数のホストやグループをチェックし、選択内容をまとめて即時ブロードキャストします。 |
+| ホスト検索機能 | キーワードでホストを検索し、該当するツリーノードへ直接移動します。 |
 | ウィジェット連携 | Zabbix の動的パラメータを使って、マップ、状態サマリ、グラフ、その他のパネルを連動します。 |
 
 <table>
@@ -30,28 +30,56 @@ Tree Navigator は、Zabbix のホストグループとホストを折りたた�
       <img src="screenshots/tree-navigator-single-group-host.png" width="180" alt="シングル選択のグループとホストモードで表示した Tree Navigator ウィジェット">
     </td>
     <td align="center" valign="top" width="25%">
-      <strong>ホスト検索</strong><br>
-      <img src="screenshots/tree-navigator-search.png" width="180" alt="Tree Navigator ウィジェットのホスト検索候補">
-    </td>
-    <td align="center" valign="top" width="25%">
       <strong>複数選択機能</strong><br>
       <img src="screenshots/tree-navigator-multi-group-host.png" width="180" alt="マルチ選択のグループとホストモードで表示した Tree Navigator ウィジェット">
+    </td>
+    <td align="center" valign="top" width="25%">
+      <strong>ホスト検索機能</strong><br>
+      <img src="screenshots/tree-navigator-search.png" width="180" alt="Tree Navigator ウィジェットのホスト検索候補">
     </td>
   </tr>
 </table>
 
 ## 設定項目
 
-| 項目 | 説明 |
-|------|------|
-| ルート名 | ツリー最上位に表示するラベル |
-| 表示モード | ホストグループのみ / ホストグループとホスト |
-| ホストグループ | 表示対象グループを絞り込む（未指定で全グループ） |
-| 初期展開階層 | 初期展開する階層深さ（0〜10、デフォルト 1） |
-| サブグループを含める | 下位グループを再帰的に含める |
-| ツールチップにホスト件数を表示 | ホバー時にホスト件数を表示 |
-| フォルダ文字色 | ホストグループとルートラベルの文字色 |
-| ホスト文字色 | ホストラベルの文字色 |
+<table>
+  <tr bgcolor="#f0f3f5" style="background-color: #f0f3f5;">
+    <th align="left">項目</th>
+    <th align="left">説明</th>
+  </tr>
+  <tr>
+    <td>ルート名</td>
+    <td>ツリー最上位に表示するラベル</td>
+  </tr>
+  <tr>
+    <td>表示モード</td>
+    <td>ナビゲータの表示モードを切り替えます。</td>
+  </tr>
+  <tr>
+    <td>ホストグループ</td>
+    <td>ナビゲータの表示対象とするホストグループを指定します（複数指定も可能）。未指定では全てのホストグループが対象となります。</td>
+  </tr>
+  <tr>
+    <td>初期展開階層</td>
+    <td>初期展開する階層深さ（0〜10、デフォルト 1）</td>
+  </tr>
+  <tr>
+    <td>サブグループを含める</td>
+    <td>下位グループを再帰的に含める</td>
+  </tr>
+  <tr>
+    <td>ツールチップにホスト件数を表示</td>
+    <td>ホバー時にホスト件数を表示</td>
+  </tr>
+  <tr>
+    <td>フォルダ文字色</td>
+    <td>ホストグループとルートラベルの文字色</td>
+  </tr>
+  <tr>
+    <td>ホスト文字色</td>
+    <td>ホストラベルの文字色</td>
+  </tr>
+</table>
 
 <img src="screenshots/tree-navigator-settings-ja.png" width="520" alt="Tree Navigator ウィジェットの日本語設定フォーム" />
 
