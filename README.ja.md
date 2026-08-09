@@ -6,35 +6,41 @@ Zabbix ダッシュボードウィジェット — ホストグループとホ�
 
 ## Preview
 
-### シングル選択: グループ
+| 機能 | 説明 |
+|------|------|
+| シングル選択: グループ | ホストグループの階層を選択し、連携先ウィジェットへグループ ID をブロードキャストします。 |
+| シングル選択: グループとホスト | グループからホストまでたどり、ホストグループ ID またはホスト ID をブロードキャストします。 |
+| ホスト検索 | キーワードでホストを検索し、該当するツリーノードへ直接移動します。 |
+| マルチ選択 | 複数のホストやグループをチェックし、選択内容をまとめて即時ブロードキャストします。 |
+| 設定画面 | 表示モード、対象グループ、初期展開階層、ツールチップ、文字色を設定します。 |
 
-<img src="screenshots/tree-navigator-single-group.png" width="360" alt="シングル選択のグループモードで表示した Tree Navigator ウィジェット" />
-
-グループモードは、ダッシュボードをホストグループ単位で絞り込みたい場合に使います。グループをクリックすると、選択したグループと配下グループの ID をブロードキャストし、マップ、グラフ、その他のパネルを選択した階層に連動できます。
-
-### シングル選択: グループとホスト
-
-<img src="screenshots/tree-navigator-single-group-host.png" width="360" alt="シングル選択のグループとホストモードで表示した Tree Navigator ウィジェット" />
-
-グループ配下のホストまでたどりたい場合は、ホストグループとホストモードを使います。ホストを選択するとホスト ID を、グループを選択するとホストグループ ID をブロードキャストするため、広い単位の絞り込みと個別ホストの絞り込みを同じウィジェットで扱えます。
-
-### ホスト検索
-
-<img src="screenshots/tree-navigator-search.png" width="360" alt="Tree Navigator ウィジェットのホスト検索候補" />
-
-検索ボックスでは、キーワードでホストを検索し、該当するツリーノードへ直接移動できます。候補に一致したホストが表示され、必要な親グループが自動的に展開されるため、大きな階層でも手作業で枝を開いて探す必要がありません。
-
-### マルチ選択: グループとホスト
-
-<img src="screenshots/tree-navigator-multi-group-host.png" width="360" alt="マルチ選択のグループとホストモードで表示した Tree Navigator ウィジェット" />
-
-複数のグループやホストをまとめて連携したい場合は、マルチ選択モードを使います。チェックしたホストやグループは即時にブロードキャストされ、同じホストやグループがツリー内に複数表示される場合もチェック状態が同期されます。
-
-### 設定画面
-
-<img src="screenshots/tree-navigator-settings-ja.png" width="480" alt="Tree Navigator ウィジェットの日本語設定フォーム" />
-
-設定画面では、ツリーのルート名、表示モード、対象グループ、初期展開深さ、下位グループの扱い、ホスト数ツールチップ、フォルダ文字色、ホスト文字色を調整できます。
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <strong>シングル選択: グループ</strong><br>
+      <img src="screenshots/tree-navigator-single-group.png" width="220" alt="シングル選択のグループモードで表示した Tree Navigator ウィジェット">
+    </td>
+    <td align="center" width="33%">
+      <strong>シングル選択: グループとホスト</strong><br>
+      <img src="screenshots/tree-navigator-single-group-host.png" width="220" alt="シングル選択のグループとホストモードで表示した Tree Navigator ウィジェット">
+    </td>
+    <td align="center" width="33%">
+      <strong>ホスト検索</strong><br>
+      <img src="screenshots/tree-navigator-search.png" width="220" alt="Tree Navigator ウィジェットのホスト検索候補">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <strong>マルチ選択: グループとホスト</strong><br>
+      <img src="screenshots/tree-navigator-multi-group-host.png" width="220" alt="マルチ選択のグループとホストモードで表示した Tree Navigator ウィジェット">
+    </td>
+    <td align="center" width="33%">
+      <strong>設定画面</strong><br>
+      <img src="screenshots/tree-navigator-settings-ja.png" width="300" alt="Tree Navigator ウィジェットの日本語設定フォーム">
+    </td>
+    <td width="33%"></td>
+  </tr>
+</table>
 
 ## ダッシュボード連携例
 

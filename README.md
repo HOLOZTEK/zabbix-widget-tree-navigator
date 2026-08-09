@@ -6,35 +6,41 @@ Tree Navigator is a Zabbix dashboard widget that displays host groups and hosts 
 
 ## Preview
 
-### Single-Select: Host Groups
+| Function | What it does |
+| -------- | ------------ |
+| Single-select host group navigation | Select a host group branch and broadcast the selected group IDs to linked widgets. |
+| Single-select host navigation | Drill down from groups to hosts and broadcast either host group IDs or host IDs. |
+| Host search | Search for a host by keyword and jump directly to the matching tree node. |
+| Multi-select navigation | Check multiple hosts or groups and broadcast the combined selection immediately. |
+| Widget settings | Configure display mode, target groups, expansion depth, tooltips, and text colors. |
 
-<img src="screenshots/tree-navigator-single-group.png" width="360" alt="Tree Navigator widget in single-select host group mode" />
-
-Use host group mode when the dashboard should act as a group navigator. Clicking a group broadcasts the selected group and its descendant group IDs, so linked widgets can filter maps, graphs, and other panels by the selected branch.
-
-### Single-Select: Host Groups and Hosts
-
-<img src="screenshots/tree-navigator-single-group-host.png" width="360" alt="Tree Navigator widget in single-select host group and host mode" />
-
-Use host and group mode when operators need to drill from a group down to individual hosts. Selecting a host broadcasts host IDs, while selecting a group broadcasts host group IDs, making the same widget useful for both broad and focused dashboard filtering.
-
-### Host Search
-
-<img src="screenshots/tree-navigator-search.png" width="360" alt="Tree Navigator widget search box showing host matches" />
-
-Use the search box to find a host by keyword and jump directly to the matching node. Matching hosts are shown as candidates, and the tree opens the necessary parent groups so operators can move through large group hierarchies without manual expansion.
-
-### Multi-Select: Host Groups and Hosts
-
-<img src="screenshots/tree-navigator-multi-group-host.png" width="360" alt="Tree Navigator widget in multi-select host group and host mode" />
-
-Use multi-select mode when several groups or hosts should drive the dashboard together. Checked hosts and groups are broadcast immediately, and duplicate host or group entries stay synchronized across the tree.
-
-### Settings
-
-<img src="screenshots/tree-navigator-settings.png" width="480" alt="Tree Navigator widget configuration form" />
-
-The settings form controls the tree label, display mode, target groups, expansion depth, recursive behavior, host-count tooltip, and separate folder and host text colors.
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <strong>Single-Select: Host Groups</strong><br>
+      <img src="screenshots/tree-navigator-single-group.png" width="220" alt="Tree Navigator widget in single-select host group mode">
+    </td>
+    <td align="center" width="33%">
+      <strong>Single-Select: Groups and Hosts</strong><br>
+      <img src="screenshots/tree-navigator-single-group-host.png" width="220" alt="Tree Navigator widget in single-select host group and host mode">
+    </td>
+    <td align="center" width="33%">
+      <strong>Host Search</strong><br>
+      <img src="screenshots/tree-navigator-search.png" width="220" alt="Tree Navigator widget search box showing host matches">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <strong>Multi-Select: Groups and Hosts</strong><br>
+      <img src="screenshots/tree-navigator-multi-group-host.png" width="220" alt="Tree Navigator widget in multi-select host group and host mode">
+    </td>
+    <td align="center" width="33%">
+      <strong>Settings</strong><br>
+      <img src="screenshots/tree-navigator-settings.png" width="300" alt="Tree Navigator widget configuration form">
+    </td>
+    <td width="33%"></td>
+  </tr>
+</table>
 
 ## Dashboard Integration Example
 
