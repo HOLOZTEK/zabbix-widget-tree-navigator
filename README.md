@@ -4,7 +4,11 @@
 
 ## Overview
 
-Tree Navigator is a Zabbix dashboard widget that displays host groups and hosts as a collapsible directory tree. It works as a dashboard navigation control: selecting a host group or host broadcasts dynamic parameters to linked widgets, so operators can move from a tree selection to related maps, status summaries, graphs, or other dashboard panels.
+Tree Navigator is a Zabbix dashboard widget that displays host groups and hosts as a collapsible directory tree.
+
+It works as a dashboard navigation control: selecting a host group or host broadcasts dynamic parameters to linked widgets.
+
+Operators can move from a tree selection to related maps, status summaries, graphs, or other dashboard panels.
 
 <img src="screenshots/tree-navigator-dashboard-example.png" width="750" alt="Tree Navigator driving other Zabbix dashboard widgets" />
 
