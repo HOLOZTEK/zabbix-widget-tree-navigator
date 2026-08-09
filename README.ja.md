@@ -10,15 +10,40 @@ Tree Navigator は、Zabbix のホストグループとホストを折りたた�
 
 ## 機能
 
-| 機能 | 説明 |
-|------|------|
-| ツリー表示 | Zabbix のホストグループ階層を、折りたたみ可能なツリーとして表示します。 |
-| ホストグループ選択機能 | ホストグループの階層を選択し、連携先ウィジェットへグループ ID をブロードキャストします。 |
-| ホスト選択機能 | グループからホストまでたどり、ホストグループ ID またはホスト ID をブロードキャストします。 |
-| ホストメニュー呼び出し | ホストのアイコンをクリックして、Zabbix 標準のホストクリック時メニューを表示できます。 |
-| 複数選択機能 | 複数のホストやグループをチェックし、選択内容をまとめて即時ブロードキャストします。 |
-| ホスト検索機能 | キーワードでホストを検索し、該当するツリーノードへ直接移動します。 |
-| ウィジェット連携 | Zabbix の動的パラメータを使って、マップ、状態サマリ、グラフ、その他のパネルを連動します。 |
+<table>
+  <tr>
+    <th align="left" nowrap style="white-space: nowrap;">機能</th>
+    <th align="left">説明</th>
+  </tr>
+  <tr>
+    <td nowrap style="white-space: nowrap;">ツリー表示</td>
+    <td>Zabbix のホストグループ階層を、折りたたみ可能なツリーとして表示します。</td>
+  </tr>
+  <tr>
+    <td nowrap style="white-space: nowrap;">ホストグループ選択機能</td>
+    <td>ホストグループの階層を選択し、連携先ウィジェットへグループ ID をブロードキャストします。</td>
+  </tr>
+  <tr>
+    <td nowrap style="white-space: nowrap;">ホスト選択機能</td>
+    <td>グループからホストまでたどり、ホストグループ ID またはホスト ID をブロードキャストします。</td>
+  </tr>
+  <tr>
+    <td nowrap style="white-space: nowrap;">ホストメニュー呼び出し</td>
+    <td>ホストのアイコンをクリックして、Zabbix 標準のホストクリック時メニューを表示できます。</td>
+  </tr>
+  <tr>
+    <td nowrap style="white-space: nowrap;">複数選択機能</td>
+    <td>複数のホストやグループをチェックし、選択内容をまとめて即時ブロードキャストします。</td>
+  </tr>
+  <tr>
+    <td nowrap style="white-space: nowrap;">ホスト検索機能</td>
+    <td>キーワードでホストを検索し、該当するツリーノードへ直接移動します。</td>
+  </tr>
+  <tr>
+    <td nowrap style="white-space: nowrap;">ウィジェット連携</td>
+    <td>Zabbix の動的パラメータを使って、マップ、状態サマリ、グラフ、その他のパネルを連動します。</td>
+  </tr>
+</table>
 
 <table>
   <tr>

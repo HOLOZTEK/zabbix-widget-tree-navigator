@@ -10,15 +10,40 @@ Tree Navigator is a Zabbix dashboard widget that displays host groups and hosts 
 
 ## Features
 
-| Function | What it does |
-| -------- | ------------ |
-| Tree view | Browse nested Zabbix host groups as a compact, collapsible tree. |
-| Host group selection | Select a host group branch and broadcast the selected group IDs to linked widgets. |
-| Host selection | Drill down from groups to hosts and broadcast either host group IDs or host IDs. |
-| Host menu access | Click a host icon to open the standard Zabbix host menu shown for host clicks. |
-| Multi-select | Check multiple hosts or groups and broadcast the combined selection immediately. |
-| Host search feature | Search for a host by keyword and jump directly to the matching tree node. |
-| Widget integration | Use Zabbix dynamic parameters to drive maps, summaries, graphs, and other panels. |
+<table>
+  <tr>
+    <th align="left" nowrap style="white-space: nowrap;">Function</th>
+    <th align="left">What it does</th>
+  </tr>
+  <tr>
+    <td nowrap style="white-space: nowrap;">Tree view</td>
+    <td>Browse nested Zabbix host groups as a compact, collapsible tree.</td>
+  </tr>
+  <tr>
+    <td nowrap style="white-space: nowrap;">Host group selection</td>
+    <td>Select a host group branch and broadcast the selected group IDs to linked widgets.</td>
+  </tr>
+  <tr>
+    <td nowrap style="white-space: nowrap;">Host selection</td>
+    <td>Drill down from groups to hosts and broadcast either host group IDs or host IDs.</td>
+  </tr>
+  <tr>
+    <td nowrap style="white-space: nowrap;">Host menu access</td>
+    <td>Click a host icon to open the standard Zabbix host menu shown for host clicks.</td>
+  </tr>
+  <tr>
+    <td nowrap style="white-space: nowrap;">Multi-select</td>
+    <td>Check multiple hosts or groups and broadcast the combined selection immediately.</td>
+  </tr>
+  <tr>
+    <td nowrap style="white-space: nowrap;">Host search feature</td>
+    <td>Search for a host by keyword and jump directly to the matching tree node.</td>
+  </tr>
+  <tr>
+    <td nowrap style="white-space: nowrap;">Widget integration</td>
+    <td>Use Zabbix dynamic parameters to drive maps, summaries, graphs, and other panels.</td>
+  </tr>
+</table>
 
 <table>
   <tr>
