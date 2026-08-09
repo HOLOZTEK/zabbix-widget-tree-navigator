@@ -48,7 +48,8 @@ Use these captions as README text or release notes when the matching screenshots
 - Use the dashboard example screenshot only for the integration example section.
 - Remove or crop out browser address bars, usernames, internal URLs, IP addresses, alerts, and real metric values.
 - Avoid showing customer names, organization names, environment names, inventory values, or production dashboard titles.
-- Keep the preview screenshots readable at README width: 220 px for widget views and 300 px for the settings form.
+- Keep the preview screenshots readable at README width: 180 px for widget views.
+- Keep the settings form screenshots readable at README width: 520 px.
 - Keep the dashboard integration example readable at README width: 750 px.
 - If color settings are shown, use neutral demo colors that remain readable on the Zabbix dashboard background.
 
