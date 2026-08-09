@@ -1,0 +1,14 @@
+Source: zabbix-widget-tree-navigator
+Section: web
+Priority: optional
+Maintainer: claude <noreply@example.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+
+Package: zabbix-widget-tree-navigator
+Architecture: all
+Depends: ${misc:Depends}
+Description: Tree Navigator widget for Zabbix dashboard
+ Zabbix dashboard widget that displays host groups and hosts as a
+ collapsible directory tree, with single/multi-select broadcast of
+ host and host group IDs to other widgets.

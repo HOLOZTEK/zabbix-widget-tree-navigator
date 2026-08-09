@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    remove)
+        rm -rf /usr/share/zabbix/ui/modules/tree-navigator 2>/dev/null || true
+        rm -rf /usr/share/zabbix/modules/tree-navigator 2>/dev/null || true
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0
