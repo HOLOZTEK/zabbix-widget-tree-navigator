@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## v1.4.0 - 2026-08-09
+
+- Updated the public release assets to version `1.4.0`.
+- Changed RPM distribution to a single `noarch` package without an OS-specific distribution suffix.
+- Added Debian package metadata for `.deb` distribution.
+- Updated installation instructions for RPM, DEB, and source-based installation.
+
 ## v1.3.3 - 2026-08-08
 
 - Fixed the RPM packaging rule so `views/widget.edit.js.php` is included.

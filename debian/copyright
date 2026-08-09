@@ -1,8 +1,13 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: zabbix-widget-tree-navigator
-Source: http://172.16.4.190:3000/zabbix-widgets/zabbix-widget-tree-navigator
+Source: https://github.com/ttake-55/zabbix-widget-tree-navigator
 
 Files: *
-Copyright: 2026
-License: Proprietary
- All rights reserved. Internal use only.
+Copyright: 2026 zabbix-widget-tree-navigator contributors
+License: MIT
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction.
+ .
+ See /usr/share/common-licenses/MIT for the complete license text on Debian
+ systems, or see the LICENSE file included with this source distribution.

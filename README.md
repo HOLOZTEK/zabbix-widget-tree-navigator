@@ -133,19 +133,32 @@ For compatibility with the standard Host navigator widget and related widgets, h
 
 1. Download the RPM package and install it on the Zabbix server.
    ```bash
-   rpm -Uvh zabbix-widget-tree-navigator-*.rpm
+   rpm -Uvh zabbix-widget-tree-navigator-1.4.0.noarch.rpm
    ```
-2. In the Zabbix UI, enable the module from Administration -> Modules.
-3. Add the widget to a dashboard.
+2. The package places the widget files under the active Zabbix frontend module directory automatically.
+3. In the Zabbix UI, enable the module from Administration -> Modules.
+4. Add the widget to a dashboard.
+
+### Install from DEB
+
+1. Download the DEB package and install it on the Zabbix server.
+   ```bash
+   apt install ./zabbix-widget-tree-navigator_1.4.0_all.deb
+   ```
+2. The package places the widget files under the active Zabbix frontend module directory automatically.
+3. In the Zabbix UI, enable the module from Administration -> Modules.
+4. Add the widget to a dashboard.
 
 ### Install from Source
 
-1. Place this repository under the Zabbix frontend modules directory.
-   ```text
-   /usr/share/zabbix/modules/tree-navigator
+1. Copy this repository to the Zabbix frontend modules directory as `tree-navigator`.
+   ```bash
+   cp -a zabbix-widget-tree-navigator /usr/share/zabbix/ui/modules/tree-navigator
    ```
+   Use `/usr/share/zabbix/modules/tree-navigator` instead if your Zabbix installation uses the legacy module path.
 2. Set ownership and permissions so the Zabbix frontend can read the files.
 3. In the Zabbix UI, enable the module from Administration -> Modules.
+4. Add the widget to a dashboard.
 
 ## Documentation
 
@@ -161,7 +174,7 @@ Files loaded as a Zabbix module are kept in the repository root and the `actions
 
 ## Version
 
-Latest version: **v1.3.3**
+Latest version: **v1.4.0**
 
 ## License
 

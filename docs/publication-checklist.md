@@ -4,8 +4,8 @@ Use this checklist before publishing `zabbix-widget-tree-navigator` from staging
 
 ## Source
 
-- Confirm staged source is based on tag `v1.3.3`.
-- Confirm `manifest.json` contains version `1.3.3`.
+- Confirm staged source is based on tag `v1.4.0`.
+- Confirm `manifest.json` contains version `1.4.0`.
 - Confirm no private URLs, credentials, internal hostnames, or environment-specific files are included.
 - Confirm README installation instructions match the distributed artifact format.
 
@@ -13,7 +13,7 @@ Use this checklist before publishing `zabbix-widget-tree-navigator` from staging
 
 - Confirm target GitHub repository name is exactly `zabbix-widget-tree-navigator`.
 - Confirm the publication approval record specifies repository `zabbix-widget-tree-navigator`.
-- Confirm the publication approval record specifies version `v1.3.3`.
+- Confirm the publication approval record specifies version `v1.4.0`.
 - Confirm the publication approval target is `GitHub`.
 
 ## Documentation
@@ -22,6 +22,7 @@ Use this checklist before publishing `zabbix-widget-tree-navigator` from staging
 - Confirm `README.md` is the English default README and `README.ja.md` is the Japanese README.
 - Confirm both README files contain working language switch links.
 - Confirm CHANGELOG, CONTRIBUTING, SECURITY, screenshot guide, and the publication checklist are under `docs/`.
+- Confirm RPM and DEB package metadata are present and use MIT-compatible public release metadata.
 - Confirm the required README preview and dashboard example images are present under `screenshots/`.
 - Confirm the required screenshots cover single-select group mode, single-select group-and-host mode, host search, multi-select group-and-host mode, and the settings form.
 - Confirm the Japanese README uses the Japanese settings screenshot.
@@ -33,5 +34,5 @@ Use this checklist before publishing `zabbix-widget-tree-navigator` from staging
 ## Release
 
 - Push the reviewed staging content to GitHub only after publication approval.
-- Push tag `v1.3.3` only after staged content and approved version match exactly.
+- Push tag `v1.4.0` only after staged content and approved version match exactly.
 - Create a GitHub release only from the approved tag and version.

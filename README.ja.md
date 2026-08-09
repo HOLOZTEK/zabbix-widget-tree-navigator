@@ -133,19 +133,32 @@ Tree Navigator は、Zabbix のホストグループとホストを折りたた�
 
 1. RPM をダウンロードし、Zabbix サーバーにインストール
    ```bash
-   rpm -Uvh zabbix-widget-tree-navigator-*.rpm
+   rpm -Uvh zabbix-widget-tree-navigator-1.4.0.noarch.rpm
    ```
-2. Zabbix 管理画面 -> 管理 -> モジュール からモジュールを有効化
-3. ダッシュボードにウィジェットを追加
+2. パッケージにより、ウィジェットファイルは有効な Zabbix フロントエンドのモジュールディレクトリへ自動配置されます。
+3. Zabbix 管理画面 -> 管理 -> モジュール からモジュールを有効化
+4. ダッシュボードにウィジェットを追加
+
+### DEB からインストール
+
+1. DEB をダウンロードし、Zabbix サーバーにインストール
+   ```bash
+   apt install ./zabbix-widget-tree-navigator_1.4.0_all.deb
+   ```
+2. パッケージにより、ウィジェットファイルは有効な Zabbix フロントエンドのモジュールディレクトリへ自動配置されます。
+3. Zabbix 管理画面 -> 管理 -> モジュール からモジュールを有効化
+4. ダッシュボードにウィジェットを追加
 
 ### ソースから配置
 
-1. このリポジトリの内容を Zabbix フロントエンドのモジュールディレクトリへ配置
-   ```text
-   /usr/share/zabbix/modules/tree-navigator
+1. このリポジトリを `tree-navigator` として Zabbix フロントエンドのモジュールディレクトリへ配置
+   ```bash
+   cp -a zabbix-widget-tree-navigator /usr/share/zabbix/ui/modules/tree-navigator
    ```
+   Zabbix 環境が従来のモジュールパスを使用している場合は、代わりに `/usr/share/zabbix/modules/tree-navigator` へ配置してください。
 2. ファイル所有者と権限を Zabbix フロントエンドから読み取れる状態に設定
 3. Zabbix 管理画面 -> 管理 -> モジュール からモジュールを有効化
+4. ダッシュボードにウィジェットを追加
 
 ## ドキュメント
 
@@ -161,7 +174,7 @@ Zabbix モジュールとして読み込まれるファイルはリポジトリ�
 
 ## バージョン
 
-最新バージョン: **v1.3.3**
+最新バージョン: **v1.4.0**
 
 ## ライセンス
 
