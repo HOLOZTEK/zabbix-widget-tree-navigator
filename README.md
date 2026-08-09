@@ -15,6 +15,7 @@ Tree Navigator is a Zabbix dashboard widget that displays host groups and hosts 
 | Tree view | Browse nested Zabbix host groups as a compact, collapsible tree. |
 | Host group selection | Select a host group branch and broadcast the selected group IDs to linked widgets. |
 | Host selection | Drill down from groups to hosts and broadcast either host group IDs or host IDs. |
+| Host menu access | Click a host icon to open the standard Zabbix host menu shown for host clicks. |
 | Multi-select | Check multiple hosts or groups and broadcast the combined selection immediately. |
 | Host search feature | Search for a host by keyword and jump directly to the matching tree node. |
 | Widget integration | Use Zabbix dynamic parameters to drive maps, summaries, graphs, and other panels. |
@@ -65,11 +66,11 @@ Tree Navigator is a Zabbix dashboard widget that displays host groups and hosts 
   </tr>
   <tr>
     <td>Include sub-groups</td>
-    <td>Recursively include sub-groups</td>
+    <td>Recursively include sub-groups under the groups selected in Host groups.</td>
   </tr>
   <tr>
     <td>Show host count in tooltip</td>
-    <td>Show host counts while hovering over groups</td>
+    <td>Enables host-count tooltips when hovering over host group icons.</td>
   </tr>
   <tr>
     <td>Folder text color</td>
