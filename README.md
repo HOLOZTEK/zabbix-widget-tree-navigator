@@ -8,32 +8,32 @@ Tree Navigator is a Zabbix dashboard widget that displays host groups and hosts 
 
 <img src="screenshots/tree-navigator-dashboard-example.png" width="750" alt="Tree Navigator driving other Zabbix dashboard widgets" />
 
-## Preview and Feature Highlights
+## Features
 
 | Function | What it does |
 | -------- | ------------ |
 | Host group tree navigation | Browse nested Zabbix host groups as a compact, collapsible tree. |
-| Single-select host group mode | Select a host group branch and broadcast the selected group IDs to linked widgets. |
-| Single-select host mode | Drill down from groups to hosts and broadcast either host group IDs or host IDs. |
+| Host group selection | Select a host group branch and broadcast the selected group IDs to linked widgets. |
+| Host selection | Drill down from groups to hosts and broadcast either host group IDs or host IDs. |
 | Host search | Search for a host by keyword and jump directly to the matching tree node. |
-| Multi-select navigation | Check multiple hosts or groups and broadcast the combined selection immediately. |
-| Dashboard integration | Use Zabbix dynamic parameters to drive maps, summaries, graphs, and other panels. |
+| Multi-select | Check multiple hosts or groups and broadcast the combined selection immediately. |
+| Widget integration | Use Zabbix dynamic parameters to drive maps, summaries, graphs, and other panels. |
 
 <table>
   <tr>
-    <td align="center" width="25%">
-      <strong>Host Groups</strong><br>
+    <td align="center" valign="top" width="25%">
+      <strong>Host Group Selection</strong><br>
       <img src="screenshots/tree-navigator-single-group.png" width="180" alt="Tree Navigator widget in single-select host group mode">
     </td>
-    <td align="center" width="25%">
-      <strong>Groups and Hosts</strong><br>
+    <td align="center" valign="top" width="25%">
+      <strong>Host Selection</strong><br>
       <img src="screenshots/tree-navigator-single-group-host.png" width="180" alt="Tree Navigator widget in single-select host group and host mode">
     </td>
-    <td align="center" width="25%">
+    <td align="center" valign="top" width="25%">
       <strong>Host Search</strong><br>
       <img src="screenshots/tree-navigator-search.png" width="180" alt="Tree Navigator widget search box showing host matches">
     </td>
-    <td align="center" width="25%">
+    <td align="center" valign="top" width="25%">
       <strong>Multi-Select</strong><br>
       <img src="screenshots/tree-navigator-multi-group-host.png" width="180" alt="Tree Navigator widget in multi-select host group and host mode">
     </td>

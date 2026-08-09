@@ -8,33 +8,33 @@ Tree Navigator は、Zabbix のホストグループとホストを折りたた�
 
 <img src="screenshots/tree-navigator-dashboard-example.png" width="750" alt="Tree Navigator から他の Zabbix ダッシュボードウィジェットを連動する例" />
 
-## プレビューと機能ハイライト
+## 機能
 
 | 機能 | 説明 |
 |------|------|
 | ホストグループのツリー表示 | Zabbix のホストグループ階層を、折りたたみ可能なツリーとして表示します。 |
-| シングル選択: グループ | ホストグループの階層を選択し、連携先ウィジェットへグループ ID をブロードキャストします。 |
-| シングル選択: グループとホスト | グループからホストまでたどり、ホストグループ ID またはホスト ID をブロードキャストします。 |
+| ホストグループ選択機能 | ホストグループの階層を選択し、連携先ウィジェットへグループ ID をブロードキャストします。 |
+| ホスト選択機能 | グループからホストまでたどり、ホストグループ ID またはホスト ID をブロードキャストします。 |
 | ホスト検索 | キーワードでホストを検索し、該当するツリーノードへ直接移動します。 |
-| マルチ選択 | 複数のホストやグループをチェックし、選択内容をまとめて即時ブロードキャストします。 |
-| ダッシュボード連携 | Zabbix の動的パラメータを使って、マップ、状態サマリ、グラフ、その他のパネルを連動します。 |
+| 複数選択機能 | 複数のホストやグループをチェックし、選択内容をまとめて即時ブロードキャストします。 |
+| ウィジェット連携 | Zabbix の動的パラメータを使って、マップ、状態サマリ、グラフ、その他のパネルを連動します。 |
 
 <table>
   <tr>
-    <td align="center" width="25%">
-      <strong>グループ表示</strong><br>
+    <td align="center" valign="top" width="25%">
+      <strong>ホストグループ選択機能</strong><br>
       <img src="screenshots/tree-navigator-single-group.png" width="180" alt="シングル選択のグループモードで表示した Tree Navigator ウィジェット">
     </td>
-    <td align="center" width="25%">
-      <strong>グループとホスト</strong><br>
+    <td align="center" valign="top" width="25%">
+      <strong>ホスト選択機能</strong><br>
       <img src="screenshots/tree-navigator-single-group-host.png" width="180" alt="シングル選択のグループとホストモードで表示した Tree Navigator ウィジェット">
     </td>
-    <td align="center" width="25%">
+    <td align="center" valign="top" width="25%">
       <strong>ホスト検索</strong><br>
       <img src="screenshots/tree-navigator-search.png" width="180" alt="Tree Navigator ウィジェットのホスト検索候補">
     </td>
-    <td align="center" width="25%">
-      <strong>マルチ選択</strong><br>
+    <td align="center" valign="top" width="25%">
+      <strong>複数選択機能</strong><br>
       <img src="screenshots/tree-navigator-multi-group-host.png" width="180" alt="マルチ選択のグループとホストモードで表示した Tree Navigator ウィジェット">
     </td>
   </tr>
