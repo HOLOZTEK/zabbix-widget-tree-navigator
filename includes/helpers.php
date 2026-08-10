@@ -1,5 +1,5 @@
 <?php declare(strict_types = 0);
 
-function _tn(string $string): string {
-	return dgettext('tree-navigator', $string);
+function _holoztek_tn(string $string): string {
+	return dgettext('holoztek-tree-navigator', $string);
 }

@@ -175,10 +175,10 @@ $container = (new CDiv($tree_ul))
 
 $wrapper = (new CDiv())
 	->addClass('tn-wrapper')
-	->setAttribute('data-label-host-count',    _tn('Hosts: {0}'))
-	->setAttribute('data-label-more-results',  _tn('and {0} more'))
-	->setAttribute('data-label-multi-on',      _tn('Switch to single-select'))
-	->setAttribute('data-label-multi-off',     _tn('Switch to multi-select'))
+	->setAttribute('data-label-host-count',    _holoztek_tn('Hosts: {0}'))
+	->setAttribute('data-label-more-results',  _holoztek_tn('and {0} more'))
+	->setAttribute('data-label-multi-on',      _holoztek_tn('Switch to single-select'))
+	->setAttribute('data-label-multi-off',     _holoztek_tn('Switch to multi-select'))
 	->setAttribute('style',
 		'--tn-folder-color: ' . $folder_font_color . '; --tn-host-color: ' . $host_font_color . ';'
 	);
@@ -188,7 +188,7 @@ $wrapper = (new CDiv())
 $mode_toggle = (new CTag('button', true))
 	->setAttribute('type', 'button')
 	->setAttribute('class', 'tn-mode-toggle js-tn-mode-toggle')
-	->setAttribute('title', _tn('Switch to multi-select'));
+	->setAttribute('title', _holoztek_tn('Switch to multi-select'));
 
 $toolbar = (new CDiv())
 	->addClass('tn-toolbar')
@@ -198,19 +198,19 @@ if ($show_mode === 1) {
 	$search_toggle = (new CTag('button', true))
 		->setAttribute('type', 'button')
 		->setAttribute('class', 'tn-search-toggle js-tn-search-toggle')
-		->setAttribute('title', _tn('Search hosts'));
+		->setAttribute('title', _holoztek_tn('Search hosts'));
 
 	$search_count = (new CSpan())->addClass('tn-search-count js-tn-search-count');
 
 	$search_prev = (new CTag('button', true, '▲'))
 		->setAttribute('type', 'button')
 		->setAttribute('class', 'tn-search-nav-btn js-tn-search-prev')
-		->setAttribute('title', _tn('Previous match'));
+		->setAttribute('title', _holoztek_tn('Previous match'));
 
 	$search_next = (new CTag('button', true, '▼'))
 		->setAttribute('type', 'button')
 		->setAttribute('class', 'tn-search-nav-btn js-tn-search-next')
-		->setAttribute('title', _tn('Next match'));
+		->setAttribute('title', _holoztek_tn('Next match'));
 
 	$search_nav = (new CDiv())
 		->addClass('tn-search-nav')
@@ -221,14 +221,14 @@ if ($show_mode === 1) {
 	$search_input = (new CTag('input', false))
 		->setAttribute('type', 'text')
 		->setAttribute('class', 'tn-search-input js-tn-search-input')
-		->setAttribute('placeholder', _tn('Search hosts...'))
+		->setAttribute('placeholder', _holoztek_tn('Search hosts...'))
 		->setAttribute('autocomplete', 'off')
 		->setAttribute('spellcheck', 'false');
 
 	$search_clear = (new CTag('button', true, '×'))
 		->setAttribute('type', 'button')
 		->setAttribute('class', 'tn-search-clear js-tn-search-clear')
-		->setAttribute('title', _tn('Clear'))
+		->setAttribute('title', _holoztek_tn('Clear'))
 		->setAttribute('style', 'display:none');
 
 	$search_input_wrap = (new CDiv())

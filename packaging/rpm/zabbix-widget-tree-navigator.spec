@@ -1,6 +1,6 @@
 %define _rpmfilename %%{NAME}-%%{VERSION}.%%{ARCH}.rpm
 Name:           zabbix-widget-tree-navigator
-Version:        1.4.0
+Version:        1.4.8
 Release:        0
 Summary:        Tree Navigator widget for Zabbix dashboard
 License:        MIT
@@ -38,6 +38,10 @@ Features:
 %install
 SRCDIR=%{_sourcedir}/zabbix-widget-tree-navigator
 STAGEDIR=%{buildroot}/usr/share/zabbix-widget-tree-navigator
+LICENSEDIR=%{buildroot}%{_licensedir}/%{name}
+
+install -d ${LICENSEDIR}
+install -m 644 ${SRCDIR}/LICENSE                                                ${LICENSEDIR}/
 
 install -d ${STAGEDIR}/actions
 install -d ${STAGEDIR}/assets/css
@@ -54,15 +58,16 @@ install -m 644 ${SRCDIR}/assets/css/widget.css                                  
 install -m 644 ${SRCDIR}/assets/js/class.widget.js                              ${STAGEDIR}/assets/js/
 install -m 644 ${SRCDIR}/includes/WidgetForm.php                                ${STAGEDIR}/includes/
 install -m 644 ${SRCDIR}/includes/helpers.php                                   ${STAGEDIR}/includes/
-install -m 644 ${SRCDIR}/locale/ja_JP/LC_MESSAGES/tree-navigator.po            ${STAGEDIR}/locale/ja_JP/LC_MESSAGES/
-install -m 644 ${SRCDIR}/locale/ja_JP/LC_MESSAGES/tree-navigator.mo            ${STAGEDIR}/locale/ja_JP/LC_MESSAGES/
-install -m 644 ${SRCDIR}/locale/en_US/LC_MESSAGES/tree-navigator.po            ${STAGEDIR}/locale/en_US/LC_MESSAGES/
-install -m 644 ${SRCDIR}/locale/en_US/LC_MESSAGES/tree-navigator.mo            ${STAGEDIR}/locale/en_US/LC_MESSAGES/
+install -m 644 ${SRCDIR}/locale/ja_JP/LC_MESSAGES/holoztek-tree-navigator.po   ${STAGEDIR}/locale/ja_JP/LC_MESSAGES/
+install -m 644 ${SRCDIR}/locale/ja_JP/LC_MESSAGES/holoztek-tree-navigator.mo   ${STAGEDIR}/locale/ja_JP/LC_MESSAGES/
+install -m 644 ${SRCDIR}/locale/en_US/LC_MESSAGES/holoztek-tree-navigator.po   ${STAGEDIR}/locale/en_US/LC_MESSAGES/
+install -m 644 ${SRCDIR}/locale/en_US/LC_MESSAGES/holoztek-tree-navigator.mo   ${STAGEDIR}/locale/en_US/LC_MESSAGES/
 install -m 644 ${SRCDIR}/views/widget.edit.js.php                               ${STAGEDIR}/views/
 install -m 644 ${SRCDIR}/views/widget.edit.php                                  ${STAGEDIR}/views/
 install -m 644 ${SRCDIR}/views/widget.view.php                                  ${STAGEDIR}/views/
 
 %files
+%license %{_licensedir}/%{name}/LICENSE
 /usr/share/zabbix-widget-tree-navigator/
 
 %post
@@ -89,6 +94,98 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Mon Aug 10 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.4.8-0
+- コードレビュー指摘対応（5点）:
+  1. READMEのバージョン表記がv1.4.6のままだったのをv1.4.7へ修正漏れがあった
+     不具合を修正（本リリースのバージョンに追随する形でv1.4.8表記に更新）
+  2. 旧ID（tree-navigator）からのアップグレード手順をREADMEに追加。モジュール
+     再スキャン・再有効化、既存/テンプレートダッシュボードのウィジェットtype
+     更新方法（widgetid/fields/referenceは変更不要）を明記
+  3. グローバル関数 _tn() を _holoztek_tn() へ変更し、他モジュールとの再宣言
+     衝突リスクを解消。Widget.php/includes/WidgetForm.php/views/widget.edit.php/
+     views/widget.view.php の呼び出し元も追随
+  4. gettextドメインを tree-navigator から holoztek-tree-navigator へ変更
+     （bindtextdomain/bind_textdomain_codeset/dgettextを統一）。.po/.moファイル名
+     もholoztek-tree-navigator.po/.moへリネームし、RPM/DEBの配置定義も追随
+  5. 設定画面のJSグローバル window.widget_tree_navigator_form を
+     window.holoztek_tree_navigator_form へ変更し、widget.edit.phpの初期化
+     呼び出しも追随
+  6. ツールチップのグローバルCSSクラス .tree-navigator-tooltip を
+     .holoztek-tree-navigator-tooltip へ変更し、class.widget.jsの生成側も追随
+- RPM/DEBパッケージ名・Giteaリポジトリ名・モジュール配置ディレクトリ
+  (tree-navigator) は互換性維持のため据え置き。manifest.id・PHP名前空間・
+  アクション名・JSウィジェットクラス・CSSのウィジェットスコープは既に新IDで
+  統一済みのため対象外（コード全体への機械的一括置換は行っていない）
+
+* Mon Aug 10 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.4.7-0
+- コードレビュー指摘対応（2点）:
+  1. RPMにMITライセンス文書が同梱されていなかった不具合を修正。LICENSEを
+     %%{_licensedir}/%%{name}/LICENSE へインストールし、%%files に %%license
+     ディレクティブで登録（DEB側は元々debian/copyrightで同梱済みだった）
+  2. READMEがv1.4.0時点の内容のまま更新されていなかった不具合を修正。
+     最新バージョン表記をv1.4.7に更新、v1.3.2で追加したフォルダ/ホスト文字色
+     設定項目を設定項目一覧に追加、DEBインストール手順を追加
+
+* Mon Aug 10 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.4.6-0
+- 不具合修正: v1.4.5でトグルボタンへの突き刺さりを解消した際、開閉トグルの
+  無いグループ（子要素を持たない葉ノード）で今度は接続線がフォルダアイコン
+  まで届かず途切れて見えるようになった。トグルの有無でアイコンまでの距離
+  が異なる（トグルは実体のあるボーダー付きボックス、非トグル時はプレース
+  ホルダーのみで見た目上の障害物が無い）ことを考慮していなかった
+- assets/css/widget.css に :has() セレクタを追加し、実際にトグルボタン
+  （.tn-toggle）を持つグループ行のみ width: 15px（トグル手前で停止）、
+  トグルの無い葉グループは width: 26px（フォルダアイコン手前まで到達）と
+  ケースごとに接続線の長さを分岐
+
+* Mon Aug 10 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.4.5-0
+- 不具合修正: v1.4.4の修正でホストグループ行の接続線が伸びすぎ、開閉トグル
+  （+/-）ボタンの枠に線が突き刺さって見える不具合を修正。実測の結果、
+  トグルボタンの左端手前で線が止まるべきところ、線幅26pxはトグルの箱
+  （幅14px、開始位置22px）の内側まで入り込んでいた
+- assets/css/widget.css の .tn-children > .tn-group::after の width を
+  26pxから15pxに修正（トグル左端の1px手前で止まり、ホスト行の接続線と
+  同様に自然に接続して見えるよう調整。ヘッドレスブラウザでの実測値に基づく）
+
+* Mon Aug 10 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.4.4-0
+- 不具合修正: ホストグループ（フォルダ）行のツリー接続線がアイコン手前で途切れて
+  見える不具合を修正。グループ行には開閉トグルボタン（+/-、幅14px）が常に付くが、
+  接続線の長さはトグルが無いホスト行と同じ想定で計算されており、トグル分の幅を
+  考慮していなかったため、根元の縦線からアイコンまでの横線が大きく短すぎた
+- assets/css/widget.css に .tn-children > .tn-group::after のグループ専用ルール
+  （width: 26px）を追加し、ホスト用ルール（23px）と同様にトグル幅を考慮した長さに調整
+
+* Mon Aug 10 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.4.3-0
+- 不具合修正: v1.4.1のモジュール識別子リネーム（id: tree-navigator →
+  holoztek_tree_navigator）により、Zabbixコアが付与するウィジェットコンテナの
+  CSSクラスが dashboard-widget-tree-navigator から
+  dashboard-widget-holoztek_tree_navigator に変わったが、widget.css側の
+  スコープセレクタを追随させていなかったため、170/171でフォルダ・ホストタイプ
+  アイコン等ウィジェット内の装飾が一切表示されなくなっていた
+- assets/css/widget.css内の .dashboard-widget-tree-navigator スコープ
+  セレクタ（67箇所）を .dashboard-widget-holoztek_tree_navigator に一括修正
+
+* Mon Aug 10 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.4.2-0
+- manifest.jsonに author（HOLOZTEK）・description（英語1行説明）を追加。
+  Zabbixモジュールマニフェストの任意メタデータ欠落を指摘され対応
+
+* Mon Aug 10 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.4.1-0
+- Giteaコードレビュー指摘対応: モジュール識別子（id/namespace/action/js_class）が
+  一般的すぎて他ベンダーのモジュールと将来衝突しうるとの指摘を受け、HOLOZTEK
+  プレフィックスを付与
+  1. manifest.jsonの id を tree-navigator から holoztek_tree_navigator へ変更
+  2. namespace を TreeNavigator から HoloztekTreeNavigator へ変更（Widget.php・
+     includes/WidgetForm.php・actions/WidgetView.phpのnamespace宣言も追随）
+  3. action を widget.tree-navigator.view から widget.holoztek_tree_navigator.view
+     へ変更
+  4. JSクラス名を CWidgetTreeNavigator から CWidgetHoloztekTreeNavigator へ変更
+     （同一ダッシュボード内でJS実行コンテキストを共有するため、js_classの衝突が
+     最も実害が出やすいと判断し対象に含めた）
+- モジュールディレクトリ名(tree-navigator)・gettextドメイン・RPM/DEBパッケージ名・
+  Giteaリポジトリ名は変更なし（Zabbixのモジュールレジストリ内部の識別子のみが
+  対象のため）
+- 既存の配置済みウィジェット（170/171/174、計23件）はZabbix API(dashboard.update)
+  でtypeフィールドのみ新IDへ書き換え、表示設定はそのまま引き継ぎ
+
 * Sun Aug 09 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.4.0-0
 - 機能変更なし。リリース工程の変更のみ反映：
   1. RPMをel9/el10個別ビルドから単一noarchファイルに統一（_rpmfilenameから
@@ -172,7 +269,7 @@ fi
 - スクロール位置保存・復元を専用メソッドに分離（onClearContents/setContentsでも実施）
 - イベントリスナーの二重登録対策を強化（null判定ガード・解除後にnullリセット）
 - specファイルをpackaging/rpm配下に一本化（ルート直下のspec削除）
-- specのLicenseメタデータを当時の配布方針に合わせて修正
+- specのLicenseをProprietaryに修正
 - initial_depthにsetFieldHintで説明文を追加
 - ツールチップCSSクラスをtree-navigator-tooltipに変更
 

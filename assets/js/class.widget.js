@@ -27,7 +27,7 @@
  * into view (it does not check its checkbox or broadcast).
  */
 
-class CWidgetTreeNavigator extends CWidget {
+class CWidgetHoloztekTreeNavigator extends CWidget {
 
 	/**
 	 * Path of the currently selected group node, or null.
@@ -785,7 +785,7 @@ class CWidgetTreeNavigator extends CWidget {
 	#showTooltip(text, anchor) {
 		if (!this.#tooltip) {
 			this.#tooltip = document.createElement('div');
-			this.#tooltip.className = 'tree-navigator-tooltip';
+			this.#tooltip.className = 'holoztek-tree-navigator-tooltip';
 			document.body.appendChild(this.#tooltip);
 		}
 

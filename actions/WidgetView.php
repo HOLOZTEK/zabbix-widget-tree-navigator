@@ -1,6 +1,6 @@
 <?php declare(strict_types = 0);
 
-namespace Modules\TreeNavigator\Actions;
+namespace Modules\HoloztekTreeNavigator\Actions;
 
 use API,
 	CControllerDashboardWidgetView,

@@ -2,13 +2,13 @@
 
 /* ── Scrollable container ─────────────────────────────────────────────────── */
 
-div.dashboard-widget-tree-navigator .tn-wrapper {
+div.dashboard-widget-holoztek_tree_navigator .tn-wrapper {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
 }
 
-div.dashboard-widget-tree-navigator .tn-container {
+div.dashboard-widget-holoztek_tree_navigator .tn-container {
 	flex: 1 1 0;
 	min-height: 0;
 	overflow-y: auto;
@@ -19,30 +19,30 @@ div.dashboard-widget-tree-navigator .tn-container {
 
 /* ── Tree list ────────────────────────────────────────────────────────────── */
 
-div.dashboard-widget-tree-navigator .tn-tree,
-div.dashboard-widget-tree-navigator .tn-children {
+div.dashboard-widget-holoztek_tree_navigator .tn-tree,
+div.dashboard-widget-holoztek_tree_navigator .tn-children {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 
-div.dashboard-widget-tree-navigator .tn-children {
+div.dashboard-widget-holoztek_tree_navigator .tn-children {
 	display: none;  /* collapsed by default; JS adds .tn-open to parent <li> */
 }
 
-div.dashboard-widget-tree-navigator .tn-node.tn-group.tn-open > .tn-children {
+div.dashboard-widget-holoztek_tree_navigator .tn-node.tn-group.tn-open > .tn-children {
 	display: block;
 }
 
 /* ── Tree guide lines (CSS border approach) ───────────────────────────────── */
 
-div.dashboard-widget-tree-navigator .tn-children > .tn-node {
+div.dashboard-widget-holoztek_tree_navigator .tn-children > .tn-node {
 	position: relative;
 	padding-left: 18px;
 }
 
 /* Vertical line: runs full height for non-last siblings */
-div.dashboard-widget-tree-navigator .tn-children > .tn-node:not(:last-child)::before {
+div.dashboard-widget-holoztek_tree_navigator .tn-children > .tn-node:not(:last-child)::before {
 	content: '';
 	position: absolute;
 	left: 7px;
@@ -53,7 +53,7 @@ div.dashboard-widget-tree-navigator .tn-children > .tn-node:not(:last-child)::be
 }
 
 /* Vertical line: top half only for the last sibling */
-div.dashboard-widget-tree-navigator .tn-children > .tn-node:last-child::before {
+div.dashboard-widget-holoztek_tree_navigator .tn-children > .tn-node:last-child::before {
 	content: '';
 	position: absolute;
 	left: 7px;
@@ -64,7 +64,7 @@ div.dashboard-widget-tree-navigator .tn-children > .tn-node:last-child::before {
 }
 
 /* Horizontal connector for every node in the children list */
-div.dashboard-widget-tree-navigator .tn-children > .tn-node::after {
+div.dashboard-widget-holoztek_tree_navigator .tn-children > .tn-node::after {
 	content: '';
 	position: absolute;
 	left: 7px;
@@ -75,18 +75,28 @@ div.dashboard-widget-tree-navigator .tn-children > .tn-node::after {
 }
 
 /* Hosts: shifted one extra level to the right of group nodes */
-div.dashboard-widget-tree-navigator .tn-children > .tn-host {
+div.dashboard-widget-holoztek_tree_navigator .tn-children > .tn-host {
 	padding-left: 32px;
 }
 
 /* Wider connector to bridge the extra indentation */
-div.dashboard-widget-tree-navigator .tn-children > .tn-host::after {
+div.dashboard-widget-holoztek_tree_navigator .tn-children > .tn-host::after {
 	width: 23px;
+}
+
+/* Groups (leaf, no toggle button): bridge the placeholder width to reach the folder icon */
+div.dashboard-widget-holoztek_tree_navigator .tn-children > .tn-group::after {
+	width: 26px;
+}
+
+/* Groups with an expand/collapse toggle: stop at the toggle's left edge, not overlapping its border */
+div.dashboard-widget-holoztek_tree_navigator .tn-children > .tn-group:has(> .tn-row > .tn-toggle)::after {
+	width: 15px;
 }
 
 /* ── Row ──────────────────────────────────────────────────────────────────── */
 
-div.dashboard-widget-tree-navigator .tn-row {
+div.dashboard-widget-holoztek_tree_navigator .tn-row {
 	display: flex;
 	align-items: center;
 	gap: 3px;
@@ -97,13 +107,13 @@ div.dashboard-widget-tree-navigator .tn-row {
 	border-radius: 3px;
 }
 
-div.dashboard-widget-tree-navigator .tn-row:hover {
+div.dashboard-widget-holoztek_tree_navigator .tn-row:hover {
 	background: #f0f5fa;
 }
 
 /* ── Toggle button (+/-) ──────────────────────────────────────────────────── */
 
-div.dashboard-widget-tree-navigator .tn-toggle {
+div.dashboard-widget-holoztek_tree_navigator .tn-toggle {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -119,21 +129,21 @@ div.dashboard-widget-tree-navigator .tn-toggle {
 	cursor: pointer;
 }
 
-div.dashboard-widget-tree-navigator .tn-toggle::before {
+div.dashboard-widget-holoztek_tree_navigator .tn-toggle::before {
 	content: '+';
 }
 
-div.dashboard-widget-tree-navigator .tn-node.tn-open > .tn-row .tn-toggle::before {
+div.dashboard-widget-holoztek_tree_navigator .tn-node.tn-open > .tn-row .tn-toggle::before {
 	content: '−';
 }
 
-div.dashboard-widget-tree-navigator .tn-toggle:hover {
+div.dashboard-widget-holoztek_tree_navigator .tn-toggle:hover {
 	background: #d8e8f0;
 	border-color: #7aacce;
 }
 
 /* Placeholder spacer for leaf nodes (no toggle) */
-div.dashboard-widget-tree-navigator .tn-toggle-ph {
+div.dashboard-widget-holoztek_tree_navigator .tn-toggle-ph {
 	display: inline-block;
 	width: 14px;
 	height: 14px;
@@ -142,7 +152,7 @@ div.dashboard-widget-tree-navigator .tn-toggle-ph {
 
 /* ── Folder icon ──────────────────────────────────────────────────────────── */
 
-div.dashboard-widget-tree-navigator .tn-folder {
+div.dashboard-widget-holoztek_tree_navigator .tn-folder {
 	display: inline-block;
 	width: 18px;
 	height: 18px;
@@ -154,18 +164,18 @@ div.dashboard-widget-tree-navigator .tn-folder {
 }
 
 /* Closed folder */
-div.dashboard-widget-tree-navigator .tn-folder {
+div.dashboard-widget-holoztek_tree_navigator .tn-folder {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M2 5.5A1.5 1.5 0 013.5 4h4l1.5 2H17a1.5 1.5 0 011.5 1.5v8A1.5 1.5 0 0117 17H3.5A1.5 1.5 0 012 15.5z' fill='%23f0c040' stroke='%23b8840a' stroke-width='1'/%3E%3C/svg%3E");
 }
 
 /* Open folder */
-div.dashboard-widget-tree-navigator .tn-node.tn-open > .tn-row .tn-folder {
+div.dashboard-widget-holoztek_tree_navigator .tn-node.tn-open > .tn-row .tn-folder {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M2 5.5A1.5 1.5 0 013.5 4h4l1.5 2H17a1.5 1.5 0 011.5 1.5v1H2z' fill='%23f0c040' stroke='%23b8840a' stroke-width='1'/%3E%3Cpath d='M2 8.5h16l-2 8.5H4z' fill='%23fad84a' stroke='%23b8840a' stroke-width='1'/%3E%3C/svg%3E");
 }
 
 /* ── Root node ────────────────────────────────────────────────────────────── */
 
-div.dashboard-widget-tree-navigator .tn-root-icon {
+div.dashboard-widget-holoztek_tree_navigator .tn-root-icon {
 	display: inline-block;
 	width: 18px;
 	height: 18px;
@@ -176,14 +186,14 @@ div.dashboard-widget-tree-navigator .tn-root-icon {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpolygon points='10,2 18,8.5 15,8.5 15,17.5 5,17.5 5,8.5 2,8.5' fill='%23b8cce4' stroke='%233366aa' stroke-width='1.2'/%3E%3Crect x='8' y='12' width='4' height='5.5' fill='%233366aa'/%3E%3Crect x='5.5' y='9.5' width='3' height='2.5' rx='.3' fill='%233366aa'/%3E%3Crect x='11.5' y='9.5' width='3' height='2.5' rx='.3' fill='%233366aa'/%3E%3C/svg%3E");
 }
 
-div.dashboard-widget-tree-navigator .tn-server-label {
+div.dashboard-widget-holoztek_tree_navigator .tn-server-label {
 	font-weight: 600;
 	color: var(--tn-folder-color, #223344);
 }
 
 /* ── Group label ──────────────────────────────────────────────────────────── */
 
-div.dashboard-widget-tree-navigator .tn-group-label {
+div.dashboard-widget-holoztek_tree_navigator .tn-group-label {
 	font-size: 12px;
 	color: var(--tn-folder-color, #333);
 	white-space: nowrap;
@@ -193,18 +203,18 @@ div.dashboard-widget-tree-navigator .tn-group-label {
 	min-width: 0;
 }
 
-div.dashboard-widget-tree-navigator .js-tn-group-label {
+div.dashboard-widget-holoztek_tree_navigator .js-tn-group-label {
 	cursor: pointer;
 }
 
-div.dashboard-widget-tree-navigator .js-tn-group-label:hover {
+div.dashboard-widget-holoztek_tree_navigator .js-tn-group-label:hover {
 	color: #1388d8;
 	text-decoration: underline;
 }
 
 /* ── Host type icon ───────────────────────────────────────────────────────── */
 
-div.dashboard-widget-tree-navigator .tn-host-type-icon {
+div.dashboard-widget-holoztek_tree_navigator .tn-host-type-icon {
 	display: inline-block;
 	width: 18px;
 	height: 18px;
@@ -215,42 +225,42 @@ div.dashboard-widget-tree-navigator .tn-host-type-icon {
 	flex-shrink: 0;
 }
 
-div.dashboard-widget-tree-navigator .tn-host-icon {
+div.dashboard-widget-holoztek_tree_navigator .tn-host-icon {
 	cursor: pointer;
 }
 
-div.dashboard-widget-tree-navigator .tn-host-icon:hover {
+div.dashboard-widget-holoztek_tree_navigator .tn-host-icon:hover {
 	filter: brightness(1.3);
 }
 
 /* Server */
-div.dashboard-widget-tree-navigator .tn-host-type-icon-server {
+div.dashboard-widget-holoztek_tree_navigator .tn-host-type-icon-server {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Crect x='1' y='2.5' width='18' height='5' rx='1' fill='%23dde3e8' stroke='%23445' stroke-width='1.4'/%3E%3Crect x='1' y='9.5' width='18' height='5' rx='1' fill='%23dde3e8' stroke='%23445' stroke-width='1.4'/%3E%3Ccircle cx='16.5' cy='5' r='1.1' fill='%2327a040'/%3E%3Ccircle cx='16.5' cy='12' r='1.1' fill='%2327a040'/%3E%3Crect x='3' y='4.3' width='10' height='1.4' rx='.7' fill='%23aab'/%3E%3Crect x='3' y='11.3' width='10' height='1.4' rx='.7' fill='%23aab'/%3E%3C/svg%3E");
 }
 
 /* Linux */
-div.dashboard-widget-tree-navigator .tn-host-type-icon-linux {
+div.dashboard-widget-holoztek_tree_navigator .tn-host-type-icon-linux {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cellipse cx='10' cy='13.5' rx='5' ry='6' fill='%2322303a'/%3E%3Cellipse cx='10' cy='14.5' rx='2.8' ry='4' fill='%23d8dfe3'/%3E%3Ccircle cx='10' cy='6' r='4.5' fill='%2322303a'/%3E%3Ccircle cx='8.3' cy='5.5' r='1.3' fill='%23f9c400'/%3E%3Ccircle cx='11.7' cy='5.5' r='1.3' fill='%23f9c400'/%3E%3Ccircle cx='8.3' cy='5.5' r='.6' fill='%23111'/%3E%3Ccircle cx='11.7' cy='5.5' r='.6' fill='%23111'/%3E%3Cpolygon points='9.2,7.3 10.8,7.3 10,8.7' fill='%23e06000'/%3E%3C/svg%3E");
 }
 
 /* Windows */
-div.dashboard-widget-tree-navigator .tn-host-type-icon-windows {
+div.dashboard-widget-holoztek_tree_navigator .tn-host-type-icon-windows {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Crect x='1.5' y='1.5' width='7.8' height='7.8' rx='.8' fill='%230090cc'/%3E%3Crect x='10.7' y='1.5' width='7.8' height='7.8' rx='.8' fill='%230090cc'/%3E%3Crect x='1.5' y='10.7' width='7.8' height='7.8' rx='.8' fill='%230090cc'/%3E%3Crect x='10.7' y='10.7' width='7.8' height='7.8' rx='.8' fill='%230090cc'/%3E%3C/svg%3E");
 }
 
 /* Network */
-div.dashboard-widget-tree-navigator .tn-host-type-icon-network {
+div.dashboard-widget-holoztek_tree_navigator .tn-host-type-icon-network {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Crect x='1' y='6' width='18' height='7' rx='1' fill='%23cdd6db' stroke='%23334' stroke-width='1.4'/%3E%3Ccircle cx='4.5' cy='9.5' r='1.1' fill='%2327a040'/%3E%3Ccircle cx='8' cy='9.5' r='1.1' fill='%2327a040'/%3E%3Ccircle cx='11.5' cy='9.5' r='1.1' fill='%23778'/%3E%3Ccircle cx='15' cy='9.5' r='1.1' fill='%23778'/%3E%3Cline x1='4.5' y1='13' x2='4.5' y2='17' stroke='%23334' stroke-width='1.4'/%3E%3Cline x1='8' y1='13' x2='8' y2='17' stroke='%23334' stroke-width='1.4'/%3E%3Cline x1='11.5' y1='13' x2='11.5' y2='17' stroke='%23334' stroke-width='1.4'/%3E%3Cline x1='15' y1='13' x2='15' y2='17' stroke='%23334' stroke-width='1.4'/%3E%3C/svg%3E");
 }
 
 /* Virtual */
-div.dashboard-widget-tree-navigator .tn-host-type-icon-virtual {
+div.dashboard-widget-holoztek_tree_navigator .tn-host-type-icon-virtual {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Crect x='4' y='2' width='14' height='10' rx='1' fill='%23c5cae8' stroke='%235c6bc0' stroke-width='1.2'/%3E%3Crect x='2' y='5' width='14' height='10' rx='1' fill='%23eef' stroke='%23334' stroke-width='1.4'/%3E%3Cline x1='4' y1='10' x2='14' y2='10' stroke='%23889' stroke-width='.9'/%3E%3Cline x1='9' y1='5.5' x2='9' y2='14.5' stroke='%23889' stroke-width='.9'/%3E%3C/svg%3E");
 }
 
 /* ── Host label ───────────────────────────────────────────────────────────── */
 
-div.dashboard-widget-tree-navigator .tn-host-label {
+div.dashboard-widget-holoztek_tree_navigator .tn-host-label {
 	font-size: 12px;
 	color: var(--tn-host-color, #444);
 	white-space: nowrap;
@@ -261,14 +271,14 @@ div.dashboard-widget-tree-navigator .tn-host-label {
 	cursor: pointer;
 }
 
-div.dashboard-widget-tree-navigator .tn-host-label:hover {
+div.dashboard-widget-holoztek_tree_navigator .tn-host-label:hover {
 	color: #1388d8;
 	text-decoration: underline;
 }
 
 /* ── Selected state ───────────────────────────────────────────────────────── */
 
-div.dashboard-widget-tree-navigator .tn-selected {
+div.dashboard-widget-holoztek_tree_navigator .tn-selected {
 	background: #d8eaf8;
 	border-radius: 3px;
 	padding: 0 3px;
@@ -278,7 +288,7 @@ div.dashboard-widget-tree-navigator .tn-selected {
 
 /* ── Folder icon tooltip (appended to body, outside widget scope) ─────────── */
 
-.tree-navigator-tooltip {
+.holoztek-tree-navigator-tooltip {
 	position: fixed;
 	z-index: 99999;
 	display: none;
@@ -295,7 +305,7 @@ div.dashboard-widget-tree-navigator .tn-selected {
 
 /* ── Toolbar ──────────────────────────────────────────────────────────────── */
 
-div.dashboard-widget-tree-navigator .tn-toolbar {
+div.dashboard-widget-holoztek_tree_navigator .tn-toolbar {
 	display: flex;
 	align-items: flex-start;
 	gap: 4px;
@@ -303,7 +313,7 @@ div.dashboard-widget-tree-navigator .tn-toolbar {
 	padding: 4px 6px 0;
 }
 
-div.dashboard-widget-tree-navigator .tn-mode-toggle {
+div.dashboard-widget-holoztek_tree_navigator .tn-mode-toggle {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -319,7 +329,7 @@ div.dashboard-widget-tree-navigator .tn-mode-toggle {
 	flex-shrink: 0;
 }
 
-div.dashboard-widget-tree-navigator .tn-mode-toggle::before {
+div.dashboard-widget-holoztek_tree_navigator .tn-mode-toggle::before {
 	content: '';
 	display: inline-block;
 	width: 14px;
@@ -329,23 +339,23 @@ div.dashboard-widget-tree-navigator .tn-mode-toggle::before {
 	background-repeat: no-repeat;
 }
 
-div.dashboard-widget-tree-navigator .tn-mode-toggle:hover {
+div.dashboard-widget-holoztek_tree_navigator .tn-mode-toggle:hover {
 	background: #e0ecf8;
 	border-color: #7aaace;
 }
 
-div.dashboard-widget-tree-navigator .tn-mode-toggle.tn-active {
+div.dashboard-widget-holoztek_tree_navigator .tn-mode-toggle.tn-active {
 	background: #cfe6fb;
 	border-color: #4a90c2;
 }
 
-div.dashboard-widget-tree-navigator .tn-mode-toggle.tn-active::before {
+div.dashboard-widget-holoztek_tree_navigator .tn-mode-toggle.tn-active::before {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Crect x='1' y='2' width='7' height='7' rx='1' fill='%234a90c2' stroke='%23225588' stroke-width='1.4'/%3E%3Cpolyline points='2.3,5.5 4,7.2 7,3.5' fill='none' stroke='%23fff' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='1' y='11' width='7' height='7' rx='1' fill='%234a90c2' stroke='%23225588' stroke-width='1.4'/%3E%3Cpolyline points='2.3,14.5 4,16.2 7,12.5' fill='none' stroke='%23fff' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline x1='11' y1='5.5' x2='19' y2='5.5' stroke='%234a90c2' stroke-width='1.6' stroke-linecap='round'/%3E%3Cline x1='11' y1='14.5' x2='19' y2='14.5' stroke='%234a90c2' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
 /* ── Multi-select checkboxes (hidden unless multi-select mode is active) ───── */
 
-div.dashboard-widget-tree-navigator .tn-checkbox {
+div.dashboard-widget-holoztek_tree_navigator .tn-checkbox {
 	display: none;
 	width: 13px;
 	height: 13px;
@@ -354,20 +364,20 @@ div.dashboard-widget-tree-navigator .tn-checkbox {
 	cursor: pointer;
 }
 
-div.dashboard-widget-tree-navigator .tn-container.tn-multi-mode .tn-checkbox {
+div.dashboard-widget-holoztek_tree_navigator .tn-container.tn-multi-mode .tn-checkbox {
 	display: inline-block;
 }
 
 /* ── Search area ──────────────────────────────────────────────────────────── */
 
-div.dashboard-widget-tree-navigator .tn-search-area {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-area {
 	flex: 1 1 auto;
 	min-width: 0;
 	position: relative;
 	text-align: right;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-toggle {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-toggle {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -382,7 +392,7 @@ div.dashboard-widget-tree-navigator .tn-search-toggle {
 	line-height: 1;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-toggle::before {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-toggle::before {
 	content: '';
 	display: inline-block;
 	width: 13px;
@@ -392,30 +402,30 @@ div.dashboard-widget-tree-navigator .tn-search-toggle::before {
 	background-repeat: no-repeat;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-toggle:hover {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-toggle:hover {
 	background: #e0ecf8;
 	border-color: #7aaace;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-bar {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-bar {
 	position: relative;
 	margin-top: 4px;
 	text-align: left;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-input-row {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-input-row {
 	display: flex;
 	align-items: center;
 	gap: 4px;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-input-wrap {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-input-wrap {
 	position: relative;
 	flex: 1 1 auto;
 	min-width: 0;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-input {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-input {
 	width: 100%;
 	height: 24px;
 	padding: 0 22px 0 6px;
@@ -426,12 +436,12 @@ div.dashboard-widget-tree-navigator .tn-search-input {
 	outline: none;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-input:focus {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-input:focus {
 	border-color: #5599cc;
 	box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.15);
 }
 
-div.dashboard-widget-tree-navigator .tn-search-clear {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-clear {
 	position: absolute;
 	right: 4px;
 	top: 50%;
@@ -450,11 +460,11 @@ div.dashboard-widget-tree-navigator .tn-search-clear {
 	cursor: pointer;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-clear:hover {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-clear:hover {
 	color: #334;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-nav {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-nav {
 	display: flex;
 	align-items: center;
 	gap: 2px;
@@ -462,14 +472,14 @@ div.dashboard-widget-tree-navigator .tn-search-nav {
 	flex-shrink: 0;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-count {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-count {
 	font-size: 11px;
 	color: #778;
 	min-width: 36px;
 	text-align: center;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-nav-btn {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-nav-btn {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -485,17 +495,17 @@ div.dashboard-widget-tree-navigator .tn-search-nav-btn {
 	line-height: 1;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-nav-btn:hover:not(:disabled) {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-nav-btn:hover:not(:disabled) {
 	background: #e0ecf8;
 	border-color: #7aaace;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-nav-btn:disabled {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-nav-btn:disabled {
 	opacity: 0.35;
 	cursor: default;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-dropdown {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-dropdown {
 	position: absolute;
 	top: calc(100% + 2px);
 	left: 0;
@@ -512,7 +522,7 @@ div.dashboard-widget-tree-navigator .tn-search-dropdown {
 	z-index: 10;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-dropdown li {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-dropdown li {
 	padding: 4px 8px;
 	font-size: 12px;
 	cursor: pointer;
@@ -521,16 +531,16 @@ div.dashboard-widget-tree-navigator .tn-search-dropdown li {
 	text-overflow: ellipsis;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-dropdown li:hover:not(.tn-search-dropdown-more) {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-dropdown li:hover:not(.tn-search-dropdown-more) {
 	background: #e8f4ff;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-dropdown li.tn-search-dropdown-active {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-dropdown li.tn-search-dropdown-active {
 	background: #d4e8f8;
 	font-weight: 600;
 }
 
-div.dashboard-widget-tree-navigator .tn-search-dropdown li.tn-search-dropdown-more {
+div.dashboard-widget-holoztek_tree_navigator .tn-search-dropdown li.tn-search-dropdown-more {
 	color: #889;
 	font-style: italic;
 	font-size: 11px;

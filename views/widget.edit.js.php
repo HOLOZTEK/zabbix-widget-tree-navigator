@@ -1,5 +1,5 @@
 <?php declare(strict_types = 0); ?>
-window.widget_tree_navigator_form = new class {
+window.holoztek_tree_navigator_form = new class {
 
 	init() {
 		this._form = document.getElementById('widget-dialogue-form');

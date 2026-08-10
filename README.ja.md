@@ -12,7 +12,7 @@ Tree Navigator は、Zabbix のホストグループとホストを折りたた�
 
 <img src="screenshots/tree-navigator-dashboard-example.png" width="750" alt="Tree Navigator から他の Zabbix ダッシュボードウィジェットを連動する例" />
 
-[最新リリース](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/tag/v1.4.0) | [RPM](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.0/zabbix-widget-tree-navigator-1.4.0.noarch.rpm) | [DEB](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.0/zabbix-widget-tree-navigator_1.4.0_all.deb) | [Source](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.0/zabbix-widget-tree-navigator-1.4.0.tar.gz)
+[最新リリース](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/tag/v1.4.8) | [RPM](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.8/zabbix-widget-tree-navigator-1.4.8.noarch.rpm) | [DEB](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.8/zabbix-widget-tree-navigator_1.4.8_all.deb) | [Source](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.8/zabbix-widget-tree-navigator-1.4.8.tar.gz)
 
 ## なぜ Tree Navigator?
 
@@ -178,7 +178,7 @@ Tree Navigator は、Zabbix 標準の Host navigator ウィジェットを置き
 
 1. RPM をダウンロードし、Zabbix サーバーにインストール
    ```bash
-   rpm -Uvh zabbix-widget-tree-navigator-1.4.0.noarch.rpm
+   rpm -Uvh zabbix-widget-tree-navigator-1.4.8.noarch.rpm
    ```
 2. パッケージにより、ウィジェットファイルは有効な Zabbix フロントエンドのモジュールディレクトリへ自動配置されます。
 3. Zabbix 管理画面 -> 管理 -> モジュール からモジュールを有効化
@@ -188,7 +188,7 @@ Tree Navigator は、Zabbix 標準の Host navigator ウィジェットを置き
 
 1. DEB をダウンロードし、Zabbix サーバーにインストール
    ```bash
-   apt install ./zabbix-widget-tree-navigator_1.4.0_all.deb
+   apt install ./zabbix-widget-tree-navigator_1.4.8_all.deb
    ```
 2. パッケージにより、ウィジェットファイルは有効な Zabbix フロントエンドのモジュールディレクトリへ自動配置されます。
 3. Zabbix 管理画面 -> 管理 -> モジュール からモジュールを有効化
@@ -200,19 +200,45 @@ Tree Navigator は、Zabbix 標準の Host navigator ウィジェットを置き
 
 1. リリースのソースアーカイブをダウンロードして展開
    ```bash
-   curl -L -o zabbix-widget-tree-navigator-1.4.0.tar.gz https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.0/zabbix-widget-tree-navigator-1.4.0.tar.gz
-   tar -xzf zabbix-widget-tree-navigator-1.4.0.tar.gz
+   curl -L -o zabbix-widget-tree-navigator-1.4.8.tar.gz https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.8/zabbix-widget-tree-navigator-1.4.8.tar.gz
+   tar -xzf zabbix-widget-tree-navigator-1.4.8.tar.gz
    ```
 2. 実行に必要なモジュールファイルを `tree-navigator` として Zabbix フロントエンドのモジュールディレクトリへ配置
    ```bash
    install -d /usr/share/zabbix/ui/modules/tree-navigator
-   cd zabbix-widget-tree-navigator-1.4.0
+   cd zabbix-widget-tree-navigator-1.4.8
    cp -a manifest.json Widget.php actions assets includes locale views /usr/share/zabbix/ui/modules/tree-navigator/
    ```
    Zabbix 環境が従来のモジュールパスを使用している場合は、代わりに `/usr/share/zabbix/modules/tree-navigator` へ配置してください。
 3. ファイル所有者と権限を Zabbix フロントエンドから読み取れる状態に設定
 4. Zabbix 管理画面 -> 管理 -> モジュール からモジュールを有効化
 5. ダッシュボードにウィジェットを追加
+
+## 旧モジュールIDからのアップグレード
+
+v1.4.1 で、Zabbix モジュール識別子は `tree-navigator` から `holoztek_tree_navigator` へ変更されました。他ベンダーの公開モジュールとの名前衝突リスクを下げるための変更です。
+
+RPM/DEB パッケージ名とフロントエンドのモジュールディレクトリは、互換性維持のため `zabbix-widget-tree-navigator` / `tree-navigator` のままです。ただし Zabbix 上では、新しい manifest ID は別のウィジェット種別として扱われます。
+
+v1.4.0 以前からアップグレードする場合は、以下を実施してください。
+
+1. 新しい RPM/DEB パッケージをインストールするか、v1.4.8 の実行ファイルへ差し替えます。
+2. Zabbix 管理画面 -> 管理 -> モジュール でモジュールを再スキャンし、ID `holoztek_tree_navigator` のモジュールを有効化します。
+3. 旧ID `tree-navigator` のモジュールが一覧に残る場合は、無効化または削除します。
+4. 既存ダッシュボードに配置済みのウィジェットは、Zabbix API で `type` を `tree-navigator` から `holoztek_tree_navigator` へ変更します。`widgetid`, `fields`, `reference` は変更不要です。
+5. テンプレートダッシュボードを利用している場合は、テンプレート側のウィジェットにも同じ変更を適用します。
+
+`dashboard.update` を呼び出す前の移行処理例です。
+
+```php
+foreach ($dashboard['pages'] as &$page) {
+    foreach ($page['widgets'] as &$widget) {
+        if ($widget['type'] === 'tree-navigator') {
+            $widget['type'] = 'holoztek_tree_navigator';
+        }
+    }
+}
+```
 
 ## ドキュメント
 
@@ -228,7 +254,7 @@ Zabbix モジュールとして読み込まれるファイルはリポジトリ�
 
 ## バージョン
 
-最新バージョン: **v1.4.0**
+最新バージョン: **v1.4.8**
 
 ## メンテナ
 

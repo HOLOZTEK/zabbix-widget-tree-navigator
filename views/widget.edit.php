@@ -19,7 +19,7 @@
 	)
 	->addField(
 		(new CWidgetFieldIntegerBoxView($data['fields']['initial_depth']))
-			->setFieldHint(makeHelpIcon(_tn('Initial tree depth when no saved expansion state exists.')))
+			->setFieldHint(makeHelpIcon(_holoztek_tn('Initial tree depth when no saved expansion state exists.')))
 	)
 	->addField(
 		new CWidgetFieldCheckBoxView($data['fields']['recursive'])
@@ -34,5 +34,5 @@
 		new CWidgetFieldColorView($data['fields']['host_font_color'])
 	)
 	->includeJsFile('widget.edit.js.php')
-	->addJavaScript('widget_tree_navigator_form.init();')
+	->addJavaScript('holoztek_tree_navigator_form.init();')
 	->show();

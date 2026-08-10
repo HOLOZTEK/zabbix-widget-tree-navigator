@@ -1,3 +1,74 @@
+zabbix-widget-tree-navigator (1.4.8) unstable; urgency=medium
+
+  * コードレビュー指摘対応（5点）: READMEのバージョン表記修正漏れ・旧ID
+    (tree-navigator)からのアップグレード手順追加。グローバル関数_tn()を
+    _holoztek_tn()へ、gettextドメインをholoztek-tree-navigatorへ（.po/.mo
+    ファイル名も追随）、JSグローバルwindow.widget_tree_navigator_formを
+    window.holoztek_tree_navigator_formへ、CSSツールチップクラス
+    .tree-navigator-tooltipを.holoztek-tree-navigator-tooltipへ、それぞれ
+    変更し他モジュールとの識別子衝突リスクを解消。RPM/DEBパッケージ名・
+    モジュール配置ディレクトリ(tree-navigator)は互換性維持のため据え置き。
+
+ -- HOLOZTEK <ttake-55@users.noreply.github.com>  Mon, 10 Aug 2026 16:00:00 +0000
+
+zabbix-widget-tree-navigator (1.4.7) unstable; urgency=medium
+
+  * コードレビュー指摘対応: RPMにMITライセンス文書が同梱されていなかった不具合を
+    修正（%license ディレクティブで/usr/share/licenses配下に追加、DEB側は元々
+    debian/copyrightで同梱済み）。またREADMEがv1.4.0時点のまま更新されていなかった
+    ため、最新バージョン表記・フォルダ/ホスト文字色設定・DEBインストール手順を追加。
+
+ -- HOLOZTEK <ttake-55@users.noreply.github.com>  Mon, 10 Aug 2026 15:30:00 +0000
+
+zabbix-widget-tree-navigator (1.4.6) unstable; urgency=medium
+
+  * 不具合修正: v1.4.5でトグルボタンへの突き刺さりを解消したが、開閉トグルの
+    無い葉グループでは今度は接続線がフォルダアイコンまで届かず途切れて見える
+    リグレッションがあった。widget.cssに:has()セレクタを追加し、トグルの
+    有無で接続線の幅を分岐（トグルあり:15px／トグルなし葉グループ:26px）。
+
+ -- HOLOZTEK <ttake-55@users.noreply.github.com>  Mon, 10 Aug 2026 15:00:00 +0000
+
+zabbix-widget-tree-navigator (1.4.5) unstable; urgency=medium
+
+  * 不具合修正: v1.4.4の修正でホストグループ行の接続線が伸びすぎ、開閉トグル
+    （+/-）ボタンの枠に線が突き刺さって見える不具合を修正。widget.cssの
+    .tn-group::after の width を26pxから15pxに調整し、トグル左端手前で
+    自然に止まるようにした。
+
+ -- HOLOZTEK <ttake-55@users.noreply.github.com>  Mon, 10 Aug 2026 14:30:00 +0000
+
+zabbix-widget-tree-navigator (1.4.4) unstable; urgency=medium
+
+  * 不具合修正: ホストグループ（フォルダ）行のツリー接続線がアイコン手前で途切れる
+    問題を修正。開閉トグルボタン分の幅を考慮せず接続線の長さを計算していたため、
+    根元の縦線から折れ曲がる横線がアイコンまで届いていなかった。
+
+ -- HOLOZTEK <ttake-55@users.noreply.github.com>  Mon, 10 Aug 2026 11:00:00 +0000
+
+zabbix-widget-tree-navigator (1.4.3) unstable; urgency=medium
+
+  * 不具合修正: v1.4.1のモジュール識別子リネームでウィジェットコンテナのCSSクラスが
+    変わったのにwidget.css側のスコープセレクタが追随しておらず、170/171で
+    フォルダ・ホストタイプアイコン等が表示されなくなっていた問題を修正。
+
+ -- HOLOZTEK <ttake-55@users.noreply.github.com>  Mon, 10 Aug 2026 10:00:00 +0000
+
+zabbix-widget-tree-navigator (1.4.2) unstable; urgency=medium
+
+  * manifest.jsonに author（HOLOZTEK）・description（英語1行説明）を追加。
+    Zabbixモジュールマニフェストの任意メタデータ欠落を指摘され対応。
+
+ -- HOLOZTEK <ttake-55@users.noreply.github.com>  Mon, 10 Aug 2026 09:30:00 +0000
+
+zabbix-widget-tree-navigator (1.4.1) unstable; urgency=medium
+
+  * コードレビュー指摘対応: モジュール識別子（id/namespace/action/js_class）に
+    HOLOZTEKプレフィックスを付与し、他ベンダーモジュールとの将来的な衝突を回避。
+    パッケージ名・モジュールディレクトリ名は変更なし。
+
+ -- HOLOZTEK <ttake-55@users.noreply.github.com>  Mon, 10 Aug 2026 09:00:00 +0000
+
 zabbix-widget-tree-navigator (1.4.0) unstable; urgency=medium
 
   * v1.4.0リリース。機能変更なし、RPM/DEB併存の正式リリース第1号。
