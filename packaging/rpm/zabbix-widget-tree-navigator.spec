@@ -89,20 +89,20 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
-* Sun Aug 09 2026 claude <noreply> - 1.4.0-0
+* Sun Aug 09 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.4.0-0
 - 機能変更なし。リリース工程の変更のみ反映：
   1. RPMをel9/el10個別ビルドから単一noarchファイルに統一（_rpmfilenameから
      %%{dist}を除去）。BuildArch: noarchでコンパイル済みバイナリを含まない
      ため、170/171どちらでビルドしても同一内容
   2. Debianパッケージング(.deb)をdebian/配下に追加（v1.3.3で試験導入済み）
 
-* Sat Aug 08 2026 claude <noreply> - 1.3.3-0
+* Sat Aug 08 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.3.3-0
 - コードレビュー issue #4 対応: RPMの%%installに views/widget.edit.js.php の配置が
   抜けており、v1.3.2のel9/el10 RPMいずれにも同ファイルが含まれていなかった不具合を
   修正。設定画面でwidget_tree_navigator_formが未定義となりカラーピッカー初期化
   （フォルダ文字色・ホスト文字色）が動作しない可能性があった
 
-* Sat Aug 08 2026 claude <noreply> - 1.3.2-0
+* Sat Aug 08 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.3.2-0
 - フォルダ文字色（folder_font_color）・ホスト文字色（host_font_color）を設定画面から
   個別に指定できるように追加。CWidgetFieldColorで2フィールドを新設し、CSSカスタム
   プロパティ（--tn-folder-color / --tn-host-color）としてサーバー側でウィジェット
@@ -110,7 +110,7 @@ fi
 - 設定画面のカラーピッカーUI初期化用にwidget.edit.js.phpを新規追加
 - manifest.jsonのバージョン表記ずれ（デプロイ済み1.3.0 vs 実体1.3.1相当）を本リリースで解消
 
-* Sat Jul 18 2026 claude <noreply> - 1.3.1-0
+* Sat Jul 18 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.3.1-0
 - v1.3.0コードレビュー対応（Issue #3）2点
   1. 同一ホストが複数グループに属する場合、片方のチェックボックスを操作しても
      同じhostidを持つ他のチェックボックス表示が同期しない不具合を修正。
@@ -121,7 +121,7 @@ fi
      未選択・モード切替時は空配列）で配信するよう修正。標準の複数ホスト入力
      _hostidsを参照するウィジェットとも連携可能に
 
-* Fri Jul 17 2026 claude <noreply> - 1.3.0-0
+* Fri Jul 17 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.3.0-0
 - ホスト・ホストグループのマルチセレクトに対応。ツールバーにシングル/マルチ選択切替
   ボタンを追加し、マルチ選択時はホスト・ホストグループのアイコン左側にチェックボック
   スを表示。チェックしたホスト/グループのID（グループはそのグループ自身のIDのみ、子孫
@@ -130,7 +130,7 @@ fi
 - シングル選択時の動作（recursive設定に基づく子孫ノード展開・全階層ベースの
   _hostgroupids配信等）は従来どおり変更なし
 
-* Mon Jul 13 2026 claude <noreply> - 1.2.4-0
+* Mon Jul 13 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.2.4-0
 - Issue #1 対応：検索バー開時にウィジェット再描画（データ更新）してもドロップダウン候補が
   正しく復元されるよう#syncSearchUI()から#renderDropdown()を呼ぶよう修正
 - グループ選択時のブロードキャストを recursive 設定から分離：_hostgroupid は常に選択した
@@ -140,17 +140,17 @@ fi
 - README：検索機能の説明を「候補表示と該当ホストへのジャンプ」に修正（実装と不一致だった
   「フィルタリング」表現を訂正）
 
-* Mon Jul 13 2026 claude <noreply> - 1.2.3-0
+* Mon Jul 13 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.2.3-0
 - ホスト選択時に親グループID（_hostgroupid）を配信しないよう修正（空配列で明示的に
   クリア）。groupids/hostidsをOR（合算）で扱う受信側ウィジェット（radar-chart等）で、
   ホストを1件選択したはずが親グループ全体が表示されてしまう不具合を修正
 - 未使用となったdata-parent-groupid属性を削除
 
-* Wed Jun 11 2026 claude <noreply> - 1.2.2-0
+* Wed Jun 11 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.2.2-0
 - RPM %postのmkdir -p個別サブディレクトリ作成を削除し、rm -rf → mkdir -p "${MODDIR}" → cp -rp の順序に整理
 - #onDropdownClick()のindex上限チェックを追加（idx < this.#search_results.length）
 
-* Wed Jun 11 2026 claude <noreply> - 1.2.1-0
+* Wed Jun 11 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.2.1-0
 - ドロップダウン選択をhostid依存からresult index依存に変更（同一hostidの複数候補が正しくジャンプするよう修正）
 - 検索バーを閉じたときにinput.valueもクリアするよう修正
 - 検索UI・ツールチップ文言をローカライズ（_tn()使用、JS用ラベルはdata-*属性経由）
@@ -158,16 +158,16 @@ fi
 - fields_values['groupids']の参照を??演算子で防御的に変更
 - RPM %postで旧モジュールディレクトリをrm -rfしてから再インストールするよう変更
 
-* Wed Jun 11 2026 claude <noreply> - 1.2.0-0
+* Wed Jun 11 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.2.0-0
 - ホスト名部分一致検索ボックスを追加（ツリー上部の虫眼鏡ボタンで表示・非表示切替）
 - 入力中にドロップダウン候補リストを表示（最大15件）
 - 複数一致時は Next / Prev ボタンおよびEnterキーで順番にジャンプ
 - 一致ホストへのジャンプ時に祖先グループを自動展開・選択してブロードキャスト
 
-* Fri Jun 06 2026 claude <noreply> - 1.1.0-0
+* Fri Jun 06 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.1.0-0
 - initial_depthの説明文を「展開状態の保存がない場合の初期展開階層」に変更
 
-* Fri Jun 06 2026 claude <noreply> - 1.0.2-0
+* Fri Jun 06 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.0.2-0
 - show_host_count=false時にフォルダのdata属性を付与せずツールチップを非表示に
 - スクロール位置保存・復元を専用メソッドに分離（onClearContents/setContentsでも実施）
 - イベントリスナーの二重登録対策を強化（null判定ガード・解除後にnullリセット）
@@ -176,7 +176,7 @@ fi
 - initial_depthにsetFieldHintで説明文を追加
 - ツールチップCSSクラスをtree-navigator-tooltipに変更
 
-* Thu Jun 05 2026 claude <noreply> - 1.0.1-0
+* Thu Jun 05 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.0.1-0
 - JSイベントリスナーの重複登録対策（バインド済みハンドラをフィールドに保持しonDeactivateで解除）
 - スクロール位置保存・復元の対象を.tn-containerに修正
 - Sub-groups有効時に選択グループの子孫グループも表示・ブロードキャスト対象に含めるよう修正
@@ -190,7 +190,7 @@ fi
 - RPM spec の SRCDIR を zabbix-widget-tree-navigator に修正
 - manifest.json / spec のバージョンを 1.0.1 に統一
 
-* Mon Apr 27 2026 claude <noreply> - 1.0.0-1
+* Mon Apr 27 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.0.0-1
 - 初回リリース
 - 設定可能なルート名を先頭に表示（デフォルト: Zabbix）
 - ディレクトリツリー形式でホストグループ・ホストを表示

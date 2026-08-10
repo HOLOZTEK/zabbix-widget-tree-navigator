@@ -11,10 +11,15 @@ Use this checklist before publishing `zabbix-widget-tree-navigator` from staging
 
 ## Repository
 
+- Confirm target GitHub owner is exactly `HOLOZTEK`.
 - Confirm target GitHub repository name is exactly `zabbix-widget-tree-navigator`.
+- Confirm target GitHub repository visibility is `public`.
+- Confirm the publication approval record specifies owner `HOLOZTEK`.
 - Confirm the publication approval record specifies repository `zabbix-widget-tree-navigator`.
 - Confirm the publication approval record specifies version `v1.4.0`.
-- Confirm the publication approval target is `GitHub`.
+- Confirm the publication approval record specifies the full current staging commit SHA.
+- Confirm the publication approval record specifies target `GitHub`.
+- Confirm the publication approval record specifies visibility `public`.
 
 ## Documentation
 
