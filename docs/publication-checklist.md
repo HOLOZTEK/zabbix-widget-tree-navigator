@@ -4,8 +4,11 @@ Use this checklist before publishing `zabbix-widget-tree-navigator` from staging
 
 ## Source
 
-- Confirm staged source is based on tag `v1.4.8`.
-- Confirm `manifest.json` contains version `1.4.8`.
+- Confirm staged source is based on the approved release tag.
+- Confirm `manifest.json` version matches the approved release version.
+- Confirm package metadata versions match the approved release version.
+- Confirm README release links, package filenames, install commands, and source archive commands match the approved release version.
+- Run `scripts/check-release-version.sh <approved-version>` before publishing.
 - Confirm `manifest.json` contains public `author`, `description`, and `url` metadata.
 - Confirm no private URLs, credentials, internal hostnames, or environment-specific files are included.
 - Confirm README installation instructions match the distributed artifact format.
@@ -18,7 +21,7 @@ Use this checklist before publishing `zabbix-widget-tree-navigator` from staging
 - Confirm target GitHub repository visibility is `public`.
 - Confirm the publication approval record specifies owner `HOLOZTEK`.
 - Confirm the publication approval record specifies repository `zabbix-widget-tree-navigator`.
-- Confirm the publication approval record specifies version `v1.4.8`.
+- Confirm the publication approval record specifies the approved release version.
 - Confirm the publication approval record specifies the full current staging commit SHA.
 - Confirm the publication approval record specifies target `GitHub`.
 - Confirm the publication approval record specifies visibility `public`.
@@ -42,5 +45,5 @@ Use this checklist before publishing `zabbix-widget-tree-navigator` from staging
 ## Release
 
 - Push the reviewed staging content to GitHub only after publication approval.
-- Push tag `v1.4.8` only after staged content and approved version match exactly.
+- Push the approved release tag only after staged content and approved version match exactly.
 - Create a GitHub release only from the approved tag and version.

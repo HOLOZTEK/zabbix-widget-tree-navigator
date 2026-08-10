@@ -225,10 +225,13 @@ If you are upgrading from v1.4.0 or earlier:
 1. Install the new RPM/DEB package, or replace the source files with the v1.4.8 runtime files.
 2. In the Zabbix UI, open Administration -> Modules, run the module scan, and enable the module with ID `holoztek_tree_navigator`.
 3. Disable or remove the old `tree-navigator` module entry if it remains listed.
-4. Update existing dashboard widgets whose `type` is `tree-navigator` to `holoztek_tree_navigator` by using the Zabbix API. Keep `widgetid`, `fields`, and `reference` unchanged.
-5. Apply the same type change to template dashboards if you use template dashboard widgets.
+4. Export or back up the dashboard before making API changes.
+5. Retrieve the complete existing dashboard structure, including all pages and widgets, with `dashboard.get`.
+6. Change only widgets whose `type` is `tree-navigator` to `holoztek_tree_navigator`. Keep `widgetid`, `fields`, and `reference` unchanged.
+7. Call `dashboard.update` with the complete `pages` structure. The `pages` parameter replaces the existing dashboard pages; pages omitted from the request can be removed.
+8. Apply the same type change to template dashboards if you use template dashboard widgets.
 
-Example migration logic before calling `dashboard.update`:
+Example migration logic after retrieving the complete dashboard and before calling `dashboard.update`:
 
 ```php
 foreach ($dashboard['pages'] as &$page) {
@@ -251,10 +254,6 @@ foreach ($dashboard['pages'] as &$page) {
 ## Repository Layout
 
 Files loaded as a Zabbix module are kept in the repository root and the `actions/`, `assets/`, `includes/`, and `views/` directories. Publication and maintenance documents are kept under `docs/`.
-
-## Version
-
-Latest version: **v1.4.8**
 
 ## Maintainer
 

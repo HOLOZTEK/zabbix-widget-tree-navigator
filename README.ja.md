@@ -225,10 +225,13 @@ v1.4.0 以前からアップグレードする場合は、以下を実施して�
 1. 新しい RPM/DEB パッケージをインストールするか、v1.4.8 の実行ファイルへ差し替えます。
 2. Zabbix 管理画面 -> 管理 -> モジュール でモジュールを再スキャンし、ID `holoztek_tree_navigator` のモジュールを有効化します。
 3. 旧ID `tree-navigator` のモジュールが一覧に残る場合は、無効化または削除します。
-4. 既存ダッシュボードに配置済みのウィジェットは、Zabbix API で `type` を `tree-navigator` から `holoztek_tree_navigator` へ変更します。`widgetid`, `fields`, `reference` は変更不要です。
-5. テンプレートダッシュボードを利用している場合は、テンプレート側のウィジェットにも同じ変更を適用します。
+4. API変更前に、対象ダッシュボードをエクスポートまたはバックアップします。
+5. `dashboard.get` で、全ページ・全ウィジェットを含む既存ダッシュボード構造を取得します。
+6. `type` が `tree-navigator` のウィジェットだけを `holoztek_tree_navigator` へ変更します。`widgetid`, `fields`, `reference` は変更不要です。
+7. `dashboard.update` には完全な `pages` 構造を渡します。`pages` パラメータは既存のダッシュボードページを置き換えるため、リクエストに含めなかったページは削除される可能性があります。
+8. テンプレートダッシュボードを利用している場合は、テンプレート側のウィジェットにも同じ変更を適用します。
 
-`dashboard.update` を呼び出す前の移行処理例です。
+完全なダッシュボード構造を取得した後、`dashboard.update` を呼び出す前の移行処理例です。
 
 ```php
 foreach ($dashboard['pages'] as &$page) {
@@ -251,10 +254,6 @@ foreach ($dashboard['pages'] as &$page) {
 ## 構成
 
 Zabbix モジュールとして読み込まれるファイルはリポジトリ直下と `actions/`, `assets/`, `includes/`, `views/` に配置しています。公開・運用向けの補助文書は `docs/` にまとめています。
-
-## バージョン
-
-最新バージョン: **v1.4.8**
 
 ## メンテナ
 

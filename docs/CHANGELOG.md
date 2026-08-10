@@ -16,7 +16,17 @@ All notable changes to this project are documented in this file.
 
 ## v1.4.6 - 2026-08-10
 
-- Fixed tree connector line rendering for host group rows with and without expand toggles.
+- Fixed a regression where connector lines for leaf host group rows stopped before reaching the folder icon.
+- Adjusted connector line length based on whether a host group row has an expand toggle.
+
+## v1.4.5 - 2026-08-10
+
+- Fixed host group connector lines that extended into the expand/collapse toggle button.
+
+## v1.4.4 - 2026-08-10
+
+- Fixed host group connector lines that stopped too early before the folder icon.
+- Added a host-group-specific connector rule that accounts for the expand/collapse toggle width.
 
 ## v1.4.3 - 2026-08-10
 
