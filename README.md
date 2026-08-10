@@ -14,6 +14,14 @@ Operators can move from a tree selection to related maps, status summaries, grap
 
 [Latest release](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/tag/v1.4.0) | [RPM](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.0/zabbix-widget-tree-navigator-1.4.0.noarch.rpm) | [DEB](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.0/zabbix-widget-tree-navigator_1.4.0_all.deb) | [Source](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.0/zabbix-widget-tree-navigator-1.4.0.tar.gz)
 
+## Why Tree Navigator?
+
+Tree Navigator is not a replacement for the standard Host navigator widget.
+
+It is intended for dashboards where the host group hierarchy itself is the navigation model.
+
+Use it when linked widgets need host group IDs as well as host IDs, or when operators need to select multiple hosts and groups from the same tree.
+
 ## Features
 
 <table>
@@ -85,7 +93,7 @@ Operators can move from a tree selection to related maps, status summaries, grap
   </tr>
   <tr>
     <td>Display mode</td>
-    <td>Switches the navigator display mode.</td>
+    <td>Chooses whether the tree shows host groups only, or host groups and hosts.</td>
   </tr>
   <tr>
     <td>Host groups</td>
@@ -97,7 +105,7 @@ Operators can move from a tree selection to related maps, status summaries, grap
   </tr>
   <tr>
     <td>Include sub-groups</td>
-    <td>Recursively include sub-groups under the groups selected in Host groups.</td>
+    <td>Includes descendant group nodes under the host groups selected in the Host groups setting.</td>
   </tr>
   <tr>
     <td>Show host count in tooltip</td>
@@ -114,6 +122,37 @@ Operators can move from a tree selection to related maps, status summaries, grap
 </table>
 
 <img src="screenshots/tree-navigator-settings.png" width="520" alt="Tree Navigator widget configuration form" />
+
+## Selection Behavior
+
+<table>
+  <tr bgcolor="#f0f3f5" style="background-color: #f0f3f5;">
+    <th align="left">Mode</th>
+    <th align="left">Visible items</th>
+    <th align="left">Selection</th>
+    <th align="left">Broadcast behavior</th>
+  </tr>
+  <tr>
+    <td>Host groups only</td>
+    <td>Host group tree</td>
+    <td>Single host group</td>
+    <td>Broadcasts the selected group ID and all descendant group IDs from the full group hierarchy.</td>
+  </tr>
+  <tr>
+    <td>Host groups and hosts</td>
+    <td>Host group tree and hosts</td>
+    <td>Single host group or host</td>
+    <td>Broadcasts group IDs for group selection, or host IDs for host selection.</td>
+  </tr>
+  <tr>
+    <td>Multi-select</td>
+    <td>Host group tree and hosts with checkboxes</td>
+    <td>Multiple host groups and hosts</td>
+    <td>Broadcasts checked group IDs only for checked groups, and checked host IDs for checked hosts.</td>
+  </tr>
+</table>
+
+`Include sub-groups` controls which descendant group nodes are shown under the configured Host groups filter. It does not change the multi-select rule that only checked groups are broadcast.
 
 ## Broadcast Outputs
 
@@ -157,14 +196,23 @@ For compatibility with the standard Host navigator widget and related widgets, h
 
 ### Install from Source
 
-1. Copy this repository to the Zabbix frontend modules directory as `tree-navigator`.
+RPM or DEB installation is recommended for normal use. For source-based installation, use the release archive and copy only the files required by the Zabbix module.
+
+1. Download and extract the release source archive.
    ```bash
-   cp -a zabbix-widget-tree-navigator /usr/share/zabbix/ui/modules/tree-navigator
+   curl -L -o zabbix-widget-tree-navigator-1.4.0.tar.gz https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.0/zabbix-widget-tree-navigator-1.4.0.tar.gz
+   tar -xzf zabbix-widget-tree-navigator-1.4.0.tar.gz
+   ```
+2. Copy the runtime module files to the Zabbix frontend modules directory as `tree-navigator`.
+   ```bash
+   install -d /usr/share/zabbix/ui/modules/tree-navigator
+   cd zabbix-widget-tree-navigator-1.4.0
+   cp -a manifest.json Widget.php actions assets includes locale views /usr/share/zabbix/ui/modules/tree-navigator/
    ```
    Use `/usr/share/zabbix/modules/tree-navigator` instead if your Zabbix installation uses the legacy module path.
-2. Set ownership and permissions so the Zabbix frontend can read the files.
-3. In the Zabbix UI, enable the module from Administration -> Modules.
-4. Add the widget to a dashboard.
+3. Set ownership and permissions so the Zabbix frontend can read the files.
+4. In the Zabbix UI, enable the module from Administration -> Modules.
+5. Add the widget to a dashboard.
 
 ## Documentation
 
@@ -181,6 +229,10 @@ Files loaded as a Zabbix module are kept in the repository root and the `actions
 ## Version
 
 Latest version: **v1.4.0**
+
+## Maintainer
+
+Developed and maintained by [HOLOZTEK](https://github.com/HOLOZTEK).
 
 ## License
 

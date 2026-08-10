@@ -2,18 +2,17 @@
 
 ## Supported Versions
 
-Security fixes are prepared for the latest published version.
-
-| Version | Supported |
-| ------- | --------- |
-| 1.4.x   | Yes       |
-| < 1.4   | No        |
+Security fixes are prepared for the latest published version of Tree Navigator.
 
 ## Reporting a Vulnerability
 
 Do not disclose suspected vulnerabilities in a public issue before maintainers have had time to assess them.
 
-Please report:
+Please report suspected vulnerabilities privately through GitHub private vulnerability reporting:
+
+https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/security/advisories/new
+
+Include:
 
 - affected version
 - Zabbix and PHP versions

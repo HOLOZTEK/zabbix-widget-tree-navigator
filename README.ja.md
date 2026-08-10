@@ -14,6 +14,14 @@ Tree Navigator は、Zabbix のホストグループとホストを折りたた�
 
 [最新リリース](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/tag/v1.4.0) | [RPM](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.0/zabbix-widget-tree-navigator-1.4.0.noarch.rpm) | [DEB](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.0/zabbix-widget-tree-navigator_1.4.0_all.deb) | [Source](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.0/zabbix-widget-tree-navigator-1.4.0.tar.gz)
 
+## なぜ Tree Navigator?
+
+Tree Navigator は、Zabbix 標準の Host navigator ウィジェットを置き換えるものではありません。
+
+ホストグループ階層そのものを、ダッシュボードのナビゲーション UI として使いたい場合に適したウィジェットです。
+
+連携先ウィジェットへホスト ID だけでなくホストグループ ID も渡したい場合や、同じツリーから複数のホスト・グループを選択したい場合に利用できます。
+
 ## 機能
 
 <table>
@@ -85,7 +93,7 @@ Tree Navigator は、Zabbix のホストグループとホストを折りたた�
   </tr>
   <tr>
     <td>表示モード</td>
-    <td>ナビゲータの表示モードを切り替えます。</td>
+    <td>ツリーにホストグループのみを表示するか、ホストグループとホストを表示するかを切り替えます。</td>
   </tr>
   <tr>
     <td>ホストグループ</td>
@@ -97,7 +105,7 @@ Tree Navigator は、Zabbix のホストグループとホストを折りたた�
   </tr>
   <tr>
     <td>サブグループを含める</td>
-    <td>ホストグループで指定したグループの下位グループを再帰的に対象にします。</td>
+    <td>ホストグループ設定で指定したグループ配下の下位グループノードを表示対象にします。</td>
   </tr>
   <tr>
     <td>ツールチップにホスト件数を表示</td>
@@ -114,6 +122,37 @@ Tree Navigator は、Zabbix のホストグループとホストを折りたた�
 </table>
 
 <img src="screenshots/tree-navigator-settings-ja.png" width="520" alt="Tree Navigator ウィジェットの日本語設定フォーム" />
+
+## 選択時の動作
+
+<table>
+  <tr bgcolor="#f0f3f5" style="background-color: #f0f3f5;">
+    <th align="left">モード</th>
+    <th align="left">表示対象</th>
+    <th align="left">選択対象</th>
+    <th align="left">ブロードキャスト動作</th>
+  </tr>
+  <tr>
+    <td>ホストグループのみ</td>
+    <td>ホストグループツリー</td>
+    <td>単一のホストグループ</td>
+    <td>選択したグループ ID と、全階層ベースの子孫グループ ID を配信します。</td>
+  </tr>
+  <tr>
+    <td>ホストグループとホスト</td>
+    <td>ホストグループツリーとホスト</td>
+    <td>単一のホストグループまたはホスト</td>
+    <td>グループ選択時はグループ ID、ホスト選択時はホスト ID を配信します。</td>
+  </tr>
+  <tr>
+    <td>複数選択</td>
+    <td>チェックボックス付きのホストグループツリーとホスト</td>
+    <td>複数のホストグループとホスト</td>
+    <td>チェックしたグループ自身の ID と、チェックしたホスト ID を配信します。</td>
+  </tr>
+</table>
+
+`サブグループを含める` は、ホストグループ設定で絞り込んだ配下の下位グループノードを表示対象にするための設定です。マルチ選択時に「チェックしていない子孫グループ」まで配信する設定ではありません。
 
 ## 出力（ブロードキャスト）
 
@@ -157,14 +196,23 @@ Tree Navigator は、Zabbix のホストグループとホストを折りたた�
 
 ### ソースから配置
 
-1. このリポジトリを `tree-navigator` として Zabbix フロントエンドのモジュールディレクトリへ配置
+通常は RPM または DEB でのインストールを推奨します。ソースから配置する場合は、リリースアーカイブを使用し、Zabbix モジュールとして必要な実行ファイルだけをコピーしてください。
+
+1. リリースのソースアーカイブをダウンロードして展開
    ```bash
-   cp -a zabbix-widget-tree-navigator /usr/share/zabbix/ui/modules/tree-navigator
+   curl -L -o zabbix-widget-tree-navigator-1.4.0.tar.gz https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.0/zabbix-widget-tree-navigator-1.4.0.tar.gz
+   tar -xzf zabbix-widget-tree-navigator-1.4.0.tar.gz
+   ```
+2. 実行に必要なモジュールファイルを `tree-navigator` として Zabbix フロントエンドのモジュールディレクトリへ配置
+   ```bash
+   install -d /usr/share/zabbix/ui/modules/tree-navigator
+   cd zabbix-widget-tree-navigator-1.4.0
+   cp -a manifest.json Widget.php actions assets includes locale views /usr/share/zabbix/ui/modules/tree-navigator/
    ```
    Zabbix 環境が従来のモジュールパスを使用している場合は、代わりに `/usr/share/zabbix/modules/tree-navigator` へ配置してください。
-2. ファイル所有者と権限を Zabbix フロントエンドから読み取れる状態に設定
-3. Zabbix 管理画面 -> 管理 -> モジュール からモジュールを有効化
-4. ダッシュボードにウィジェットを追加
+3. ファイル所有者と権限を Zabbix フロントエンドから読み取れる状態に設定
+4. Zabbix 管理画面 -> 管理 -> モジュール からモジュールを有効化
+5. ダッシュボードにウィジェットを追加
 
 ## ドキュメント
 
@@ -181,6 +229,10 @@ Zabbix モジュールとして読み込まれるファイルはリポジトリ�
 ## バージョン
 
 最新バージョン: **v1.4.0**
+
+## メンテナ
+
+このプロジェクトは [HOLOZTEK](https://github.com/HOLOZTEK) が開発・保守しています。
 
 ## ライセンス
 

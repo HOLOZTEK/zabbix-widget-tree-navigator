@@ -4,6 +4,7 @@ All notable changes to this project are documented in this file.
 
 ## v1.4.0 - 2026-08-09
 
+- First public release on GitHub under HOLOZTEK.
 - Updated the public release assets to version `1.4.0`.
 - Changed RPM distribution to a single `noarch` package without an OS-specific distribution suffix.
 - Added Debian package metadata for `.deb` distribution.
