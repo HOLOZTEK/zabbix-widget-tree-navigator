@@ -146,11 +146,11 @@ fi
   ホストを1件選択したはずが親グループ全体が表示されてしまう不具合を修正
 - 未使用となったdata-parent-groupid属性を削除
 
-* Wed Jun 11 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.2.2-0
+* Thu Jun 11 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.2.2-0
 - RPM %postのmkdir -p個別サブディレクトリ作成を削除し、rm -rf → mkdir -p "${MODDIR}" → cp -rp の順序に整理
 - #onDropdownClick()のindex上限チェックを追加（idx < this.#search_results.length）
 
-* Wed Jun 11 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.2.1-0
+* Thu Jun 11 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.2.1-0
 - ドロップダウン選択をhostid依存からresult index依存に変更（同一hostidの複数候補が正しくジャンプするよう修正）
 - 検索バーを閉じたときにinput.valueもクリアするよう修正
 - 検索UI・ツールチップ文言をローカライズ（_tn()使用、JS用ラベルはdata-*属性経由）
@@ -158,16 +158,16 @@ fi
 - fields_values['groupids']の参照を??演算子で防御的に変更
 - RPM %postで旧モジュールディレクトリをrm -rfしてから再インストールするよう変更
 
-* Wed Jun 11 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.2.0-0
+* Thu Jun 11 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.2.0-0
 - ホスト名部分一致検索ボックスを追加（ツリー上部の虫眼鏡ボタンで表示・非表示切替）
 - 入力中にドロップダウン候補リストを表示（最大15件）
 - 複数一致時は Next / Prev ボタンおよびEnterキーで順番にジャンプ
 - 一致ホストへのジャンプ時に祖先グループを自動展開・選択してブロードキャスト
 
-* Fri Jun 06 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.1.0-0
+* Sat Jun 06 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.1.0-0
 - initial_depthの説明文を「展開状態の保存がない場合の初期展開階層」に変更
 
-* Fri Jun 06 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.0.2-0
+* Sat Jun 06 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.0.2-0
 - show_host_count=false時にフォルダのdata属性を付与せずツールチップを非表示に
 - スクロール位置保存・復元を専用メソッドに分離（onClearContents/setContentsでも実施）
 - イベントリスナーの二重登録対策を強化（null判定ガード・解除後にnullリセット）
@@ -176,7 +176,7 @@ fi
 - initial_depthにsetFieldHintで説明文を追加
 - ツールチップCSSクラスをtree-navigator-tooltipに変更
 
-* Thu Jun 05 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.0.1-0
+* Fri Jun 05 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.0.1-0
 - JSイベントリスナーの重複登録対策（バインド済みハンドラをフィールドに保持しonDeactivateで解除）
 - スクロール位置保存・復元の対象を.tn-containerに修正
 - Sub-groups有効時に選択グループの子孫グループも表示・ブロードキャスト対象に含めるよう修正
