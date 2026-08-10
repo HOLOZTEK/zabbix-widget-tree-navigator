@@ -12,7 +12,7 @@ Operators can move from a tree selection to related maps, status summaries, grap
 
 <img src="screenshots/tree-navigator-dashboard-example.png" width="750" alt="Tree Navigator driving other Zabbix dashboard widgets" />
 
-[Latest release](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/tag/v1.4.8) | [RPM](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.8/zabbix-widget-tree-navigator-1.4.8.noarch.rpm) | [DEB](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.8/zabbix-widget-tree-navigator_1.4.8_all.deb) | [Source](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.8/zabbix-widget-tree-navigator-1.4.8.tar.gz)
+[Latest release](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/tag/v1.4.9) | [RPM](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.9/zabbix-widget-tree-navigator-1.4.9.noarch.rpm) | [DEB](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.9/zabbix-widget-tree-navigator_1.4.9_all.deb) | [Source](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.9/zabbix-widget-tree-navigator-1.4.9.tar.gz)
 
 ## Why Tree Navigator?
 
@@ -178,7 +178,7 @@ For compatibility with the standard Host navigator widget and related widgets, h
 
 1. Download the RPM package and install it on the Zabbix server.
    ```bash
-   rpm -Uvh zabbix-widget-tree-navigator-1.4.8.noarch.rpm
+   rpm -Uvh zabbix-widget-tree-navigator-1.4.9.noarch.rpm
    ```
 2. The package places the widget files under the active Zabbix frontend module directory automatically.
 3. In the Zabbix UI, enable the module from Administration -> Modules.
@@ -188,7 +188,7 @@ For compatibility with the standard Host navigator widget and related widgets, h
 
 1. Download the DEB package and install it on the Zabbix server.
    ```bash
-   apt install ./zabbix-widget-tree-navigator_1.4.8_all.deb
+   apt install ./zabbix-widget-tree-navigator_1.4.9_all.deb
    ```
 2. The package places the widget files under the active Zabbix frontend module directory automatically.
 3. In the Zabbix UI, enable the module from Administration -> Modules.
@@ -200,16 +200,16 @@ RPM or DEB installation is recommended for normal use. For source-based installa
 
 1. Download and extract the release source archive.
    ```bash
-   curl -L -o zabbix-widget-tree-navigator-1.4.8.tar.gz https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.8/zabbix-widget-tree-navigator-1.4.8.tar.gz
-   tar -xzf zabbix-widget-tree-navigator-1.4.8.tar.gz
+   curl -L -o zabbix-widget-tree-navigator-1.4.9.tar.gz https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.9/zabbix-widget-tree-navigator-1.4.9.tar.gz
+   tar -xzf zabbix-widget-tree-navigator-1.4.9.tar.gz
    ```
-2. Copy the runtime module files to the Zabbix frontend modules directory as `tree-navigator`.
+2. Copy the runtime module files to the Zabbix frontend modules directory as `holoztek_tree_navigator`.
    ```bash
-   install -d /usr/share/zabbix/ui/modules/tree-navigator
-   cd zabbix-widget-tree-navigator-1.4.8
-   cp -a manifest.json Widget.php actions assets includes locale views /usr/share/zabbix/ui/modules/tree-navigator/
+   install -d /usr/share/zabbix/ui/modules/holoztek_tree_navigator
+   cd zabbix-widget-tree-navigator-1.4.9
+   cp -a manifest.json Widget.php actions assets includes locale views /usr/share/zabbix/ui/modules/holoztek_tree_navigator/
    ```
-   Use `/usr/share/zabbix/modules/tree-navigator` instead if your Zabbix installation uses the legacy module path.
+   Use `/usr/share/zabbix/modules/holoztek_tree_navigator` instead if your Zabbix installation uses the legacy module path.
 3. Set ownership and permissions so the Zabbix frontend can read the files.
 4. In the Zabbix UI, enable the module from Administration -> Modules.
 5. Add the widget to a dashboard.
@@ -218,18 +218,19 @@ RPM or DEB installation is recommended for normal use. For source-based installa
 
 In v1.4.1, the Zabbix module identifier changed from `tree-navigator` to `holoztek_tree_navigator` to reduce the risk of name collisions with modules from other vendors.
 
-The RPM/DEB package name and the frontend module directory remain `zabbix-widget-tree-navigator` and `tree-navigator` for compatibility, but Zabbix treats the new manifest ID as a different widget type.
+The RPM/DEB package name remains `zabbix-widget-tree-navigator` for compatibility. Starting with v1.4.9, the frontend module directory changed from `tree-navigator` to `holoztek_tree_navigator`. Zabbix uses the manifest ID `holoztek_tree_navigator` as the widget type for v1.4.1 and later.
 
 If you are upgrading from v1.4.0 or earlier:
 
-1. Install the new RPM/DEB package, or replace the source files with the v1.4.8 runtime files.
+1. Install the new RPM/DEB package, or replace the source files with the v1.4.9 runtime files.
 2. In the Zabbix UI, open Administration -> Modules, run the module scan, and enable the module with ID `holoztek_tree_navigator`.
-3. Disable or remove the old `tree-navigator` module entry if it remains listed.
-4. Export or back up the dashboard before making API changes.
-5. Retrieve the complete existing dashboard structure, including all pages and widgets, with `dashboard.get`.
-6. Change only widgets whose `type` is `tree-navigator` to `holoztek_tree_navigator`. Keep `widgetid`, `fields`, and `reference` unchanged.
-7. Call `dashboard.update` with the complete `pages` structure. The `pages` parameter replaces the existing dashboard pages; pages omitted from the request can be removed.
-8. Apply the same type change to template dashboards if you use template dashboard widgets.
+3. When upgrading with RPM/DEB, the old `tree-navigator` directory is removed only if it can be identified as a HOLOZTEK Tree Navigator install. For manual installs, inspect the old directory manifest before removing it.
+4. Disable or remove the old `tree-navigator` module entry if it remains listed.
+5. Export or back up the dashboard before making API changes.
+6. Retrieve the complete existing dashboard structure, including all pages and widgets, with `dashboard.get`.
+7. Change only widgets whose `type` is `tree-navigator` to `holoztek_tree_navigator`. Keep `widgetid`, `fields`, and `reference` unchanged.
+8. Call `dashboard.update` with the complete `pages` structure. The `pages` parameter replaces the existing dashboard pages; pages omitted from the request can be removed.
+9. Apply the same type change to template dashboards if you use template dashboard widgets.
 
 Example migration logic after retrieving the complete dashboard and before calling `dashboard.update`:
 

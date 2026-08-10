@@ -12,7 +12,7 @@ Tree Navigator は、Zabbix のホストグループとホストを折りたた�
 
 <img src="screenshots/tree-navigator-dashboard-example.png" width="750" alt="Tree Navigator から他の Zabbix ダッシュボードウィジェットを連動する例" />
 
-[最新リリース](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/tag/v1.4.8) | [RPM](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.8/zabbix-widget-tree-navigator-1.4.8.noarch.rpm) | [DEB](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.8/zabbix-widget-tree-navigator_1.4.8_all.deb) | [Source](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.8/zabbix-widget-tree-navigator-1.4.8.tar.gz)
+[最新リリース](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/tag/v1.4.9) | [RPM](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.9/zabbix-widget-tree-navigator-1.4.9.noarch.rpm) | [DEB](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.9/zabbix-widget-tree-navigator_1.4.9_all.deb) | [Source](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.9/zabbix-widget-tree-navigator-1.4.9.tar.gz)
 
 ## なぜ Tree Navigator?
 
@@ -178,7 +178,7 @@ Tree Navigator は、Zabbix 標準の Host navigator ウィジェットを置き
 
 1. RPM をダウンロードし、Zabbix サーバーにインストール
    ```bash
-   rpm -Uvh zabbix-widget-tree-navigator-1.4.8.noarch.rpm
+   rpm -Uvh zabbix-widget-tree-navigator-1.4.9.noarch.rpm
    ```
 2. パッケージにより、ウィジェットファイルは有効な Zabbix フロントエンドのモジュールディレクトリへ自動配置されます。
 3. Zabbix 管理画面 -> 管理 -> モジュール からモジュールを有効化
@@ -188,7 +188,7 @@ Tree Navigator は、Zabbix 標準の Host navigator ウィジェットを置き
 
 1. DEB をダウンロードし、Zabbix サーバーにインストール
    ```bash
-   apt install ./zabbix-widget-tree-navigator_1.4.8_all.deb
+   apt install ./zabbix-widget-tree-navigator_1.4.9_all.deb
    ```
 2. パッケージにより、ウィジェットファイルは有効な Zabbix フロントエンドのモジュールディレクトリへ自動配置されます。
 3. Zabbix 管理画面 -> 管理 -> モジュール からモジュールを有効化
@@ -200,16 +200,16 @@ Tree Navigator は、Zabbix 標準の Host navigator ウィジェットを置き
 
 1. リリースのソースアーカイブをダウンロードして展開
    ```bash
-   curl -L -o zabbix-widget-tree-navigator-1.4.8.tar.gz https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.8/zabbix-widget-tree-navigator-1.4.8.tar.gz
-   tar -xzf zabbix-widget-tree-navigator-1.4.8.tar.gz
+   curl -L -o zabbix-widget-tree-navigator-1.4.9.tar.gz https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.9/zabbix-widget-tree-navigator-1.4.9.tar.gz
+   tar -xzf zabbix-widget-tree-navigator-1.4.9.tar.gz
    ```
-2. 実行に必要なモジュールファイルを `tree-navigator` として Zabbix フロントエンドのモジュールディレクトリへ配置
+2. 実行に必要なモジュールファイルを `holoztek_tree_navigator` として Zabbix フロントエンドのモジュールディレクトリへ配置
    ```bash
-   install -d /usr/share/zabbix/ui/modules/tree-navigator
-   cd zabbix-widget-tree-navigator-1.4.8
-   cp -a manifest.json Widget.php actions assets includes locale views /usr/share/zabbix/ui/modules/tree-navigator/
+   install -d /usr/share/zabbix/ui/modules/holoztek_tree_navigator
+   cd zabbix-widget-tree-navigator-1.4.9
+   cp -a manifest.json Widget.php actions assets includes locale views /usr/share/zabbix/ui/modules/holoztek_tree_navigator/
    ```
-   Zabbix 環境が従来のモジュールパスを使用している場合は、代わりに `/usr/share/zabbix/modules/tree-navigator` へ配置してください。
+   Zabbix 環境が従来のモジュールパスを使用している場合は、代わりに `/usr/share/zabbix/modules/holoztek_tree_navigator` へ配置してください。
 3. ファイル所有者と権限を Zabbix フロントエンドから読み取れる状態に設定
 4. Zabbix 管理画面 -> 管理 -> モジュール からモジュールを有効化
 5. ダッシュボードにウィジェットを追加
@@ -218,18 +218,19 @@ Tree Navigator は、Zabbix 標準の Host navigator ウィジェットを置き
 
 v1.4.1 で、Zabbix モジュール識別子は `tree-navigator` から `holoztek_tree_navigator` へ変更されました。他ベンダーの公開モジュールとの名前衝突リスクを下げるための変更です。
 
-RPM/DEB パッケージ名とフロントエンドのモジュールディレクトリは、互換性維持のため `zabbix-widget-tree-navigator` / `tree-navigator` のままです。ただし Zabbix 上では、新しい manifest ID は別のウィジェット種別として扱われます。
+RPM/DEB パッケージ名は互換性維持のため `zabbix-widget-tree-navigator` のままです。v1.4.9 以降、フロントエンドのモジュールディレクトリは `tree-navigator` から `holoztek_tree_navigator` へ変更されました。Zabbix 上では、v1.4.1 以降の manifest ID `holoztek_tree_navigator` がウィジェット種別として扱われます。
 
 v1.4.0 以前からアップグレードする場合は、以下を実施してください。
 
-1. 新しい RPM/DEB パッケージをインストールするか、v1.4.8 の実行ファイルへ差し替えます。
+1. 新しい RPM/DEB パッケージをインストールするか、v1.4.9 の実行ファイルへ差し替えます。
 2. Zabbix 管理画面 -> 管理 -> モジュール でモジュールを再スキャンし、ID `holoztek_tree_navigator` のモジュールを有効化します。
-3. 旧ID `tree-navigator` のモジュールが一覧に残る場合は、無効化または削除します。
-4. API変更前に、対象ダッシュボードをエクスポートまたはバックアップします。
-5. `dashboard.get` で、全ページ・全ウィジェットを含む既存ダッシュボード構造を取得します。
-6. `type` が `tree-navigator` のウィジェットだけを `holoztek_tree_navigator` へ変更します。`widgetid`, `fields`, `reference` は変更不要です。
-7. `dashboard.update` には完全な `pages` 構造を渡します。`pages` パラメータは既存のダッシュボードページを置き換えるため、リクエストに含めなかったページは削除される可能性があります。
-8. テンプレートダッシュボードを利用している場合は、テンプレート側のウィジェットにも同じ変更を適用します。
+3. RPM/DEB でアップグレードする場合、旧ディレクトリ `tree-navigator` はHOLOZTEK由来と判定できた場合のみ自動削除されます。手動配置の場合は、旧ディレクトリの `manifest.json` を確認してから削除してください。
+4. 旧ID `tree-navigator` のモジュールが一覧に残る場合は、無効化または削除します。
+5. API変更前に、対象ダッシュボードをエクスポートまたはバックアップします。
+6. `dashboard.get` で、全ページ・全ウィジェットを含む既存ダッシュボード構造を取得します。
+7. `type` が `tree-navigator` のウィジェットだけを `holoztek_tree_navigator` へ変更します。`widgetid`, `fields`, `reference` は変更不要です。
+8. `dashboard.update` には完全な `pages` 構造を渡します。`pages` パラメータは既存のダッシュボードページを置き換えるため、リクエストに含めなかったページは削除される可能性があります。
+9. テンプレートダッシュボードを利用している場合は、テンプレート側のウィジェットにも同じ変更を適用します。
 
 完全なダッシュボード構造を取得した後、`dashboard.update` を呼び出す前の移行処理例です。
 

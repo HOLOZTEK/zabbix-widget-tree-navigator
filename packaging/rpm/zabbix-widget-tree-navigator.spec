@@ -1,6 +1,6 @@
 %define _rpmfilename %%{NAME}-%%{VERSION}.%%{ARCH}.rpm
 Name:           zabbix-widget-tree-navigator
-Version:        1.4.8
+Version:        1.4.9
 Release:        0
 Summary:        Tree Navigator widget for Zabbix dashboard
 License:        MIT
@@ -15,7 +15,7 @@ Features:
 - Directory-tree style display: host groups as folders, hosts as files
 - Two display modes: host groups only / host groups and hosts
 - Configurable host group filter (multiple groups supported)
-- Sub-group recursive mode: selecting a parent broadcasts all descendant group IDs
+- Single group selection broadcasts the selected group and all descendant group IDs
 - Collapsible tree nodes with +/- toggle; expanded state persisted per widget
 - CSS guide-line connectors for clean tree visualization
 - Hosts displayed one indent level deeper than host groups
@@ -81,19 +81,68 @@ else
 fi
 
 SRCSTAGE=/usr/share/zabbix-widget-tree-navigator
-MODDIR=${ZBXMODDIR}/tree-navigator
+MODDIR=${ZBXMODDIR}/holoztek_tree_navigator
+OLDMODDIR=${ZBXMODDIR}/tree-navigator
 
+# 自パッケージ専有のディレクトリなので無条件で置き換える
 rm -rf "${MODDIR}"
 mkdir -p "${MODDIR}"
 cp -rp "${SRCSTAGE}/." "${MODDIR}/"
 
+# v1.4.8以前は modules/tree-navigator という汎用的すぎる名前を使っていたため、
+# 別ベンダーのモジュールが同名ディレクトリを先に使っている可能性がある。
+# 中身がこのパッケージ由来（HOLOZTEK製 tree-navigator）と確認できた場合のみ
+# 旧ディレクトリを削除する（無条件rm -rfは行わない）。
+if [ -f "${OLDMODDIR}/manifest.json" ]; then
+    ID_OK=0
+    if grep -Eq '"id"[[:space:]]*:[[:space:]]*"(tree-navigator|holoztek_tree_navigator)"' "${OLDMODDIR}/manifest.json"; then
+        ID_OK=1
+    fi
+    AUTHOR_VAL=$(grep -Eo '"author"[[:space:]]*:[[:space:]]*"[^"]*"' "${OLDMODDIR}/manifest.json" | sed -E 's/.*:[[:space:]]*"([^"]*)"/\1/')
+    AUTHOR_OK=0
+    if [ -z "${AUTHOR_VAL}" ] || [ "${AUTHOR_VAL}" = "HOLOZTEK" ]; then
+        AUTHOR_OK=1
+    fi
+    if [ "${ID_OK}" -eq 1 ] && [ "${AUTHOR_OK}" -eq 1 ]; then
+        rm -rf "${OLDMODDIR}"
+    else
+        echo "Warning: ${OLDMODDIR} exists but does not look like a HOLOZTEK tree-navigator install. Leaving it in place; please check and remove it manually if appropriate." >&2
+    fi
+fi
+
 %preun
 if [ $1 -eq 0 ]; then
-    rm -rf /usr/share/zabbix/ui/modules/tree-navigator 2>/dev/null || true
-    rm -rf /usr/share/zabbix/modules/tree-navigator 2>/dev/null || true
+    rm -rf /usr/share/zabbix/ui/modules/holoztek_tree_navigator 2>/dev/null || true
+    rm -rf /usr/share/zabbix/modules/holoztek_tree_navigator 2>/dev/null || true
 fi
 
 %changelog
+* Mon Aug 10 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.4.9-0
+- コードレビュー指摘対応（3点）:
+  1. 【高】実体のモジュール配置ディレクトリ (modules/tree-navigator) が
+     依然として汎用的すぎる名前のままで、他ベンダーのモジュールとの
+     ファイルシステム上の衝突リスクが残っていた不具合を修正。配置先を
+     modules/holoztek_tree_navigator へ変更（manifest.idは既に
+     holoztek_tree_navigatorのため、dashboard widget typeの再変更は不要）。
+     %post/%preunのMODDIRを新パスへ変更し、旧ディレクトリ
+     (modules/tree-navigator) は無条件rm -rfせず、manifest.jsonのid
+     （tree-navigatorまたはholoztek_tree_navigator）とauthor（未設定または
+     "HOLOZTEK"）を確認した上でHOLOZTEK由来と判定できた場合のみ削除する
+     安全確認ロジックを追加（DEB側debian/postinst・prermも同様に修正）
+  2. %descriptionの「Sub-group recursive mode: selecting a parent
+     broadcasts all descendant group IDs」という説明が、Include
+     sub-groups設定（表示上の自動展開のみを制御）とシングル選択時の
+     子孫ID配信（設定に関わらず常時実行）を結び付けて読めてしまう
+     曖昧さがあった不具合を修正。READMEの正確な説明に合わせ「Single
+     group selection broadcasts the selected group and all descendant
+     group IDs」へ簡略化
+  3. バージョン番号がmanifest.json/README/RPM spec/debian/changelogなど
+     複数箇所へ手作業で埋め込まれており、過去にREADMEのバージョン表記
+     修正漏れが発生した実績があったため、scripts/check-version-consistency.sh
+     を追加しリリース前に各ファイルのバージョン一致を検査できるようにした。
+     また、Gitea側のリリース一覧と重複するREADME末尾の「## バージョン」
+     セクションを削除
+
 * Mon Aug 10 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.4.8-0
 - コードレビュー指摘対応（5点）:
   1. READMEのバージョン表記がv1.4.6のままだったのをv1.4.7へ修正漏れがあった

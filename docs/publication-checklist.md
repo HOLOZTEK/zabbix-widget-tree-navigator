@@ -8,6 +8,7 @@ Use this checklist before publishing `zabbix-widget-tree-navigator` from staging
 - Confirm `manifest.json` version matches the approved release version.
 - Confirm package metadata versions match the approved release version.
 - Confirm README release links, package filenames, install commands, and source archive commands match the approved release version.
+- Run `scripts/check-version-consistency.sh` before publishing.
 - Run `scripts/check-release-version.sh <approved-version>` before publishing.
 - Confirm `manifest.json` contains public `author`, `description`, and `url` metadata.
 - Confirm no private URLs, credentials, internal hostnames, or environment-specific files are included.

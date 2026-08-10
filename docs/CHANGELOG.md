@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## v1.4.9 - 2026-08-10
+
+- Changed the installed Zabbix frontend module directory from `tree-navigator` to `holoztek_tree_navigator` to reduce filesystem-level collision risk.
+- Added guarded cleanup for the old `tree-navigator` directory; it is removed only when its manifest identifies it as a HOLOZTEK Tree Navigator install.
+- Clarified RPM package description for single group selection and descendant group broadcasts.
+- Added a package metadata version consistency check from the development release and kept the public README release-link check.
+
 ## v1.4.8 - 2026-08-10
 
 - Updated public release content for the HOLOZTEK-prefixed module identifiers introduced in v1.4.1 and completed through v1.4.8.
