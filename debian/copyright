@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: zabbix-widget-tree-navigator
-Source: https://github.com/ttake-55/zabbix-widget-tree-navigator
+Source: https://github.com/HOLOZTEK/zabbix-widget-tree-navigator
 
 Files: *
 Copyright: 2026 zabbix-widget-tree-navigator contributors
