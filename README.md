@@ -12,6 +12,8 @@ Operators can move from a tree selection to related maps, status summaries, grap
 
 <img src="screenshots/tree-navigator-dashboard-example.png" width="750" alt="Tree Navigator driving other Zabbix dashboard widgets" />
 
+[Latest release](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/tag/v1.4.0) | [RPM](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.0/zabbix-widget-tree-navigator-1.4.0.noarch.rpm) | [DEB](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.0/zabbix-widget-tree-navigator_1.4.0_all.deb) | [Source](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.0/zabbix-widget-tree-navigator-1.4.0.tar.gz)
+
 ## Features
 
 <table>

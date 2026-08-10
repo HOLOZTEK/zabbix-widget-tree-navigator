@@ -34,7 +34,7 @@ Use this checklist before publishing `zabbix-widget-tree-navigator` from staging
 - Confirm the dashboard integration example image is shown outside the Preview section.
 - Confirm screenshots contain no hostnames, IP addresses, organization names, alerts, metrics, credentials, or internal URLs.
 - Confirm the license is MIT License for free public widget distribution.
-- Confirm the copyright holder name is appropriate for public release.
+- Confirm the copyright holder name is `ttake-55` for this public release.
 
 ## Release
 

@@ -12,6 +12,8 @@ Tree Navigator は、Zabbix のホストグループとホストを折りたた�
 
 <img src="screenshots/tree-navigator-dashboard-example.png" width="750" alt="Tree Navigator から他の Zabbix ダッシュボードウィジェットを連動する例" />
 
+[最新リリース](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/tag/v1.4.0) | [RPM](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.0/zabbix-widget-tree-navigator-1.4.0.noarch.rpm) | [DEB](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.0/zabbix-widget-tree-navigator_1.4.0_all.deb) | [Source](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.0/zabbix-widget-tree-navigator-1.4.0.tar.gz)
+
 ## 機能
 
 <table>
