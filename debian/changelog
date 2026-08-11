@@ -3,9 +3,10 @@ zabbix-widget-tree-navigator (1.4.9) unstable; urgency=medium
   * コードレビュー指摘対応（3点）: 【高】モジュール配置ディレクトリ
     (modules/tree-navigator)が汎用的すぎる名前で他ベンダーモジュールとの
     ファイルシステム上の衝突リスクが残っていた不具合を修正。配置先を
-    modules/holoztek_tree_navigatorへ変更し、旧ディレクトリは
+    modules/holoztek_tree_navigatorへ変更。postinstでは旧ディレクトリの
     manifest.jsonのid/authorを確認しHOLOZTEK由来と判定できた場合のみ
-    削除する安全確認ロジックをpostinst/prermに追加。RPM説明文の
+    削除する安全確認ロジックを追加し、prermは新ディレクトリ名へ追従。
+    RPM説明文の
     Sub-group recursive modeに関する曖昧な表現をREADMEの正確な説明に
     合わせ簡略化。バージョン番号の手作業同期によるミスを防ぐため
     scripts/check-version-consistency.shを追加し、Giteaリリース一覧と

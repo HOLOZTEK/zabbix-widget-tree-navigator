@@ -48,3 +48,8 @@ Use this checklist before publishing `zabbix-widget-tree-navigator` from staging
 - Push the reviewed staging content to GitHub only after publication approval.
 - Push the approved release tag only after staged content and approved version match exactly.
 - Create a GitHub release only from the approved tag and version.
+
+## Maintenance Notes
+
+- Consider consolidating `scripts/check-version-consistency.sh` and `scripts/check-release-version.sh` into one release validation script with portable dependencies.
+- Include the first release entry in `docs/CHANGELOG.md` in automated release validation to prevent changelog version drift.
