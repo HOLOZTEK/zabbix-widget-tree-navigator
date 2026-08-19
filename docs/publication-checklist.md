@@ -20,6 +20,7 @@ Use this checklist before publishing `zabbix-widget-tree-navigator` from staging
 - Confirm target GitHub owner is exactly `HOLOZTEK`.
 - Confirm target GitHub repository name is exactly `zabbix-widget-tree-navigator`.
 - Confirm target GitHub repository visibility is `public`.
+- Confirm Repository Topics are set to `zabbix`, `zabbix-widget`, `monitoring`, `dashboard`, and `php`.
 - Confirm the publication approval record specifies owner `HOLOZTEK`.
 - Confirm the publication approval record specifies repository `zabbix-widget-tree-navigator`.
 - Confirm the publication approval record specifies the approved release version.
@@ -41,6 +42,8 @@ Use this checklist before publishing `zabbix-widget-tree-navigator` from staging
 - Confirm the dashboard integration example image is shown outside the Preview section.
 - Confirm screenshots contain no hostnames, IP addresses, organization names, alerts, metrics, credentials, or internal URLs.
 - Confirm the license is MIT License for free public widget distribution.
+- Confirm LICENSE keeps the standard MIT License text without inserting brand-specific lines into the license body.
+- Confirm GitHub recognizes the repository license as MIT License.
 - Confirm the copyright holder name is `ttake-55` for this public release.
 
 ## Release
