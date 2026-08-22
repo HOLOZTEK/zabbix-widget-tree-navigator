@@ -1,22 +1,58 @@
+zabbix-widget-tree-navigator (1.4.12) unstable; urgency=medium
+
+  * コードレビュー指摘対応（issue #9、2点）: 「初期表示に戻す」ボタンが
+    リセット後の状態をlocalStorageへ再保存していたため、ウィジェット設定の
+    Initial depthを変更しても次回描画時に反映されない不具合を修正。
+    #resetToInitialView()でsaveOpenState()を呼ばずlocalStorageの対象キーを
+    removeItem()で削除するよう変更。
+  * v1.4.8エントリの見出し表記を「コードレビュー指摘対応（5点）」から
+    実際の項目数に合わせ「コードレビュー指摘対応（6点）」へ修正。
+
+ -- HOLOZTEK <ttake-55@users.noreply.github.com>  Sat, 22 Aug 2026 15:00:00 +0000
+
+zabbix-widget-tree-navigator (1.4.11) unstable; urgency=medium
+
+  * 機能追加: ツールバーに「初期表示に戻す」ボタンを追加。クリックすると
+    ツリーの開閉状態を Initial depth 設定に基づく初期状態にリセットし、
+    リセット後の状態を通常の開閉操作と同様に localStorage へ即時保存する。
+    リセット対象はツリーの開閉状態のみで、検索バー・検索語・選択状態・
+    スクロール位置には影響しない。
+  * パッケージメタデータ修正: debian/copyright の Source を公開GitHub
+    リポジトリURLへ変更、manifest.json に url フィールドを追加、
+    メンテナー表記を HOLOZTEK <ttake-55@users.noreply.github.com> へ変更。
+
+ -- HOLOZTEK <ttake-55@users.noreply.github.com>  Sat, 22 Aug 2026 09:00:00 +0000
+
+zabbix-widget-tree-navigator (1.4.10) unstable; urgency=medium
+
+  * 【高】v1.4.9で追加した旧ディレクトリ自動削除の安全確認ロジックが
+    不十分だった不具合を修正。author欄が空の場合を無条件でHOLOZTEK由来と
+    判定していたため、authorを書いていない別ベンダーのtree-navigator
+    モジュール（旧id: tree-navigator）を誤って削除しうる状態だった。
+    author=="HOLOZTEK" または id=="holoztek_tree_navigator"（新形式）の
+    場合のみ自動削除し、旧id・author空欄のケースは自動削除せず警告のみ
+    として手動確認・削除を促す方式に変更（postinst）。
+
+ -- claude <noreply@example.com>  Tue, 11 Aug 2026 09:00:00 +0000
+
 zabbix-widget-tree-navigator (1.4.9) unstable; urgency=medium
 
   * コードレビュー指摘対応（3点）: 【高】モジュール配置ディレクトリ
     (modules/tree-navigator)が汎用的すぎる名前で他ベンダーモジュールとの
     ファイルシステム上の衝突リスクが残っていた不具合を修正。配置先を
-    modules/holoztek_tree_navigatorへ変更。postinstでは旧ディレクトリの
+    modules/holoztek_tree_navigatorへ変更し、旧ディレクトリは
     manifest.jsonのid/authorを確認しHOLOZTEK由来と判定できた場合のみ
-    削除する安全確認ロジックを追加し、prermは新ディレクトリ名へ追従。
-    RPM説明文の
+    削除する安全確認ロジックをpostinst/prermに追加。RPM説明文の
     Sub-group recursive modeに関する曖昧な表現をREADMEの正確な説明に
     合わせ簡略化。バージョン番号の手作業同期によるミスを防ぐため
     scripts/check-version-consistency.shを追加し、Giteaリリース一覧と
     重複するREADME末尾の「## バージョン」セクションを削除。
 
- -- HOLOZTEK <ttake-55@users.noreply.github.com>  Mon, 10 Aug 2026 18:00:00 +0000
+ -- claude <noreply@example.com>  Mon, 10 Aug 2026 18:00:00 +0000
 
 zabbix-widget-tree-navigator (1.4.8) unstable; urgency=medium
 
-  * コードレビュー指摘対応（5点）: READMEのバージョン表記修正漏れ・旧ID
+  * コードレビュー指摘対応（6点）: READMEのバージョン表記修正漏れ・旧ID
     (tree-navigator)からのアップグレード手順追加。グローバル関数_tn()を
     _holoztek_tn()へ、gettextドメインをholoztek-tree-navigatorへ（.po/.mo
     ファイル名も追随）、JSグローバルwindow.widget_tree_navigator_formを
@@ -25,7 +61,7 @@ zabbix-widget-tree-navigator (1.4.8) unstable; urgency=medium
     変更し他モジュールとの識別子衝突リスクを解消。RPM/DEBパッケージ名・
     モジュール配置ディレクトリ(tree-navigator)は互換性維持のため据え置き。
 
- -- HOLOZTEK <ttake-55@users.noreply.github.com>  Mon, 10 Aug 2026 16:00:00 +0000
+ -- claude <noreply@example.com>  Mon, 10 Aug 2026 16:00:00 +0000
 
 zabbix-widget-tree-navigator (1.4.7) unstable; urgency=medium
 
@@ -34,7 +70,7 @@ zabbix-widget-tree-navigator (1.4.7) unstable; urgency=medium
     debian/copyrightで同梱済み）。またREADMEがv1.4.0時点のまま更新されていなかった
     ため、最新バージョン表記・フォルダ/ホスト文字色設定・DEBインストール手順を追加。
 
- -- HOLOZTEK <ttake-55@users.noreply.github.com>  Mon, 10 Aug 2026 15:30:00 +0000
+ -- claude <noreply@example.com>  Mon, 10 Aug 2026 15:30:00 +0000
 
 zabbix-widget-tree-navigator (1.4.6) unstable; urgency=medium
 
@@ -43,7 +79,7 @@ zabbix-widget-tree-navigator (1.4.6) unstable; urgency=medium
     リグレッションがあった。widget.cssに:has()セレクタを追加し、トグルの
     有無で接続線の幅を分岐（トグルあり:15px／トグルなし葉グループ:26px）。
 
- -- HOLOZTEK <ttake-55@users.noreply.github.com>  Mon, 10 Aug 2026 15:00:00 +0000
+ -- claude <noreply@example.com>  Mon, 10 Aug 2026 15:00:00 +0000
 
 zabbix-widget-tree-navigator (1.4.5) unstable; urgency=medium
 
@@ -52,7 +88,7 @@ zabbix-widget-tree-navigator (1.4.5) unstable; urgency=medium
     .tn-group::after の width を26pxから15pxに調整し、トグル左端手前で
     自然に止まるようにした。
 
- -- HOLOZTEK <ttake-55@users.noreply.github.com>  Mon, 10 Aug 2026 14:30:00 +0000
+ -- claude <noreply@example.com>  Mon, 10 Aug 2026 14:30:00 +0000
 
 zabbix-widget-tree-navigator (1.4.4) unstable; urgency=medium
 
@@ -60,7 +96,7 @@ zabbix-widget-tree-navigator (1.4.4) unstable; urgency=medium
     問題を修正。開閉トグルボタン分の幅を考慮せず接続線の長さを計算していたため、
     根元の縦線から折れ曲がる横線がアイコンまで届いていなかった。
 
- -- HOLOZTEK <ttake-55@users.noreply.github.com>  Mon, 10 Aug 2026 11:00:00 +0000
+ -- claude <noreply@example.com>  Mon, 10 Aug 2026 11:00:00 +0000
 
 zabbix-widget-tree-navigator (1.4.3) unstable; urgency=medium
 
@@ -68,14 +104,14 @@ zabbix-widget-tree-navigator (1.4.3) unstable; urgency=medium
     変わったのにwidget.css側のスコープセレクタが追随しておらず、170/171で
     フォルダ・ホストタイプアイコン等が表示されなくなっていた問題を修正。
 
- -- HOLOZTEK <ttake-55@users.noreply.github.com>  Mon, 10 Aug 2026 10:00:00 +0000
+ -- claude <noreply@example.com>  Mon, 10 Aug 2026 10:00:00 +0000
 
 zabbix-widget-tree-navigator (1.4.2) unstable; urgency=medium
 
   * manifest.jsonに author（HOLOZTEK）・description（英語1行説明）を追加。
     Zabbixモジュールマニフェストの任意メタデータ欠落を指摘され対応。
 
- -- HOLOZTEK <ttake-55@users.noreply.github.com>  Mon, 10 Aug 2026 09:30:00 +0000
+ -- claude <noreply@example.com>  Mon, 10 Aug 2026 09:30:00 +0000
 
 zabbix-widget-tree-navigator (1.4.1) unstable; urgency=medium
 
@@ -83,16 +119,16 @@ zabbix-widget-tree-navigator (1.4.1) unstable; urgency=medium
     HOLOZTEKプレフィックスを付与し、他ベンダーモジュールとの将来的な衝突を回避。
     パッケージ名・モジュールディレクトリ名は変更なし。
 
- -- HOLOZTEK <ttake-55@users.noreply.github.com>  Mon, 10 Aug 2026 09:00:00 +0000
+ -- claude <noreply@example.com>  Mon, 10 Aug 2026 09:00:00 +0000
 
 zabbix-widget-tree-navigator (1.4.0) unstable; urgency=medium
 
   * v1.4.0リリース。機能変更なし、RPM/DEB併存の正式リリース第1号。
 
- -- HOLOZTEK <ttake-55@users.noreply.github.com>  Sun, 09 Aug 2026 00:00:00 +0000
+ -- claude <noreply@example.com>  Sun, 09 Aug 2026 00:00:00 +0000
 
 zabbix-widget-tree-navigator (1.3.3) unstable; urgency=medium
 
   * Debianパッケージング試験導入（初回）。パッケージ内容はRPM v1.3.3と同一。
 
- -- HOLOZTEK <ttake-55@users.noreply.github.com>  Sat, 08 Aug 2026 00:00:00 +0000
+ -- claude <noreply@example.com>  Sat, 08 Aug 2026 00:00:00 +0000

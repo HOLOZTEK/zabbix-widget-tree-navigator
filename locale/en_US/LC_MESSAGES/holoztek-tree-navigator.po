@@ -71,3 +71,6 @@ msgstr ""
 
 msgid "Host text color"
 msgstr ""
+
+msgid "Reset to initial view"
+msgstr ""

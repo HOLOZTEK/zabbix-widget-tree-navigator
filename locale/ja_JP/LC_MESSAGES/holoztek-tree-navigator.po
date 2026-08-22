@@ -71,3 +71,6 @@ msgstr "フォルダ文字色"
 
 msgid "Host text color"
 msgstr "ホスト文字色"
+
+msgid "Reset to initial view"
+msgstr "初期表示に戻す"

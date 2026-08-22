@@ -12,7 +12,7 @@ Tree Navigator は、Zabbix のホストグループとホストを折りたた�
 
 <img src="screenshots/tree-navigator-dashboard-example.png" width="750" alt="Tree Navigator から他の Zabbix ダッシュボードウィジェットを連動する例" />
 
-[最新リリース](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/tag/v1.4.9) | [RPM](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.9/zabbix-widget-tree-navigator-1.4.9.noarch.rpm) | [DEB](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.9/zabbix-widget-tree-navigator_1.4.9_all.deb) | [Source](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.9/zabbix-widget-tree-navigator-1.4.9.tar.gz)
+[最新リリース](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/tag/v1.4.12) | [RPM](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.12/zabbix-widget-tree-navigator-1.4.12.noarch.rpm) | [DEB](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.12/zabbix-widget-tree-navigator_1.4.12_all.deb) | [Source](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.12/zabbix-widget-tree-navigator-1.4.12.tar.gz)
 
 ## なぜ Tree Navigator?
 
@@ -52,6 +52,10 @@ Tree Navigator は、Zabbix 標準の Host navigator ウィジェットを置き
   <tr>
     <td nowrap style="white-space: nowrap;">ホスト検索機能</td>
     <td>キーワードでホストを検索し、該当するツリーノードへ直接移動します。</td>
+  </tr>
+  <tr>
+    <td nowrap style="white-space: nowrap;">初期表示に戻す</td>
+    <td>ツリーの開閉状態を初期展開階層の設定に戻します。検索、選択状態、スクロール位置は変更しません。</td>
   </tr>
   <tr>
     <td nowrap style="white-space: nowrap;">ウィジェット連携</td>
@@ -154,6 +158,8 @@ Tree Navigator は、Zabbix 標準の Host navigator ウィジェットを置き
 
 `サブグループを含める` は、ホストグループ設定で絞り込んだ配下の下位グループノードを表示対象にするための設定です。マルチ選択時に「チェックしていない子孫グループ」まで配信する設定ではありません。
 
+ツールバーの「初期表示に戻す」ボタンは、保存済みのツリー開閉状態を削除し、設定された `初期展開階層` に基づいてツリーを再描画します。検索バー、検索語、選択状態、スクロール位置は変更しません。
+
 ## 出力（ブロードキャスト）
 
 - 選択したホストグループ ID（単一）
@@ -178,7 +184,7 @@ Tree Navigator は、Zabbix 標準の Host navigator ウィジェットを置き
 
 1. RPM をダウンロードし、Zabbix サーバーにインストール
    ```bash
-   rpm -Uvh zabbix-widget-tree-navigator-1.4.9.noarch.rpm
+   rpm -Uvh zabbix-widget-tree-navigator-1.4.12.noarch.rpm
    ```
 2. パッケージにより、ウィジェットファイルは有効な Zabbix フロントエンドのモジュールディレクトリへ自動配置されます。
 3. Zabbix 管理画面 -> 管理 -> モジュール からモジュールを有効化
@@ -188,7 +194,7 @@ Tree Navigator は、Zabbix 標準の Host navigator ウィジェットを置き
 
 1. DEB をダウンロードし、Zabbix サーバーにインストール
    ```bash
-   apt install ./zabbix-widget-tree-navigator_1.4.9_all.deb
+   apt install ./zabbix-widget-tree-navigator_1.4.12_all.deb
    ```
 2. パッケージにより、ウィジェットファイルは有効な Zabbix フロントエンドのモジュールディレクトリへ自動配置されます。
 3. Zabbix 管理画面 -> 管理 -> モジュール からモジュールを有効化
@@ -200,13 +206,13 @@ Tree Navigator は、Zabbix 標準の Host navigator ウィジェットを置き
 
 1. リリースのソースアーカイブをダウンロードして展開
    ```bash
-   curl -L -o zabbix-widget-tree-navigator-1.4.9.tar.gz https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.9/zabbix-widget-tree-navigator-1.4.9.tar.gz
-   tar -xzf zabbix-widget-tree-navigator-1.4.9.tar.gz
+   curl -L -o zabbix-widget-tree-navigator-1.4.12.tar.gz https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.12/zabbix-widget-tree-navigator-1.4.12.tar.gz
+   tar -xzf zabbix-widget-tree-navigator-1.4.12.tar.gz
    ```
 2. 実行に必要なモジュールファイルを `holoztek_tree_navigator` として Zabbix フロントエンドのモジュールディレクトリへ配置
    ```bash
    install -d /usr/share/zabbix/ui/modules/holoztek_tree_navigator
-   cd zabbix-widget-tree-navigator-1.4.9
+   cd zabbix-widget-tree-navigator-1.4.12
    cp -a manifest.json Widget.php actions assets includes locale views /usr/share/zabbix/ui/modules/holoztek_tree_navigator/
    ```
    Zabbix 環境が従来のモジュールパスを使用している場合は、代わりに `/usr/share/zabbix/modules/holoztek_tree_navigator` へ配置してください。
@@ -222,7 +228,7 @@ RPM/DEB パッケージ名は互換性維持のため `zabbix-widget-tree-naviga
 
 v1.4.0 以前からアップグレードする場合は、以下を実施してください。
 
-1. 新しい RPM/DEB パッケージをインストールするか、v1.4.9 の実行ファイルへ差し替えます。
+1. 新しい RPM/DEB パッケージをインストールするか、v1.4.12 の実行ファイルへ差し替えます。
 2. Zabbix 管理画面 -> 管理 -> モジュール でモジュールを再スキャンし、ID `holoztek_tree_navigator` のモジュールを有効化します。
 3. RPM/DEB でアップグレードする場合、旧ディレクトリ `tree-navigator` はHOLOZTEK由来と判定できた場合のみ自動削除されます。手動配置の場合は、旧ディレクトリの `manifest.json` を確認してから削除してください。
 4. 旧ID `tree-navigator` のモジュールが一覧に残る場合は、無効化または削除します。

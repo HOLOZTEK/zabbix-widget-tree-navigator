@@ -170,6 +170,12 @@ class CWidgetHoloztekTreeNavigator extends CWidget {
 			return;
 		}
 
+		// Reset tree expand/collapse state to initial_depth
+		if (e.target.closest('.js-tn-reset-toggle')) {
+			this.#resetToInitialView();
+			return;
+		}
+
 		// Multi-select checkbox
 		const checkbox = e.target.closest('.js-tn-checkbox');
 
@@ -713,20 +719,7 @@ class CWidgetHoloztekTreeNavigator extends CWidget {
 		catch (_) {}
 
 		if (open_paths === null) {
-			// Default: open nodes up to initial_depth levels
-			const depth = parseInt(
-				this._body.querySelector('.tn-container')?.dataset.initialDepth ?? '1'
-			);
-			const openLevel = (ul, remaining) => {
-				if (remaining <= 0) return;
-				for (const li of ul.querySelectorAll(':scope > li.tn-node.tn-group')) {
-					li.classList.add('tn-open');
-					const children = li.querySelector(':scope > .tn-children');
-					if (children) openLevel(children, remaining - 1);
-				}
-			};
-			const tree = this._body.querySelector('.tn-tree');
-			if (tree) openLevel(tree, depth);
+			this.#applyInitialDepth();
 		}
 		else {
 			for (const li of this._body.querySelectorAll('.tn-node.tn-group')) {
@@ -735,6 +728,46 @@ class CWidgetHoloztekTreeNavigator extends CWidget {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Opens group nodes up to the widget's configured initial_depth, starting from an
+	 * all-collapsed tree. Used both as the fallback when no open-state has been stored yet,
+	 * and by the "reset to initial view" toolbar button.
+	 */
+	#applyInitialDepth() {
+		const depth = parseInt(
+			this._body.querySelector('.tn-container')?.dataset.initialDepth ?? '1'
+		);
+		const openLevel = (ul, remaining) => {
+			if (remaining <= 0) return;
+			for (const li of ul.querySelectorAll(':scope > li.tn-node.tn-group')) {
+				li.classList.add('tn-open');
+				const children = li.querySelector(':scope > .tn-children');
+				if (children) openLevel(children, remaining - 1);
+			}
+		};
+		const tree = this._body.querySelector('.tn-tree');
+		if (tree) openLevel(tree, depth);
+	}
+
+	/**
+	 * Resets the tree's expand/collapse state back to the widget's configured initial_depth,
+	 * discarding whatever open/closed state the user had previously left it in. The stored
+	 * state is removed rather than re-saved, so a later change to initial_depth still takes
+	 * effect on the next render instead of being masked by a frozen saved state.
+	 */
+	#resetToInitialView() {
+		for (const li of this._body.querySelectorAll('.tn-node.tn-group')) {
+			li.classList.remove('tn-open');
+		}
+
+		this.#applyInitialDepth();
+
+		try {
+			localStorage.removeItem(this.#storageKey);
+		}
+		catch (_) {}
 	}
 
 	#saveOpenState() {

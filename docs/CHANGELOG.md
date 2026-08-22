@@ -2,6 +2,24 @@
 
 All notable changes to this project are documented in this file.
 
+## v1.4.12 - 2026-08-22
+
+- Corrected the Reset to initial view behavior so it clears the stored open-state key instead of saving the reset state again.
+- Resetting the tree now allows later Initial depth changes to take effect on the next render.
+- Corrected the v1.4.8 changelog heading from five to six review items.
+
+## v1.4.11 - 2026-08-22
+
+- Added a toolbar Reset to initial view action for restoring the tree expand/collapse state to the configured Initial depth.
+- The reset action is scoped to tree expansion state and does not change the search bar, search query, selection, or scroll position.
+- Updated public package metadata and manifest URL in the development release line.
+
+## v1.4.10 - 2026-08-11
+
+- Tightened legacy `tree-navigator` directory cleanup safety.
+- RPM/DEB maintainer scripts no longer auto-delete an old `tree-navigator` directory when its manifest uses the old ID and has no author metadata.
+- Such ambiguous legacy directories are left in place with a warning so administrators can inspect them manually.
+
 ## v1.4.9 - 2026-08-10
 
 - Changed the installed Zabbix frontend module directory from `tree-navigator` to `holoztek_tree_navigator` to reduce filesystem-level collision risk.

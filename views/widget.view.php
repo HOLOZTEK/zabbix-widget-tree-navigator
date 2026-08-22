@@ -190,9 +190,15 @@ $mode_toggle = (new CTag('button', true))
 	->setAttribute('class', 'tn-mode-toggle js-tn-mode-toggle')
 	->setAttribute('title', _holoztek_tn('Switch to multi-select'));
 
+$reset_toggle = (new CTag('button', true))
+	->setAttribute('type', 'button')
+	->setAttribute('class', 'tn-reset-toggle js-tn-reset-toggle')
+	->setAttribute('title', _holoztek_tn('Reset to initial view'));
+
 $toolbar = (new CDiv())
 	->addClass('tn-toolbar')
-	->addItem($mode_toggle);
+	->addItem($mode_toggle)
+	->addItem($reset_toggle);
 
 if ($show_mode === 1) {
 	$search_toggle = (new CTag('button', true))

@@ -3,7 +3,7 @@ set -eu
 
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <version>" >&2
-    echo "Example: $0 1.4.9" >&2
+    echo "Example: $0 1.4.12" >&2
     exit 2
 fi
 
