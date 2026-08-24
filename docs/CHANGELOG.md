@@ -11,7 +11,7 @@ All notable changes to this project are documented in this file.
 ## v1.4.11 - 2026-08-22
 
 - Added a toolbar Reset to initial view action for restoring the tree expand/collapse state to the configured Initial depth.
-- The reset action is scoped to tree expansion state and does not change the search bar, search query, selection, or scroll position.
+- The reset action is scoped to tree expansion state and does not explicitly reset the search bar, search query, selection, or scroll position.
 - Updated public package metadata and manifest URL in the development release line.
 
 ## v1.4.10 - 2026-08-11

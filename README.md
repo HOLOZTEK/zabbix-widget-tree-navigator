@@ -55,7 +55,7 @@ Use it when linked widgets need host group IDs as well as host IDs, or when oper
   </tr>
   <tr>
     <td nowrap style="white-space: nowrap;">Reset to initial view</td>
-    <td>Reset the tree expand/collapse state to the configured Initial depth without changing search, selection, or scroll position.</td>
+    <td>Reset the tree expand/collapse state to the configured Initial depth without explicitly resetting search, selection, or scroll position.</td>
   </tr>
   <tr>
     <td nowrap style="white-space: nowrap;">Widget integration</td>
@@ -158,7 +158,7 @@ Use it when linked widgets need host group IDs as well as host IDs, or when oper
 
 `Include sub-groups` controls which descendant group nodes are shown under the configured Host groups filter. It does not change the multi-select rule that only checked groups are broadcast.
 
-The toolbar reset button clears the remembered tree expand/collapse state and redraws the tree from the configured `Initial depth`. It does not change the search bar, search query, selected items, or scroll position.
+The toolbar reset button clears the remembered tree expand/collapse state and redraws the tree from the configured `Initial depth`. It does not explicitly reset the search bar, search query, selected items, or scroll position.
 
 ## Broadcast Outputs
 
