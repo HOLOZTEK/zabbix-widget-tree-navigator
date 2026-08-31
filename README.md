@@ -188,7 +188,7 @@ For compatibility with the standard Host navigator widget and related widgets, h
    ```
 2. The package places the widget files under the active Zabbix frontend module directory automatically.
 3. In the Zabbix UI, enable the module from Administration -> Modules.
-4. Add the widget to a dashboard.
+4. Add the widget to a dashboard and set its refresh interval to `No refresh`.
 
 ### Install from DEB
 
@@ -198,7 +198,7 @@ For compatibility with the standard Host navigator widget and related widgets, h
    ```
 2. The package places the widget files under the active Zabbix frontend module directory automatically.
 3. In the Zabbix UI, enable the module from Administration -> Modules.
-4. Add the widget to a dashboard.
+4. Add the widget to a dashboard and set its refresh interval to `No refresh`.
 
 ### Install from Source
 
@@ -218,7 +218,13 @@ RPM or DEB installation is recommended for normal use. For source-based installa
    Use `/usr/share/zabbix/modules/holoztek_tree_navigator` instead if your Zabbix installation uses the legacy module path.
 3. Set ownership and permissions so the Zabbix frontend can read the files.
 4. In the Zabbix UI, enable the module from Administration -> Modules.
-5. Add the widget to a dashboard.
+5. Add the widget to a dashboard and set its refresh interval to `No refresh`.
+
+## Adding the Widget to a Dashboard
+
+After enabling the module, add Tree Navigator from the dashboard edit screen.
+
+Set the widget refresh interval to `No refresh`. Tree Navigator is intended to work as an interactive navigation control, and linked widgets are updated when the operator selects a host group or host. If periodic data refresh is needed, configure it on the linked data widgets instead.
 
 ## Upgrading from the Old Module ID
 
