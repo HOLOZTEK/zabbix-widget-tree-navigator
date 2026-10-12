@@ -9,9 +9,9 @@ All notable changes to this project are documented in this file.
 
 ## v1.4.13 - 2026-10-03
 
-- Added compatibility for the Zabbix 8.0 widget configuration form.
-- The settings form now supports both the Zabbix 7.0 `widget-dialogue-form` ID and the Zabbix 8.0 `widget-form` ID.
-- Color picker initialization now uses the legacy jQuery colorpicker only when it is available, while allowing the Zabbix 8.0 color picker component to initialize itself.
+- Added compatibility for the Zabbix 8.0.0rc1 widget configuration form.
+- The settings form now supports both the Zabbix 7.0 `widget-dialogue-form` ID and the `widget-form` ID used by Zabbix 8.0.0rc1.
+- Color picker initialization now uses the legacy jQuery colorpicker only when it is available, while allowing the Zabbix 8.0.0rc1 color picker component to initialize itself.
 
 ## v1.4.12 - 2026-08-22
 

@@ -175,7 +175,8 @@ For compatibility with the standard Host navigator widget and related widgets, h
 
 ## Requirements
 
-- Zabbix 7.0 or later (Zabbix 8.0 supported)
+- Supported versions: Zabbix 7.0 and 8.0 prerelease
+- Tested versions: Zabbix 7.0.x and 8.0.0rc1
 - PHP 8.0 or later
 
 ## Installation

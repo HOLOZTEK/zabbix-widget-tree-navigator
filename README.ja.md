@@ -175,7 +175,8 @@ Tree Navigator は、Zabbix 標準の Host navigator ウィジェットを置き
 
 ## 動作要件
 
-- Zabbix 7.0 以上（Zabbix 8.0 対応）
+- 対応バージョン: Zabbix 7.0／8.0 prerelease
+- 動作確認済み: Zabbix 7.0.x／8.0.0rc1
 - PHP 8.0 以上
 
 ## インストール
