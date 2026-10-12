@@ -12,7 +12,7 @@ Tree Navigator は、Zabbix のホストグループとホストを折りたた�
 
 <img src="screenshots/tree-navigator-dashboard-example.png" width="750" alt="Tree Navigator から他の Zabbix ダッシュボードウィジェットを連動する例" />
 
-[最新リリース](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/tag/v1.4.12) | [RPM](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.12/zabbix-widget-tree-navigator-1.4.12.noarch.rpm) | [DEB](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.12/zabbix-widget-tree-navigator_1.4.12_all.deb) | [Source](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.12/zabbix-widget-tree-navigator-1.4.12.tar.gz)
+[最新リリース](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/tag/v1.4.14) | [RPM](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.14/zabbix-widget-tree-navigator-1.4.14.noarch.rpm) | [DEB](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.14/zabbix-widget-tree-navigator_1.4.14_all.deb) | [Source](https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.14/zabbix-widget-tree-navigator-1.4.14.tar.gz)
 
 ## なぜ Tree Navigator?
 
@@ -175,7 +175,7 @@ Tree Navigator は、Zabbix 標準の Host navigator ウィジェットを置き
 
 ## 動作要件
 
-- Zabbix 7.0 以上
+- Zabbix 7.0 以上（Zabbix 8.0 対応）
 - PHP 8.0 以上
 
 ## インストール
@@ -184,7 +184,7 @@ Tree Navigator は、Zabbix 標準の Host navigator ウィジェットを置き
 
 1. RPM をダウンロードし、Zabbix サーバーにインストール
    ```bash
-   rpm -Uvh zabbix-widget-tree-navigator-1.4.12.noarch.rpm
+   rpm -Uvh zabbix-widget-tree-navigator-1.4.14.noarch.rpm
    ```
 2. パッケージにより、ウィジェットファイルは有効な Zabbix フロントエンドのモジュールディレクトリへ自動配置されます。
 3. Zabbix 管理画面 -> 管理 -> モジュール からモジュールを有効化
@@ -194,7 +194,7 @@ Tree Navigator は、Zabbix 標準の Host navigator ウィジェットを置き
 
 1. DEB をダウンロードし、Zabbix サーバーにインストール
    ```bash
-   apt install ./zabbix-widget-tree-navigator_1.4.12_all.deb
+   apt install ./zabbix-widget-tree-navigator_1.4.14_all.deb
    ```
 2. パッケージにより、ウィジェットファイルは有効な Zabbix フロントエンドのモジュールディレクトリへ自動配置されます。
 3. Zabbix 管理画面 -> 管理 -> モジュール からモジュールを有効化
@@ -206,13 +206,13 @@ Tree Navigator は、Zabbix 標準の Host navigator ウィジェットを置き
 
 1. リリースのソースアーカイブをダウンロードして展開
    ```bash
-   curl -L -o zabbix-widget-tree-navigator-1.4.12.tar.gz https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.12/zabbix-widget-tree-navigator-1.4.12.tar.gz
-   tar -xzf zabbix-widget-tree-navigator-1.4.12.tar.gz
+   curl -L -o zabbix-widget-tree-navigator-1.4.14.tar.gz https://github.com/HOLOZTEK/zabbix-widget-tree-navigator/releases/download/v1.4.14/zabbix-widget-tree-navigator-1.4.14.tar.gz
+   tar -xzf zabbix-widget-tree-navigator-1.4.14.tar.gz
    ```
 2. 実行に必要なモジュールファイルを `holoztek_tree_navigator` として Zabbix フロントエンドのモジュールディレクトリへ配置
    ```bash
    install -d /usr/share/zabbix/ui/modules/holoztek_tree_navigator
-   cd zabbix-widget-tree-navigator-1.4.12
+   cd zabbix-widget-tree-navigator-1.4.14
    cp -a manifest.json Widget.php actions assets includes locale views /usr/share/zabbix/ui/modules/holoztek_tree_navigator/
    ```
    Zabbix 環境が従来のモジュールパスを使用している場合は、代わりに `/usr/share/zabbix/modules/holoztek_tree_navigator` へ配置してください。
@@ -234,7 +234,7 @@ RPM/DEB パッケージ名は互換性維持のため `zabbix-widget-tree-naviga
 
 v1.4.0 以前からアップグレードする場合は、以下を実施してください。
 
-1. 新しい RPM/DEB パッケージをインストールするか、v1.4.12 の実行ファイルへ差し替えます。
+1. 新しい RPM/DEB パッケージをインストールするか、v1.4.14 の実行ファイルへ差し替えます。
 2. Zabbix 管理画面 -> 管理 -> モジュール でモジュールを再スキャンし、ID `holoztek_tree_navigator` のモジュールを有効化します。
 3. RPM/DEB でアップグレードする場合、旧ディレクトリ `tree-navigator` はHOLOZTEK由来と判定できた場合のみ自動削除されます。手動配置の場合は、旧ディレクトリの `manifest.json` を確認してから削除してください。
 4. 旧ID `tree-navigator` のモジュールが一覧に残る場合は、無効化または削除します。

@@ -1,6 +1,6 @@
 %define _rpmfilename %%{NAME}-%%{VERSION}.%%{ARCH}.rpm
 Name:           zabbix-widget-tree-navigator
-Version:        1.4.12
+Version:        1.4.14
 Release:        0
 Summary:        Tree Navigator widget for Zabbix dashboard
 License:        MIT
@@ -121,6 +121,18 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Mon Oct 12 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.4.14-0
+- コードレビュー指摘対応（issue #14）: RPM changelog の最新エントリの
+  メンテナー表記を公開用（HOLOZTEK）に戻した。v1.4.13 で placeholder 表記に
+  戻っていたもの。RPM changelog 全体の署名者表記を公開用に統一。ウィジェット本体の変更はなし。
+
+* Sat Oct 03 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.4.13-0
+- Zabbix 8.0（8.0.0rc1以降）対応: ウィジェット設定画面がHTTP 500（8.0で廃止された
+  PHP定数 ZBX_STYLE_COLOR_PICKER / クラス CColor の参照）やJSエラー（jQuery colorpicker の廃止、
+  設定フォームIDの widget-dialogue-form → widget-form 変更）で動作しない不具合を修正。
+  Zabbix 7.0 では従来の処理を使い、8.0以降は <z-color-picker> / CColorPicker と
+  新しいフォームIDを使う。Zabbix 7.0 系での動作は従来と同一。
+
 * Sat Aug 22 2026 HOLOZTEK <ttake-55@users.noreply.github.com> - 1.4.12-0
 - コードレビュー指摘対応（issue #9、2点）: 「初期表示に戻す」ボタンが
   リセット後の状態をlocalStorageへ再保存していたため、ウィジェット設定の

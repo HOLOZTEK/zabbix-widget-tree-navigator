@@ -1,3 +1,20 @@
+zabbix-widget-tree-navigator (1.4.14) unstable; urgency=medium
+
+  * コードレビュー指摘対応（issue #14）: RPM changelog のメンテナー表記を
+    公開用に統一（DEB パッケージ・ウィジェット本体の変更はなし）。
+
+ -- HOLOZTEK <ttake-55@users.noreply.github.com>  Mon, 12 Oct 2026 09:00:00 +0900
+
+zabbix-widget-tree-navigator (1.4.13) unstable; urgency=medium
+
+  * Zabbix 8.0（8.0.0rc1以降）対応: ウィジェット設定画面がHTTP 500（8.0で廃止された
+    PHP定数 ZBX_STYLE_COLOR_PICKER / クラス CColor の参照）やJSエラー（jQuery colorpicker の廃止、
+    設定フォームIDの widget-dialogue-form → widget-form 変更）で動作しない不具合を修正。
+    Zabbix 7.0 では従来の処理を使い、8.0以降は <z-color-picker> / CColorPicker と
+    新しいフォームIDを使う。Zabbix 7.0 系での動作は従来と同一。
+
+ -- HOLOZTEK <ttake-55@users.noreply.github.com>  Sat, 03 Oct 2026 09:00:00 +0900
+
 zabbix-widget-tree-navigator (1.4.12) unstable; urgency=medium
 
   * コードレビュー指摘対応（issue #9、2点）: 「初期表示に戻す」ボタンが

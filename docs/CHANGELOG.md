@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented in this file.
 
+## v1.4.14 - 2026-10-12
+
+- Restored the public RPM changelog maintainer entry for v1.4.14 to `HOLOZTEK <ttake-55@users.noreply.github.com>`.
+- No widget runtime changes from v1.4.13.
+
+## v1.4.13 - 2026-10-03
+
+- Added compatibility for the Zabbix 8.0 widget configuration form.
+- The settings form now supports both the Zabbix 7.0 `widget-dialogue-form` ID and the Zabbix 8.0 `widget-form` ID.
+- Color picker initialization now uses the legacy jQuery colorpicker only when it is available, while allowing the Zabbix 8.0 color picker component to initialize itself.
+
 ## v1.4.12 - 2026-08-22
 
 - Corrected the Reset to initial view behavior so it clears the stored open-state key instead of saving the reset state again.
